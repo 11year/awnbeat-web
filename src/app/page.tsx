@@ -31,7 +31,7 @@ export default function Home() {
       <section className="pt-36 pb-0 text-center">
         <div className="max-w-3xl mx-auto px-6">
           <h1 className="text-4xl md:text-6xl font-black text-brand-text leading-tight mb-0">
-            Your passions are still out there.
+            Your passions are still out there
           </h1>
         </div>
 
@@ -42,7 +42,7 @@ export default function Home() {
 
         <div className="max-w-3xl mx-auto px-6">
           <h1 className="text-4xl md:text-6xl font-black text-secondary leading-tight mb-6">
-            Awnbeat helps you find them again.
+            Awnbeat helps you find them again
           </h1>
           <p className="text-lg md:text-xl text-brand-muted max-w-xl mx-auto mb-10 leading-relaxed">
             Find nearby activities, join local communities, and reconnect with the
