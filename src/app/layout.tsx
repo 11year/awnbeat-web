@@ -15,6 +15,11 @@ const anybody = Anybody({
 export const metadata: Metadata = {
   title: "Awnbeat — Find Your Community",
   description: "Awnbeat connects you to local wellness, sports, and activity communities. Rediscover the social side of staying active.",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({
