@@ -217,7 +217,26 @@
     background:rgba(255,255,255,0.45); pointer-events:none; z-index:1;
   }
 
-  .framer-7elwrr { visibility:hidden !important; }
+  /* Hide desktop hero h1 on desktop/tablet — replaced by #hero::after overlay */
+  @media (min-width: 810px) {
+    .framer-7elwrr { visibility:hidden !important; }
+  }
+  /* On mobile: show framer-7elwrr (it IS the mobile headline), fix its spans */
+  @media (max-width: 809.98px) {
+    .framer-7elwrr { visibility:visible !important; }
+    .framer-7elwrr h1 {
+      font-size: 38px !important;
+      --framer-font-size: 38px !important;
+      line-height: 0.9em !important;
+    }
+    .framer-7elwrr h1 span {
+      opacity: 1 !important;
+      filter: none !important;
+      transform: none !important;
+      color: #ffffff !important;
+      display: inline !important;
+    }
+  }
 
     /* Hide post-phones App Store button section */
   .framer-jcqw6g { display: none !important; }
@@ -563,6 +582,34 @@
     });
   }
 
+  function fixMobileHero() {
+    if (window.innerWidth > 810) return;
+    // The actual mobile headline lives in framer-7elwrr (inside #hero, not #hero-1)
+    var h1wrap = document.querySelector('.framer-7elwrr');
+    if (h1wrap) {
+      h1wrap.style.setProperty('visibility', 'visible', 'important');
+      h1wrap.querySelectorAll('h1 span').forEach(function(sp) {
+        sp.style.setProperty('opacity', '1', 'important');
+        sp.style.setProperty('filter', 'none', 'important');
+        sp.style.setProperty('transform', 'none', 'important');
+        sp.style.setProperty('color', '#ffffff', 'important');
+        sp.style.setProperty('display', 'inline', 'important');
+      });
+      var h1el = h1wrap.querySelector('h1');
+      if (h1el) {
+        h1el.style.setProperty('color', '#ffffff', 'important');
+        h1el.style.setProperty('font-size', '38px', 'important');
+      }
+    }
+    // Also reveal the download button (framer-17hk83e-container has data-framer-appear-id)
+    // The [data-framer-appear-id] rule already handles opacity, but ensure it
+    var btn = document.querySelector('.framer-17hk83e-container');
+    if (btn) {
+      btn.style.setProperty('opacity', '1', 'important');
+      btn.style.setProperty('transform', 'none', 'important');
+    }
+  }
+
   function fixAll() {
     injectBackground();
     injectHeader();
@@ -571,6 +618,7 @@
     fixAppStoreLink();
     fixBadge();
     fixLogo();
+    fixMobileHero();
   }
 
   var lastFix=0;
