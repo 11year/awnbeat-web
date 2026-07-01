@@ -372,10 +372,8 @@
   }
 
   /* ── Carousel mobile fixes ───────────────────────────────────────── */
-  /* Force GPU compositing — fixes iOS Safari animation blank/disappear */
+  /* GPU compositing via will-change; translateZ(0) is in the keyframes */
   .awn-car-row {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
     will-change: transform;
   }
   /* Prevent 0-width collapse before images load (auto-width images) */
@@ -1115,13 +1113,15 @@
   }
 
   /* ── Scroll animations ──────────────────────────────────── */
+  /* translateZ(0) inside keyframes keeps the GPU compositing layer
+     alive throughout the animation (iOS Safari drops it otherwise) */
   @keyframes awn-scroll-l {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    0%   { transform: translateX(0) translateZ(0); }
+    100% { transform: translateX(-50%) translateZ(0); }
   }
   @keyframes awn-scroll-r {
-    0%   { transform: translateX(-50%); }
-    100% { transform: translateX(0); }
+    0%   { transform: translateX(-50%) translateZ(0); }
+    100% { transform: translateX(0) translateZ(0); }
   }
   .awn-car-left  { animation: awn-scroll-l 32s linear infinite; }
   #awn-car-row1  { animation-duration: 38s; }
