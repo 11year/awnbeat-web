@@ -217,7 +217,7 @@
     background:rgba(255,255,255,0.45); pointer-events:none; z-index:1;
   }
 
-  .framer-7elwrr, .framer-1hewmw4 { visibility:hidden !important; }
+  .framer-7elwrr { visibility:hidden !important; }
 
     /* Hide post-phones App Store button section */
   .framer-jcqw6g { display: none !important; }
@@ -327,6 +327,49 @@
   }
   @media(min-width:810px) and (max-width:1199.98px){#hero::after{font-size:52px}}
   @media(max-width:809.98px){#hero::after{font-size:38px}}
+
+  /* ── Hero mobile fixes ───────────────────────────────────────────── */
+  /* Hide desktop text overlay on mobile — hero-1 has its own headline */
+  @media (max-width: 809.98px) {
+    #hero::after { display: none !important; }
+  }
+
+  /* Reveal mobile hero h1 and override per-word inline opacity/filter/transform */
+  .framer-1hewmw4 { visibility: visible !important; }
+  .framer-1hewmw4 h1 span,
+  #hero-1 .framer-1hewmw4 span {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+
+  /* Scale down hero-1 on narrow screens so all content fits */
+  @media (max-width: 809.98px) {
+    .framer-2hzun8 {
+      transform: scale(0.85);
+      transform-origin: top center;
+      margin-bottom: -60px; /* compensate for scale shrink */
+    }
+  }
+
+  /* ── Carousel mobile fixes ───────────────────────────────────────── */
+  /* Force GPU compositing — fixes iOS Safari animation blank/disappear */
+  .awn-car-row {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  /* Prevent 0-width collapse before images load (auto-width images) */
+  #awn-car-row1 .awn-car-obj,
+  #awn-car-row3 .awn-car-obj {
+    min-width: 80px;
+  }
+  /* Ensure the carousel section is always above the bg layer */
+  #awn-carousel {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+  }
 </style>
 <link rel="icon" type="image/png" href="/logo.png">
 </head>
