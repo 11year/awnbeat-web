@@ -372,14 +372,11 @@
   }
 
   /* ── Carousel mobile fixes ───────────────────────────────────────── */
-  /* GPU compositing via will-change; translateZ(0) is in the keyframes */
+  /* GPU compositing; backface-visibility prevents iOS Safari blank-layer flicker */
   .awn-car-row {
     will-change: transform;
-  }
-  /* Prevent 0-width collapse before images load (auto-width images) */
-  #awn-car-row1 .awn-car-obj,
-  #awn-car-row3 .awn-car-obj {
-    min-width: 80px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
   /* Ensure the carousel section is always above the bg layer */
   #awn-carousel {
@@ -1072,15 +1069,15 @@
     flex-shrink: 0;
   }
   #awn-car-row1 .awn-car-obj {
-    height: 173px; width: auto;
-    object-fit: contain;
+    height: 173px; width: 245px;
+    object-fit: cover;
   }
   #awn-car-row2 .awn-car-obj {
     height: 150px; width: 150px;
   }
   #awn-car-row3 .awn-car-obj {
-    height: 173px; width: auto;
-    object-fit: contain;
+    height: 173px; width: 240px;
+    object-fit: cover;
   }
   .awn-car-icon-lbl {
     font-size: 9px; font-weight: 100;
@@ -1115,18 +1112,38 @@
   /* ── Scroll animations ──────────────────────────────────── */
   /* translateZ(0) inside keyframes keeps the GPU compositing layer
      alive throughout the animation (iOS Safari drops it otherwise) */
+  @-webkit-keyframes awn-scroll-l {
+    0%   { -webkit-transform: translate3d(0, 0, 0); }
+    100% { -webkit-transform: translate3d(-50%, 0, 0); }
+  }
   @keyframes awn-scroll-l {
-    0%   { transform: translateX(0) translateZ(0); }
-    100% { transform: translateX(-50%) translateZ(0); }
+    0%   { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+  }
+  @-webkit-keyframes awn-scroll-r {
+    0%   { -webkit-transform: translate3d(-50%, 0, 0); }
+    100% { -webkit-transform: translate3d(0, 0, 0); }
   }
   @keyframes awn-scroll-r {
-    0%   { transform: translateX(-50%) translateZ(0); }
-    100% { transform: translateX(0) translateZ(0); }
+    0%   { transform: translate3d(-50%, 0, 0); }
+    100% { transform: translate3d(0, 0, 0); }
   }
-  .awn-car-left  { animation: awn-scroll-l 32s linear infinite; }
-  #awn-car-row1  { animation-duration: 38s; }
-  .awn-car-right { animation: awn-scroll-r 36s linear infinite; }
-  .awn-car-row:hover { animation-play-state: paused; }
+  .awn-car-left  {
+    -webkit-animation: awn-scroll-l 32s linear infinite;
+    animation: awn-scroll-l 32s linear infinite;
+  }
+  #awn-car-row1  {
+    -webkit-animation-duration: 38s;
+    animation-duration: 38s;
+  }
+  .awn-car-right {
+    -webkit-animation: awn-scroll-r 36s linear infinite;
+    animation: awn-scroll-r 36s linear infinite;
+  }
+  .awn-car-row:hover {
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
+  }
 
   /* Edge fades removed */
   .awn-car-fade { display: none; }
