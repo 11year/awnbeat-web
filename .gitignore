@@ -4,3 +4,7 @@ node_modules
 .DS_Store
 __MACOSX
 .claude
+# local asset backups (originals) — not needed for the live site
+how-it-works/_source
+how-it-works/_source_host
+how-it-works/_extract_host

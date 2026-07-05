@@ -265,8 +265,13 @@
     height: 72px; box-sizing: border-box;
   }
   .awn-header-inner {
+    position: relative;
     max-width: 1200px; margin: 0 auto; padding: 0 48px;
     height: 100%; display: flex; align-items: center; justify-content: space-between;
+  }
+  .awn-nav-center {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    white-space: nowrap;
   }
   .awn-header-logo-wrap {
     display: flex; align-items: center; gap: 10px; text-decoration: none;
@@ -559,6 +564,7 @@
           '<img src="/logo.png" alt="Awnbeat">',
           '<span class="awn-brand-name">Awnbeat</span>',
         '</a>',
+        '<a href="/how-it-works.html" class="awn-nav-link awn-nav-center">How It Works</a>',
         '<nav class="awn-header-nav">',
           '<a href="https://form.typeform.com/to/qrWW17Tv" target="_blank" rel="noopener" class="awn-nav-link awn-nav-join">Join</a>',
         '</nav>',
