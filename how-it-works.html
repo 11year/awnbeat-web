@@ -160,6 +160,9 @@
     overflow: visible;
   }
   .hiw-canvas img { position: absolute; display: block; }
+  /* step = one phone + its label + its animal; invisible on desktop so the
+     absolute layout is unchanged, becomes a stacked block on mobile */
+  .hiw-step { display: contents; }
 
   /* phones — width set inline; height auto keeps device aspect */
   .hiw-phone { z-index: 2; height: auto; filter: drop-shadow(0 18px 34px rgba(40,60,50,0.16)); }
@@ -190,6 +193,46 @@
     line-height: 1.28;
     box-shadow: 0 6px 20px rgba(80,105,80,0.18);
     backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+  }
+
+  /* ── Mobile: stack each phone into its own full-width step ─────────── */
+  @media (max-width: 768px) {
+    .hiw-join { padding: 6px 0 24px; }
+    .hiw-canvas {
+      width: 100%; max-width: none;
+      aspect-ratio: auto; height: auto;
+      container-type: normal;
+      display: flex; flex-direction: column; gap: 42px;
+      overflow: visible;
+    }
+    .hiw-connector, .hiw-divider { display: none !important; }
+    .hiw-step {
+      display: flex !important; flex-direction: column; align-items: center;
+      position: relative; width: 100%; box-sizing: border-box;
+    }
+    /* label above the phone, on the muted-green pill */
+    .hiw-step .hiw-bubble {
+      position: static !important;
+      width: auto !important; max-width: 84%;
+      margin: 0 auto 16px;
+      font-size: 15px; line-height: 1.32;
+      padding: 12px 20px; border-radius: 18px;
+    }
+    /* phone large — takes the majority of the screen */
+    .hiw-step .hiw-phone {
+      position: static !important;
+      width: 60% !important; height: auto; margin: 0 auto;
+      filter: drop-shadow(0 12px 26px rgba(40,60,50,0.16));
+    }
+    /* character sits in the side margin beside the phone — never over it */
+    .hiw-step .hiw-animal {
+      position: absolute !important;
+      top: auto !important; left: auto !important; right: auto !important;
+      bottom: 16% !important;
+      width: 17% !important; height: auto; z-index: 5;
+    }
+    .hiw-step .hiw-animal.hiw-side-left  { left: 1%  !important; }
+    .hiw-step .hiw-animal.hiw-side-right { right: 1% !important; }
   }
 
   /* ── Host panel stub ──────────────────────────────────────────────── */
@@ -263,41 +306,50 @@
     <div class="hiw-join">
       <div class="hiw-canvas">
 
-        <!-- connector + dividers (background layer) -->
+        <!-- decorative connector + dividers (desktop only) -->
         <img class="hiw-connector" src="/how-it-works/connector.png" alt="" aria-hidden="true" style="left:45%; top:28%; width:11%;">
         <div class="hiw-divider" style="left:12%; top:34.1%; width:76%;"></div>
         <div class="hiw-divider" style="left:12%; top:65.9%; width:76%;"></div>
 
-        <!-- ROW 1 phones — uniform: same top (5.7%), same width (24%); gaps widened for animals -->
-        <img class="hiw-phone" src="/how-it-works/phone-friends.png" alt="Join your friends at nearby events"          style="left:3%;  top:5.7%; width:24%;">
-        <img class="hiw-phone" src="/how-it-works/phone-home.png"    alt="Awnbeat home feed with suggested activities" style="left:35%; top:5.7%; width:24%;">
-        <img class="hiw-phone" src="/how-it-works/phone-profile.png" alt="A member profile with events and groups"     style="left:67%; top:5.7%; width:24%;">
+        <!-- Each step = one phone + its label + its character. On desktop the
+             .hiw-step wrapper is display:contents so the absolute layout below
+             is unchanged; on mobile each step stacks full-width. -->
 
-        <!-- ROW 2 phones — uniform: same top (37.5%), same width (24%) -->
-        <img class="hiw-phone" src="/how-it-works/phone-schedule.png" alt="Schedule and save upcoming activities"       style="left:22%; top:37.5%; width:24%;">
-        <img class="hiw-phone" src="/how-it-works/phone-map.png"      alt="Map of nearby events"                        style="left:54%; top:37.5%; width:24%;">
+        <div class="hiw-step">
+          <div class="hiw-bubble" style="left:30%; top:1.3%; width:40%;">Discover new hobbies and connect with your local community</div>
+          <img class="hiw-phone" src="/how-it-works/phone-home.png" alt="Awnbeat home feed with suggested activities" style="left:35%; top:5.7%; width:24%;">
+          <img class="hiw-animal hiw-side-left" src="/how-it-works/animal-3.png" alt="" aria-hidden="true" style="left:59%; top:15%; width:10%;">
+        </div>
 
-        <!-- ROW 3 phone -->
-        <img class="hiw-phone" src="/how-it-works/phone-event.png"    alt="White Rock Bike Tour event details"          style="left:38%; top:69.3%; width:24%;">
+        <div class="hiw-step">
+          <div class="hiw-bubble" style="left:63%; top:31.8%; width:30%;">Join friends and find new weekend hobbies</div>
+          <img class="hiw-phone" src="/how-it-works/phone-friends.png" alt="Join your friends at nearby events" style="left:3%; top:5.7%; width:24%;">
+          <img class="hiw-animal hiw-side-left" src="/how-it-works/animal-2.png" alt="" aria-hidden="true" style="left:26%; top:13%; width:10%;">
+        </div>
 
-        <!-- animals — bodies clear of the phones; extended arm just meets a phone side -->
-        <!-- row 1: dog→friends L edge, panda→profile L edge, fox→profile R edge -->
-        <img class="hiw-animal" src="/how-it-works/animal-2.png" alt="" aria-hidden="true" style="left:26%; top:13%; width:10%;">
-        <img class="hiw-animal" src="/how-it-works/animal-3.png" alt="" aria-hidden="true" style="left:59%; top:15%; width:10%;">
-        <img class="hiw-animal" src="/how-it-works/animal-4.png" alt="" aria-hidden="true" style="left:88.5%; top:13%; width:11%;">
-        <!-- row 2: dog→schedule L edge, cat→map L edge -->
-        <img class="hiw-animal" src="/how-it-works/animal-6.png" alt="" aria-hidden="true" style="left:10.5%;  top:40%; width:13%;">
-        <img class="hiw-animal" src="/how-it-works/animal-1.png" alt="" aria-hidden="true" style="left:45%; top:42%; width:11%;">
-        <!-- row 3: hippo→event R edge -->
-        <img class="hiw-animal" src="/how-it-works/animal-5.png" alt="" aria-hidden="true" style="left:60.5%; top:74%; width:13%;">
+        <div class="hiw-step">
+          <div class="hiw-bubble" style="left:5%; top:31.8%; width:27%;">Access to different fitness activities in your area</div>
+          <img class="hiw-phone" src="/how-it-works/phone-profile.png" alt="A member profile with events and groups" style="left:67%; top:5.7%; width:24%;">
+          <img class="hiw-animal hiw-side-right" src="/how-it-works/animal-4.png" alt="" aria-hidden="true" style="left:88.5%; top:13%; width:11%;">
+        </div>
 
-        <!-- callout bubbles — kept in the clear bands so they never cover a phone -->
-        <div class="hiw-bubble" style="left:30%; top:1.3%;  width:40%;">Discover new hobbies and connect with your local community</div>
-        <div class="hiw-bubble" style="left:5%;  top:31.8%; width:27%;">Access to different fitness activities in your area</div>
-        <div class="hiw-bubble" style="left:63%; top:31.8%; width:30%;">Join friends and find new weekend hobbies</div>
-        <div class="hiw-bubble" style="left:5%;  top:63.6%; width:28%;">Effortlessly save and schedule your next activities</div>
-        <div class="hiw-bubble" style="left:64%; top:63.6%; width:29%;">Discover local events and meet new people</div>
-        <div class="hiw-bubble" style="left:33%; top:95.2%; width:34%;">Join events and get outside again</div>
+        <div class="hiw-step">
+          <div class="hiw-bubble" style="left:5%; top:63.6%; width:28%;">Effortlessly save and schedule your next activities</div>
+          <img class="hiw-phone" src="/how-it-works/phone-schedule.png" alt="Schedule and save upcoming activities" style="left:22%; top:37.5%; width:24%;">
+          <img class="hiw-animal hiw-side-left" src="/how-it-works/animal-6.png" alt="" aria-hidden="true" style="left:10.5%; top:40%; width:13%;">
+        </div>
+
+        <div class="hiw-step">
+          <div class="hiw-bubble" style="left:64%; top:63.6%; width:29%;">Discover local events and meet new people</div>
+          <img class="hiw-phone" src="/how-it-works/phone-map.png" alt="Map of nearby events" style="left:54%; top:37.5%; width:24%;">
+          <img class="hiw-animal hiw-side-left" src="/how-it-works/animal-1.png" alt="" aria-hidden="true" style="left:45%; top:42%; width:11%;">
+        </div>
+
+        <div class="hiw-step">
+          <div class="hiw-bubble" style="left:33%; top:95.2%; width:34%;">Join events and get outside again</div>
+          <img class="hiw-phone" src="/how-it-works/phone-event.png" alt="White Rock Bike Tour event details" style="left:38%; top:69.3%; width:24%;">
+          <img class="hiw-animal hiw-side-right" src="/how-it-works/animal-5.png" alt="" aria-hidden="true" style="left:60.5%; top:74%; width:13%;">
+        </div>
 
       </div>
     </div>
@@ -308,40 +360,48 @@
     <div class="hiw-join">
       <div class="hiw-canvas">
 
-        <!-- dividers -->
+        <!-- decorative dividers (desktop only) -->
         <div class="hiw-divider" style="left:12%; top:34.1%; width:76%;"></div>
         <div class="hiw-divider" style="left:12%; top:65.9%; width:76%;"></div>
 
-        <!-- ROW 1 phone (single, centered) -->
-        <img class="hiw-phone" src="/how-it-works/host-dashboard.png" alt="Host dashboard with quick actions" style="left:38%; top:5.7%; width:24%;">
+        <!-- steps: display:contents on desktop (absolute layout unchanged),
+             stacked full-width on mobile -->
 
-        <!-- ROW 2 phones — uniform: same top (37.5%), same width (24%) -->
-        <img class="hiw-phone" src="/how-it-works/host-communities.png" alt="Manage your communities" style="left:22%; top:37.5%; width:24%;">
-        <img class="hiw-phone" src="/how-it-works/host-qr.png"          alt="Custom QR promo image"    style="left:54%; top:37.5%; width:24%;">
+        <div class="hiw-step">
+          <div class="hiw-bubble" style="left:30%; top:1.3%; width:40%;">All of the resources you need to host activities</div>
+          <img class="hiw-phone" src="/how-it-works/host-dashboard.png" alt="Host dashboard with quick actions" style="left:38%; top:5.7%; width:24%;">
+          <img class="hiw-animal hiw-side-left" src="/how-it-works/host-hippo.png" alt="" aria-hidden="true" style="left:27%; top:13%; width:13%;">
+        </div>
 
-        <!-- ROW 3 phones — uniform: same top (69.3%), same width (24%) -->
-        <img class="hiw-phone" src="/how-it-works/host-earned.png"    alt="Earnings from paid events"          style="left:10%; top:69.3%; width:24%;">
-        <img class="hiw-phone" src="/how-it-works/host-chat.png"      alt="Manage community chat room"         style="left:41%; top:69.3%; width:24%;">
-        <img class="hiw-phone" src="/how-it-works/host-community.png" alt="A community page you host"          style="left:72%; top:69.3%; width:24%;">
+        <div class="hiw-step">
+          <div class="hiw-bubble" style="left:4%; top:31.8%; width:28%;">Manage multiple communities for all your interests</div>
+          <img class="hiw-phone" src="/how-it-works/host-communities.png" alt="Manage your communities" style="left:22%; top:37.5%; width:24%;">
+          <img class="hiw-animal hiw-side-left" src="/how-it-works/host-panda.png" alt="" aria-hidden="true" style="left:12.5%; top:40%; width:12%;">
+        </div>
 
-        <!-- animals — bodies clear of the phones; extended arm just meets a phone side -->
-        <!-- row 1: hippo→dashboard L edge -->
-        <img class="hiw-animal" src="/how-it-works/host-hippo.png"     alt="" aria-hidden="true" style="left:27%; top:13%; width:13%;">
-        <!-- row 2: panda→communities L edge, fox→qr R edge -->
-        <img class="hiw-animal" src="/how-it-works/host-panda.png"     alt="" aria-hidden="true" style="left:12.5%; top:40%; width:12%;">
-        <img class="hiw-animal" src="/how-it-works/host-fox-left.png"  alt="" aria-hidden="true" style="left:76.5%; top:40%; width:12%;">
-        <!-- row 3: dog→earned L edge, cat→chat L edge, fox→community L edge -->
-        <img class="hiw-animal" src="/how-it-works/host-dog-a.png"     alt="" aria-hidden="true" style="left:0%;  top:72%; width:11%;">
-        <img class="hiw-animal" src="/how-it-works/host-cat.png"       alt="" aria-hidden="true" style="left:31%; top:72%; width:11%;">
-        <img class="hiw-animal" src="/how-it-works/host-fox-right.png" alt="" aria-hidden="true" style="left:62%; top:72%; width:11%;">
+        <div class="hiw-step">
+          <div class="hiw-bubble" style="left:62%; top:31.8%; width:31%;">Effortless booking across platforms with a custom QR code</div>
+          <img class="hiw-phone" src="/how-it-works/host-qr.png" alt="Custom QR promo image" style="left:54%; top:37.5%; width:24%;">
+          <img class="hiw-animal hiw-side-right" src="/how-it-works/host-fox-left.png" alt="" aria-hidden="true" style="left:76.5%; top:40%; width:12%;">
+        </div>
 
-        <!-- callout bubbles — kept in the clear bands so they never cover a phone -->
-        <div class="hiw-bubble" style="left:30%; top:1.3%;  width:40%;">All of the resources you need to host activities</div>
-        <div class="hiw-bubble" style="left:4%;  top:31.8%; width:28%;">Manage multiple communities for all your interests</div>
-        <div class="hiw-bubble" style="left:62%; top:31.8%; width:31%;">Effortless booking across platforms with a custom QR code</div>
-        <div class="hiw-bubble" style="left:5%;  top:63.6%; width:26%;">Effortlessly earn from paid events</div>
-        <div class="hiw-bubble" style="left:64%; top:63.6%; width:28%;">Create a community for like-minded people</div>
-        <div class="hiw-bubble" style="left:32%; top:95.2%; width:36%;">Organize communication with your community</div>
+        <div class="hiw-step">
+          <div class="hiw-bubble" style="left:5%; top:63.6%; width:26%;">Effortlessly earn from paid events</div>
+          <img class="hiw-phone" src="/how-it-works/host-earned.png" alt="Earnings from paid events" style="left:10%; top:69.3%; width:24%;">
+          <img class="hiw-animal hiw-side-left" src="/how-it-works/host-dog-a.png" alt="" aria-hidden="true" style="left:0%; top:72%; width:11%;">
+        </div>
+
+        <div class="hiw-step">
+          <div class="hiw-bubble" style="left:32%; top:95.2%; width:36%;">Organize communication with your community</div>
+          <img class="hiw-phone" src="/how-it-works/host-chat.png" alt="Manage community chat room" style="left:41%; top:69.3%; width:24%;">
+          <img class="hiw-animal hiw-side-left" src="/how-it-works/host-cat.png" alt="" aria-hidden="true" style="left:31%; top:72%; width:11%;">
+        </div>
+
+        <div class="hiw-step">
+          <div class="hiw-bubble" style="left:64%; top:63.6%; width:28%;">Create a community for like-minded people</div>
+          <img class="hiw-phone" src="/how-it-works/host-community.png" alt="A community page you host" style="left:72%; top:69.3%; width:24%;">
+          <img class="hiw-animal hiw-side-left" src="/how-it-works/host-fox-right.png" alt="" aria-hidden="true" style="left:62%; top:72%; width:11%;">
+        </div>
 
       </div>
     </div>
