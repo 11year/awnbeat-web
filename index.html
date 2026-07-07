@@ -271,8 +271,9 @@
   }
   .awn-nav-center {
     position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-    white-space: nowrap;
+    display: flex; align-items: center; gap: 36px; white-space: nowrap;
   }
+  .awn-nav-link.is-active { opacity: 1 !important; }
   .awn-header-logo-wrap {
     display: flex; align-items: center; gap: 10px; text-decoration: none;
   }
@@ -291,10 +292,11 @@
   }
   .awn-nav-link:hover { opacity: 1; }
   @media (max-width: 809.98px) {
-    .awn-header-inner { padding: 0 20px; }
+    .awn-header-inner { padding: 0 16px; }
     .awn-header-nav { gap: 20px; }
     .awn-nav-link { font-size: 13px; }
-    .awn-brand-name { font-size: 17px; }
+    .awn-nav-center { gap: 18px; }
+    .awn-brand-name { display: none; }
     .awn-header-logo-wrap img { height: 38px; }
   }
 
@@ -564,7 +566,10 @@
           '<img src="/logo.png" alt="Awnbeat">',
           '<span class="awn-brand-name">Awnbeat</span>',
         '</a>',
-        '<a href="/how-it-works.html" class="awn-nav-link awn-nav-center">How It Works</a>',
+        '<nav class="awn-nav-center">',
+          '<a href="/" class="awn-nav-link is-active">Home</a>',
+          '<a href="/how-it-works.html" class="awn-nav-link">How It Works</a>',
+        '</nav>',
         '<nav class="awn-header-nav">',
           '<a href="https://form.typeform.com/to/qrWW17Tv" target="_blank" rel="noopener" class="awn-nav-link awn-nav-join">Join</a>',
         '</nav>',
