@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awnbeat Terms of Service - Awnbeat</title>
+<meta name="description" content="Awnbeat Terms of Service">
+<link rel="icon" type="image/png" href="/logo.png">
+<style>
+
+  @font-face {
+    font-family: "Chopin";
+    src: url("/fonts/Chopin-TrialVF-RomanVF-BF65b1d690f1fee.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Chopin";
+    src: url("/fonts/Chopin-TrialVF-ItalicVF-BF65b1d69313dde.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+  }
+  *, *::before, *::after { box-sizing: border-box; font-family: "Chopin", sans-serif; }
+  html { background-color: #ffffff; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  html, body { margin: 0; padding: 0; overflow-x: hidden; }
+  body { color: #1a1a1a; font-weight: 100; min-height: 100vh; }
+  .awn-bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: #ffffff; }
+  .awn-bg-watermark { position: absolute; inset: 0; background-image: url('/logo.png'), url('/logo.png'); background-repeat: repeat, repeat; background-size: 200px 200px, 200px 200px; background-position: 0 0, 100px 100px; opacity: 0.07; }
+  .awn-bg-gradient { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(140,217,166,0.18) 0%, rgba(140,217,166,0.08) 25%, rgba(250,153,89,0.12) 45%, rgba(250,153,89,0.14) 55%, rgba(122,204,235,0.10) 75%, rgba(122,204,235,0.22) 100%); }
+  .awn-bg-center { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 28%, rgba(255,255,255,0.86) 0%, rgba(255,255,255,0.48) 58%, transparent 100%); }
+  #awn-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 72px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); background: rgba(255,255,255,0.72); border-bottom: 1px solid rgba(140,217,166,0.25); }
+  .awn-header-inner { position: relative; max-width: 1200px; height: 100%; margin: 0 auto; padding: 0 48px; display: flex; align-items: center; justify-content: space-between; }
+  .awn-header-logo-wrap { display: flex; align-items: center; gap: 10px; color: #1a1a1a; text-decoration: none; }
+  .awn-header-logo-wrap img { height: 50px; width: auto; object-fit: contain; display: block; }
+  .awn-brand-name { font-size: 20px; font-weight: 100; color: #1a1a1a; letter-spacing: -0.03em; white-space: nowrap; }
+  .awn-nav-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 36px; white-space: nowrap; }
+  .awn-nav-link { font-size: 14px; font-weight: 100; color: #1a1a1a; text-decoration: none; letter-spacing: -0.02em; opacity: 0.7; transition: opacity 0.2s ease; }
+  .awn-nav-link:hover, .awn-nav-link.is-active { opacity: 1; }
+  .legal-main { width: min(100%, 980px); margin: 0 auto; padding: 132px 24px 72px; }
+  .legal-kicker { margin: 0 0 14px; color: #5f7b61; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .legal-main h1 { margin: 0; color: #1a1a1a; font-size: clamp(34px, 5vw, 58px); font-weight: 100; line-height: 1.05; letter-spacing: -0.035em; }
+  .legal-updated { margin: 18px 0 36px; color: rgba(26,26,26,0.62); font-size: 17px; line-height: 1.5; }
+  .legal-content { padding: clamp(26px, 4vw, 48px); border: 1px solid rgba(140,217,166,0.26); border-radius: 22px; background: rgba(255,255,255,0.62); box-shadow: 0 18px 54px rgba(35,60,45,0.09); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+  .legal-content h2 { margin: 42px 0 14px; color: #1a1a1a; font-size: clamp(22px, 2.4vw, 31px); font-weight: 100; line-height: 1.16; letter-spacing: -0.025em; }
+  .legal-content h2:first-child { margin-top: 0; }
+  .legal-content h3 { margin: 28px 0 10px; color: #1a1a1a; font-size: 20px; font-weight: 220; line-height: 1.25; letter-spacing: -0.012em; }
+  .legal-content p { margin: 0 0 18px; color: rgba(26,26,26,0.76); font-size: 17px; font-weight: 100; line-height: 1.68; letter-spacing: -0.005em; }
+  .legal-content ul { margin: 0 0 22px; padding-left: 24px; color: rgba(26,26,26,0.76); }
+  .legal-content li { margin: 0 0 10px; padding-left: 4px; font-size: 17px; font-weight: 100; line-height: 1.58; }
+  .legal-content a { color: #4c9a65; text-decoration: none; }
+  .legal-content a:hover { text-decoration: underline; }
+  #awn-footer { padding: 70px 24px 42px; text-align: center; background: rgba(255,255,255,0.5); border-top: 1px solid rgba(140,217,166,0.22); }
+  .awn-footer-inner { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .awn-footer-logo { width: 42px; height: 42px; object-fit: contain; opacity: 0.88; }
+  .awn-footer-links { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .awn-footer-link, .awn-footer-email { color: #1a1a1a; text-decoration: none; font-size: 14px; font-weight: 100; opacity: 0.72; transition: opacity 0.2s ease, color 0.2s ease; }
+  .awn-footer-link:hover, .awn-footer-email:hover { opacity: 1; color: #4db87a; }
+  .awn-footer-dot { color: rgba(26,26,26,0.36); }
+  .awn-footer-copy { margin: 0; color: rgba(26,26,26,0.52); font-size: 13px; }
+  @media (max-width: 809.98px) {
+    .awn-header-inner { padding: 0 16px; }
+    .awn-header-logo-wrap img { height: 38px; }
+    .awn-brand-name { display: none; }
+    .awn-nav-center { gap: 18px; }
+    .awn-nav-link { font-size: 13px; }
+    .legal-main { padding: 112px 16px 54px; }
+    .legal-content { border-radius: 18px; }
+    .legal-content p, .legal-content li { font-size: 16px; }
+  }
+
+</style>
+</head>
+<body>
+  <div class="awn-bg" aria-hidden="true">
+    <div class="awn-bg-watermark"></div>
+    <div class="awn-bg-gradient"></div>
+    <div class="awn-bg-center"></div>
+  </div>
+
+  <header id="awn-header">
+    <div class="awn-header-inner">
+      <a href="/" class="awn-header-logo-wrap" aria-label="Awnbeat home">
+        <img src="/logo.png" alt="Awnbeat">
+        <span class="awn-brand-name">Awnbeat</span>
+      </a>
+      <nav class="awn-nav-center" aria-label="Primary navigation">
+        <a href="/" class="awn-nav-link">Home</a>
+        <a href="/how-it-works.html" class="awn-nav-link">How It Works</a>
+      </nav>
+      <a href="https://form.typeform.com/to/qrWW17Tv" target="_blank" rel="noopener" class="awn-nav-link">Join</a>
+    </div>
+  </header>
+
+  <main class="legal-main">
+    <p class="legal-kicker">Awnbeat legal</p>
+    <h1>Terms of Service</h1>
+    <p class="legal-updated">Last updated: July 9, 2026</p>
+    <article class="legal-content">
+<p>These Terms of Service (&quot;Terms&quot;) govern your access to and use of Awnbeat, including the Awnbeat mobile app, websites, public event pages, communities, messaging, events, payments, and related services (collectively, the &quot;Service&quot;). &quot;Awnbeat,&quot; &quot;we,&quot; &quot;us,&quot; and &quot;our&quot; mean [Awnbeat legal entity name].</p>
+<p>By creating an account, using the Service, RSVPing to an event, joining a community, posting content, purchasing paid event access, receiving payouts, or otherwise using Awnbeat, you agree to these Terms.</p>
+<h2>1. The Awnbeat Service</h2>
+<p>Awnbeat helps people discover, create, join, and manage sports, fitness, wellness, social, and community activities. Depending on the features available to you, the Service may let you:</p>
+<ul>
+<li>Create a profile with a display name, photo, bio, city, activity interests, social links, and homepage preferences.</li>
+<li>Discover nearby events, public activity locations, and communities.</li>
+<li>Create and host public, private, or community events, including free events, paid events, games, classes, events with team setup, capacity limits, waitlists, public links, guest RSVPs, and event reminders.</li>
+<li>RSVP to events, join waitlists, invite others, check in guests, and manage attendance.</li>
+<li>Create and manage public or private communities and community memberships.</li>
+<li>Post updates, photos, videos, event-linked posts, and community feed content.</li>
+<li>Follow users, send friend requests, block users, report content, and use direct or community messaging features where available.</li>
+<li>Connect optional services such as Apple Calendar, Apple Health, and Strava-linked profile information.</li>
+<li>Purchase paid event access.</li>
+<li>Set up Stripe Connect to receive host payouts.</li>
+</ul>
+<p>Features may vary by location, account type, app version, moderation status, eligibility, or operational availability.</p>
+<h2>2. Eligibility</h2>
+<p>You must be at least 16 years old to use the Service. If you are under the age of majority where you live, you may use the Service only with permission from a parent or legal guardian.</p>
+<p>You must be at least 18 years old, or the age of majority where you live, to host paid events, receive payouts, create a Stripe Connect account, or enter into payment obligations through the Service.</p>
+<p>You may not use the Service if we have previously suspended or terminated your account for violations of these Terms, unless we give you written permission.</p>
+<h2>3. Accounts and Security</h2>
+<p>You may sign in using supported authentication methods, including phone verification and Sign in with Apple. You agree to provide accurate account information and keep it current.</p>
+<p>You are responsible for activity under your account and for maintaining control of your device, phone number, Apple account, email address, and authentication credentials. Tell us promptly if you believe your account has been compromised.</p>
+<p>You may delete your account from the app where the feature is available. Account deletion is intended to permanently delete your account, profile, push tokens, and associated user data, subject to operational limitations and any retention needed for safety, legal compliance, dispute resolution, payment records, fraud prevention, tax, accounting, security, or records that involve other users.</p>
+<h2>4. Safety, Health, and Physical Activity Risk</h2>
+<p>Awnbeat is not a medical provider, fitness professional, emergency service, insurer, transportation provider, venue operator, or event safety authority. The Service may help users organize or discover activities, but we do not guarantee that any event, route, venue, host, attendee, exercise, class, game, community, or location is safe, suitable, lawful, supervised, insured, or appropriate for you.</p>
+<p>Participation in sports, exercise, fitness, wellness, outdoor, and social activities involves inherent risks, including injury, illness, property loss, and death. You are responsible for evaluating your own health, fitness level, equipment, surroundings, weather, venue conditions, transportation, and personal safety before participating.</p>
+<p>You should consult a qualified professional before beginning or changing a fitness or wellness activity, especially if you have a medical condition or concern. In an emergency, contact local emergency services.</p>
+<h2>5. User Conduct</h2>
+<p>You agree not to:</p>
+<ul>
+<li>Harass, threaten, stalk, abuse, exploit, impersonate, or discriminate against others.</li>
+<li>Post or send hateful, sexually explicit, violent, misleading, fraudulent, or illegal content.</li>
+<li>Organize, promote, or participate in unlawful, dangerous, exploitative, or non-consensual activities.</li>
+<li>Upload malware or interfere with the Service.</li>
+<li>Scrape, harvest, sell, or misuse user information, invitee phone numbers, guest RSVP information, location data, messages, or community information.</li>
+<li>Use the Service to send spam, unsolicited marketing, or unwanted invitations.</li>
+<li>Misrepresent your identity, qualifications, affiliations, event details, prices, refund terms, capacity, host status, venue permissions, or payout eligibility.</li>
+<li>Evade moderation, blocks, account restrictions, payment holds, or security controls.</li>
+<li>Use Awnbeat in a way that violates applicable law, third-party rights, payment network rules, Stripe requirements, Apple rules, or these Terms.</li>
+</ul>
+<p>We may remove content, restrict features, suspend accounts, block transactions, or take other action if we believe activity violates these Terms or may harm users, Awnbeat, payment partners, venues, or the public.</p>
+<h2>6. Profiles, Communities, Events, and Visibility</h2>
+<p>Your profile, posts, event activity, RSVPs, community activity, social links, and other content may be visible to others depending on the feature, privacy setting, event visibility, community visibility, and moderation state.</p>
+<p>Public events, public communities, public posts, public profile information, public activity locations, public event links, and guest RSVP forms may be visible to people outside the app. Private or community-only features are intended for a narrower audience, but you should not share information through the Service that you require to remain confidential.</p>
+<p>Hosts and community owners are responsible for the accuracy and legality of their event and community information, including title, description, media, time, location, address, price, capacity, attendance rules, class slots, cancellation practices, refund expectations, and venue permissions.</p>
+<p>We may use automated or manual tools to review videos, reports, payment risk, event integrity, guest RSVP abuse, or other safety and trust issues.</p>
+<h2>7. Guest RSVPs and Invites</h2>
+<p>Event hosts may create public event links and invite users or guests. Guests may provide a name, phone number, RSVP status, guest count, and notes. If a guest later creates an Awnbeat account with a matching phone number, Awnbeat may link that guest RSVP to the new account.</p>
+<p>If you invite someone to an event or submit another person&#x27;s contact information, you represent that you have permission to do so and that your invitation is lawful and not unwanted.</p>
+<h2>8. User Content</h2>
+<p>&quot;User Content&quot; means content you submit, upload, create, display, or transmit through the Service, including profile information, social links, posts, photos, videos, messages, event details, community details, reviews or reports, RSVP notes, and other text or media.</p>
+<p>You keep ownership of your User Content. By using the Service, you grant Awnbeat a worldwide, non-exclusive, royalty-free, sublicensable, and transferable license to host, store, reproduce, process, display, perform, distribute, modify for technical formatting, moderate, and otherwise use your User Content to operate, improve, protect, and promote the Service. This license ends when your User Content is deleted from our systems, except where continued use is necessary for backups, legal compliance, safety, dispute handling, payment records, moderation records, or where content was shared with others and they have not deleted it.</p>
+<p>You represent that you have the rights needed to submit your User Content and that your User Content does not violate the law, these Terms, privacy rights, publicity rights, intellectual property rights, or other rights of any person.</p>
+<p>We do not endorse User Content and are not responsible for user-created events, posts, messages, communities, media, social links, directions, or venue information.</p>
+<h2>9. Messaging and Reports</h2>
+<p>Awnbeat may support direct messages, community chats, event chat, mentions, message notifications, image sharing, muting, blocking, and reporting. Messages are intended for the participants in the relevant conversation, but we may access, preserve, or review message-related information when needed to operate the Service, investigate reports, enforce these Terms, comply with law, protect users, or troubleshoot the Service.</p>
+<p>Reporting tools may let users report users, events, posts, communities, messages, or locations. Reports may include the reporter, target, reason, details, status, reviewer, and review timestamps.</p>
+<h2>10. Payments, Paid Events, and Fees</h2>
+<p>Awnbeat uses Stripe and Stripe Connect for payment processing, checkout, refunds, host onboarding, and payouts. Payment information may be collected and processed by Stripe under Stripe&#x27;s terms and privacy policy. Awnbeat generally stores transaction records, Stripe identifiers, payment status, amounts, fees, refund status, receipts, payout records, and related metadata, but does not receive your full payment card or bank account number.</p>
+<p>Paid features may include:</p>
+<ul>
+<li>Paid event registration.</li>
+<li>Host payouts through Stripe Connect.</li>
+<li>Platform, transaction, host, service, processing, or payout fees.</li>
+</ul>
+<p>Prices, fees, currencies, taxes, and availability may vary and may change. You are responsible for reviewing the price, currency, cancellation terms, and refund expectations before purchasing.</p>
+<h2>11. Refunds and Cancellations</h2>
+<p>Refund eligibility may depend on the event, host policy, payment processor rules, applicable law, whether an event was cancelled, whether a duplicate or fraudulent transaction occurred, and whether payment has already settled.</p>
+<p>The app includes refund request flows for certain transactions. Some refunds may be automatic, and others may require review. We may deny or limit refunds where we believe there is abuse, fraud, chargeback risk, policy violation, completed service delivery, or no entitlement under applicable terms.</p>
+<p>Hosts are responsible for communicating event cancellations or material changes. Awnbeat may issue, facilitate, or record refunds for paid event registrations where supported.</p>
+<h2>12. Host Payouts</h2>
+<p>If you receive payments through Awnbeat, you must complete Stripe Connect onboarding and provide information required by Stripe, tax authorities, payment networks, and applicable law. You authorize Awnbeat and Stripe to process payments, deduct applicable fees, reverse transfers, withhold payouts, issue refunds, process chargebacks, and maintain payment records.</p>
+<p>You are responsible for taxes, permits, venue approvals, insurance, participant waivers, professional qualifications, refund practices, and compliance with laws that apply to your events, classes, communities, and payouts.</p>
+<p>Awnbeat may delay, withhold, reduce, reverse, or cancel payouts due to refunds, disputes, chargebacks, fraud risk, suspected policy violations, legal requirements, incomplete Stripe onboarding, missing tax information, or payment processor restrictions.</p>
+<h2>13. Locations, Maps, Venues, and Third-Party Information</h2>
+<p>The Service may display public activity locations, map information, distance estimates, saved locations, venue contact information, prices, ratings, photos, and other location details. Location and venue information may be incomplete, inaccurate, outdated, or provided by users or third parties.</p>
+<p>You are responsible for confirming event locations, venue rules, access, hours, costs, safety, and permissions before relying on location information.</p>
+<h2>14. Optional Device and Platform Permissions</h2>
+<p>The Service may ask for optional permissions, including location, notifications, contacts, calendar, photos, and Apple Health. You can manage these permissions through iOS settings.</p>
+<p>Some features may not work without relevant permissions. For example, location permission may be needed for nearby discovery, calendar permission may be needed for event calendar sync, photo access may be needed for profile or post media, notification permission may be needed for push reminders, and Apple Health read permission may be needed to import running workouts into update posts.</p>
+<h2>15. Third-Party Services</h2>
+<p>The Service may integrate with or link to third-party services, including Apple, Apple Health, Apple Calendar, MapKit, Supabase, Stripe, Strava, Instagram, TikTok, Facebook, X, Typeform, and external websites or venue pages. Third-party services are governed by their own terms and privacy policies. We are not responsible for third-party services, content, policies, availability, or conduct.</p>
+<p>If you access the app through Apple&#x27;s App Store, Apple is not responsible for the Service, support, claims, or third-party claims relating to the Service, except as required by applicable law and Apple&#x27;s terms. Apple and its subsidiaries are third-party beneficiaries of these Terms for purposes of enforcing the Apple-related provisions.</p>
+<h2>16. Intellectual Property</h2>
+<p>Awnbeat, the Awnbeat name, logos, design, code, visual interfaces, features, and related materials are owned by Awnbeat or its licensors and are protected by intellectual property laws. Except for the rights expressly granted in these Terms, we reserve all rights in the Service.</p>
+<p>You may not copy, modify, distribute, sell, lease, reverse engineer, or create derivative works from the Service except as allowed by law or with our written permission.</p>
+<h2>17. Copyright and Intellectual Property Complaints</h2>
+<p>If you believe content on the Service infringes your rights, contact us at [support email] with enough information for us to evaluate the claim, including the content at issue, your contact information, and your rights in the work.</p>
+<p>We may remove or restrict content and may terminate repeat infringers where appropriate.</p>
+<h2>18. Service Changes and Availability</h2>
+<p>We may change, suspend, discontinue, limit, or remove features at any time, including event, community, messaging, payment, payout, location, notification, or integration features. We do not guarantee that the Service will be uninterrupted, error-free, secure, or available at any particular time or location.</p>
+<h2>19. Termination</h2>
+<p>You may stop using the Service at any time. We may suspend, restrict, or terminate your access to the Service if we believe you violated these Terms, created risk or legal exposure, abused payments or refunds, harmed other users, or used the Service unlawfully.</p>
+<p>After termination, provisions that by their nature should survive will continue to apply, including payment obligations, User Content licenses needed for retained records, disclaimers, limits of liability, indemnity, dispute terms, and rights related to intellectual property.</p>
+<h2>20. Disclaimers</h2>
+<p>The Service is provided &quot;as is&quot; and &quot;as available.&quot; To the fullest extent permitted by law, Awnbeat disclaims all warranties, express or implied, including warranties of merchantability, fitness for a particular purpose, title, non-infringement, accuracy, availability, security, and reliability.</p>
+<p>We do not warrant or guarantee any user, host, event, community, message, venue, location, activity, health outcome, fitness result, payment outcome, payout timing, refund result, or third-party service.</p>
+<h2>21. Limitation of Liability</h2>
+<p>To the fullest extent permitted by law, Awnbeat and its officers, directors, employees, agents, affiliates, service providers, and licensors will not be liable for indirect, incidental, special, consequential, exemplary, or punitive damages, or for lost profits, lost revenue, lost data, goodwill, personal injury, property damage, payment disputes, event cancellations, or activity-related harms arising from or related to the Service.</p>
+<p>To the fullest extent permitted by law, Awnbeat&#x27;s total liability for any claim relating to the Service will not exceed the greater of (a) the amount you paid to Awnbeat for the Service in the three months before the claim arose or (b) USD $100.</p>
+<p>Some jurisdictions do not allow certain limitations, so some of these limitations may not apply to you.</p>
+<h2>22. Indemnity</h2>
+<p>You agree to defend, indemnify, and hold harmless Awnbeat and its officers, directors, employees, agents, affiliates, service providers, and licensors from claims, damages, losses, liabilities, costs, and expenses, including reasonable attorneys&#x27; fees, arising from or related to your use of the Service, User Content, events, hosting activities, payouts, violation of these Terms, violation of law, violation of third-party rights, payment disputes, taxes, venue issues, injuries, or disputes with other users.</p>
+<h2>23. Governing Law and Disputes</h2>
+<p>These Terms are governed by the laws of [insert state/country], without regard to conflict-of-law rules. Venue and dispute resolution procedures should be confirmed before publication.</p>
+<p>Nothing in these Terms limits rights you may have under consumer protection laws that cannot be waived.</p>
+<h2>24. Changes to These Terms</h2>
+<p>We may update these Terms from time to time. If we make material changes, we will provide notice as appropriate, such as through the app, website, or updated &quot;Last updated&quot; date. Your continued use of the Service after changes become effective means you accept the updated Terms.</p>
+<h2>25. Contact</h2>
+<p>For questions about these Terms, contact:</p>
+<p>Awnbeat, Inc. info@awnbeat.com</p>
+    </article>
+  </main>
+
+  <footer id="awn-footer">
+    <div class="awn-footer-inner">
+      <img src="/logo.png" alt="Awnbeat" class="awn-footer-logo">
+      <div class="awn-footer-links">
+        <a href="/terms/" class="awn-footer-link">Terms of Service</a>
+        <span class="awn-footer-dot">&bull;</span>
+        <a href="/privacy/" class="awn-footer-link">Privacy Policy</a>
+      </div>
+      <a href="mailto:info@awnbeat.com" class="awn-footer-email">info@awnbeat.com</a>
+      <p class="awn-footer-copy">&copy; 2026 Awnbeat Inc. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

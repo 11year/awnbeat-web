@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awnbeat Privacy Policy - Awnbeat</title>
+<meta name="description" content="Awnbeat Privacy Policy">
+<link rel="icon" type="image/png" href="/logo.png">
+<style>
+
+  @font-face {
+    font-family: "Chopin";
+    src: url("/fonts/Chopin-TrialVF-RomanVF-BF65b1d690f1fee.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Chopin";
+    src: url("/fonts/Chopin-TrialVF-ItalicVF-BF65b1d69313dde.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+  }
+  *, *::before, *::after { box-sizing: border-box; font-family: "Chopin", sans-serif; }
+  html { background-color: #ffffff; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  html, body { margin: 0; padding: 0; overflow-x: hidden; }
+  body { color: #1a1a1a; font-weight: 100; min-height: 100vh; }
+  .awn-bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: #ffffff; }
+  .awn-bg-watermark { position: absolute; inset: 0; background-image: url('/logo.png'), url('/logo.png'); background-repeat: repeat, repeat; background-size: 200px 200px, 200px 200px; background-position: 0 0, 100px 100px; opacity: 0.07; }
+  .awn-bg-gradient { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(140,217,166,0.18) 0%, rgba(140,217,166,0.08) 25%, rgba(250,153,89,0.12) 45%, rgba(250,153,89,0.14) 55%, rgba(122,204,235,0.10) 75%, rgba(122,204,235,0.22) 100%); }
+  .awn-bg-center { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 28%, rgba(255,255,255,0.86) 0%, rgba(255,255,255,0.48) 58%, transparent 100%); }
+  #awn-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 72px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); background: rgba(255,255,255,0.72); border-bottom: 1px solid rgba(140,217,166,0.25); }
+  .awn-header-inner { position: relative; max-width: 1200px; height: 100%; margin: 0 auto; padding: 0 48px; display: flex; align-items: center; justify-content: space-between; }
+  .awn-header-logo-wrap { display: flex; align-items: center; gap: 10px; color: #1a1a1a; text-decoration: none; }
+  .awn-header-logo-wrap img { height: 50px; width: auto; object-fit: contain; display: block; }
+  .awn-brand-name { font-size: 20px; font-weight: 100; color: #1a1a1a; letter-spacing: -0.03em; white-space: nowrap; }
+  .awn-nav-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 36px; white-space: nowrap; }
+  .awn-nav-link { font-size: 14px; font-weight: 100; color: #1a1a1a; text-decoration: none; letter-spacing: -0.02em; opacity: 0.7; transition: opacity 0.2s ease; }
+  .awn-nav-link:hover, .awn-nav-link.is-active { opacity: 1; }
+  .legal-main { width: min(100%, 980px); margin: 0 auto; padding: 132px 24px 72px; }
+  .legal-kicker { margin: 0 0 14px; color: #5f7b61; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .legal-main h1 { margin: 0; color: #1a1a1a; font-size: clamp(34px, 5vw, 58px); font-weight: 100; line-height: 1.05; letter-spacing: -0.035em; }
+  .legal-updated { margin: 18px 0 36px; color: rgba(26,26,26,0.62); font-size: 17px; line-height: 1.5; }
+  .legal-content { padding: clamp(26px, 4vw, 48px); border: 1px solid rgba(140,217,166,0.26); border-radius: 22px; background: rgba(255,255,255,0.62); box-shadow: 0 18px 54px rgba(35,60,45,0.09); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+  .legal-content h2 { margin: 42px 0 14px; color: #1a1a1a; font-size: clamp(22px, 2.4vw, 31px); font-weight: 100; line-height: 1.16; letter-spacing: -0.025em; }
+  .legal-content h2:first-child { margin-top: 0; }
+  .legal-content h3 { margin: 28px 0 10px; color: #1a1a1a; font-size: 20px; font-weight: 220; line-height: 1.25; letter-spacing: -0.012em; }
+  .legal-content p { margin: 0 0 18px; color: rgba(26,26,26,0.76); font-size: 17px; font-weight: 100; line-height: 1.68; letter-spacing: -0.005em; }
+  .legal-content ul { margin: 0 0 22px; padding-left: 24px; color: rgba(26,26,26,0.76); }
+  .legal-content li { margin: 0 0 10px; padding-left: 4px; font-size: 17px; font-weight: 100; line-height: 1.58; }
+  .legal-content a { color: #4c9a65; text-decoration: none; }
+  .legal-content a:hover { text-decoration: underline; }
+  #awn-footer { padding: 70px 24px 42px; text-align: center; background: rgba(255,255,255,0.5); border-top: 1px solid rgba(140,217,166,0.22); }
+  .awn-footer-inner { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .awn-footer-logo { width: 42px; height: 42px; object-fit: contain; opacity: 0.88; }
+  .awn-footer-links { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .awn-footer-link, .awn-footer-email { color: #1a1a1a; text-decoration: none; font-size: 14px; font-weight: 100; opacity: 0.72; transition: opacity 0.2s ease, color 0.2s ease; }
+  .awn-footer-link:hover, .awn-footer-email:hover { opacity: 1; color: #4db87a; }
+  .awn-footer-dot { color: rgba(26,26,26,0.36); }
+  .awn-footer-copy { margin: 0; color: rgba(26,26,26,0.52); font-size: 13px; }
+  @media (max-width: 809.98px) {
+    .awn-header-inner { padding: 0 16px; }
+    .awn-header-logo-wrap img { height: 38px; }
+    .awn-brand-name { display: none; }
+    .awn-nav-center { gap: 18px; }
+    .awn-nav-link { font-size: 13px; }
+    .legal-main { padding: 112px 16px 54px; }
+    .legal-content { border-radius: 18px; }
+    .legal-content p, .legal-content li { font-size: 16px; }
+  }
+
+</style>
+</head>
+<body>
+  <div class="awn-bg" aria-hidden="true">
+    <div class="awn-bg-watermark"></div>
+    <div class="awn-bg-gradient"></div>
+    <div class="awn-bg-center"></div>
+  </div>
+
+  <header id="awn-header">
+    <div class="awn-header-inner">
+      <a href="/" class="awn-header-logo-wrap" aria-label="Awnbeat home">
+        <img src="/logo.png" alt="Awnbeat">
+        <span class="awn-brand-name">Awnbeat</span>
+      </a>
+      <nav class="awn-nav-center" aria-label="Primary navigation">
+        <a href="/" class="awn-nav-link">Home</a>
+        <a href="/how-it-works.html" class="awn-nav-link">How It Works</a>
+      </nav>
+      <a href="https://form.typeform.com/to/qrWW17Tv" target="_blank" rel="noopener" class="awn-nav-link">Join</a>
+    </div>
+  </header>
+
+  <main class="legal-main">
+    <p class="legal-kicker">Awnbeat legal</p>
+    <h1>Privacy Policy</h1>
+    <p class="legal-updated">Last updated: July 9, 2026</p>
+    <article class="legal-content">
+<p>This Privacy Policy explains how [Awnbeat legal entity name] (&quot;Awnbeat,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) collects, uses, discloses, and protects information when you use Awnbeat, including the Awnbeat mobile app, websites, public event pages, communities, messaging, events, payments, and related services (collectively, the &quot;Service&quot;).</p>
+<h2>1. Summary</h2>
+<p>Awnbeat is a social fitness, wellness, sports, events, and community platform. To operate the Service, we collect account information, profile information, user content, event and community activity, location-related information, payment and payout records, device and notification information, optional connected-app data, guest RSVP information, reports, and usage or diagnostic information.</p>
+<p>We use this information to provide the Service, authenticate users, show events and locations, process RSVPs and payments, support hosts and communities, send notifications, moderate content, prevent abuse, improve the Service, and comply with law.</p>
+<h2>2. Information We Collect</h2>
+<h3>Account and Identity Information</h3>
+<p>We may collect information used to create, authenticate, and manage your account, including:</p>
+<ul>
+<li>User ID and account identifiers.</li>
+<li>Phone number and verification status.</li>
+<li>Sign in with Apple identifiers and Apple-provided name where available.</li>
+<li>Email address where provided or needed for account recovery, Stripe customer records, receipts, billing, or support.</li>
+<li>Display name.</li>
+<li>Authentication tokens and session information.</li>
+</ul>
+<h3>Profile and Social Information</h3>
+<p>We may collect profile information you provide or configure, including:</p>
+<ul>
+<li>Profile photo, bio, city, activity interests, verification status, and homepage layout preferences.</li>
+<li>Social or external profile links and handles, such as Instagram, TikTok, X, Facebook, and Strava.</li>
+<li>Account privacy settings where available.</li>
+<li>Birthday or age-related information if you choose to enter it in profile settings.</li>
+<li>Follower, following, friend request, blocked user, and relationship information.</li>
+</ul>
+<h3>User Content</h3>
+<p>We collect content you create, upload, send, or submit through the Service, including:</p>
+<ul>
+<li>Posts, update text, event-linked posts, comments, likes, tags, and community feed requests.</li>
+<li>Photos, profile images, event images, community images, post images, and videos.</li>
+<li>Video review status and moderation review information.</li>
+<li>Direct messages, community chats, event chats, image messages, mentions, and message metadata where messaging features are available.</li>
+<li>Reports, report reasons, report details, and moderation review status.</li>
+<li>Support requests, feedback, and information submitted through linked support or feedback tools.</li>
+</ul>
+<h3>Event, Community, RSVP, and Attendance Information</h3>
+<p>We collect information related to events and communities, including:</p>
+<ul>
+<li>Events you create, host, view, join, RSVP to, invite others to, or purchase.</li>
+<li>Event titles, descriptions, images, categories, start and end times, timezone, location name, address, city, state, latitude, longitude, price, currency, capacity, class time slots, team setup, waitlist status, public links, and event status.</li>
+<li>RSVP status, registration status, payment status, attendee counts, check-in status, no-show status, and related timestamps.</li>
+<li>Community name, description, bio, visibility, photos, city, location coordinates, links, category, tags, highlights, owner, admin, member, and join request information.</li>
+<li>Public event invite records, invitee name, invitee phone number, invite URL, invite status, and timestamps.</li>
+</ul>
+<h3>Guest RSVP Information</h3>
+<p>People may RSVP to public events without an Awnbeat account. For guest RSVPs, we may collect:</p>
+<ul>
+<li>Guest name.</li>
+<li>Phone number.</li>
+<li>Event ID.</li>
+<li>RSVP status.</li>
+<li>Guest count.</li>
+<li>Notes.</li>
+<li>Check-in or no-show status.</li>
+<li>Whether the guest RSVP later matches an Awnbeat account by phone number.</li>
+</ul>
+<h3>Location Information</h3>
+<p>With your permission, the app may collect your device&#x27;s location while using the app to show nearby events and activity locations and to help set the location of events you create.</p>
+<p>We may also collect location-related information you provide or generate through app activity, such as city, manually selected city, saved locations, location searches, event locations, community location coordinates, venue addresses, and distance-based discovery information.</p>
+<h3>Contacts</h3>
+<p>If you grant contacts permission, Awnbeat may use your contacts to help identify friends who are already on Awnbeat and to help invite people who are not. The app permission text states that contacts are matched privately and not shared. We do not sell your contacts.</p>
+<h3>Calendar</h3>
+<p>If you grant calendar permission, Awnbeat may write Awnbeat event details to your personal calendar, including event title, time, location, and notes. Calendar access is optional and controlled through iOS settings.</p>
+<h3>Health and Fitness Information</h3>
+<p>If you grant Apple Health permission, Awnbeat may read recent running workouts so you can create update posts from your runs. This may include workout type, start date, distance, and duration. Awnbeat does not write to Apple Health.</p>
+<p>If you add a Strava handle or linked Strava profile information, Awnbeat may use that profile information to support Strava-related display or run-post features. The current app code includes Strava-linked profile information and sample run import behavior; confirm any live Strava API integration before publication.</p>
+<h3>Photos and Videos</h3>
+<p>If you choose to upload media, Awnbeat may process and store photos or videos for profile images, posts, messages, event images, community images, and other media features. We may compress, resize, validate, review, or moderate media to operate the Service.</p>
+<h3>Notifications and Device Information</h3>
+<p>If you enable notifications, we collect and store push notification information, including:</p>
+<ul>
+<li>APNs device token.</li>
+<li>Platform and environment.</li>
+<li>Device identifier where available.</li>
+<li>User ID associated with the token.</li>
+<li>Notification preferences.</li>
+<li>Notification delivery records, attempts, badge counts, and timestamps.</li>
+</ul>
+<h3>Payments, Refunds, and Payout Information</h3>
+<p>Awnbeat uses Stripe and Stripe Connect for paid event payments, refunds, host onboarding, and payouts. We may collect and store:</p>
+<ul>
+<li>Transaction IDs, Stripe customer IDs, Stripe payment intent IDs, Stripe charge IDs, Stripe checkout session IDs, Stripe Connect account IDs, and related metadata.</li>
+<li>Purchase history, event registration payments, refund requests, refund reason, refund status, receipt URL, failure reason, chargeback or dispute information, amount, currency, taxes, platform fees, transaction fees, processing fees, net amounts, transfer status, payout records, host fee ledger records, and timestamps.</li>
+<li>Host payout eligibility, onboarding status, country, currency, account type, charges-enabled status, payouts-enabled status, and email where provided for Stripe onboarding.</li>
+</ul>
+<p>Stripe may collect additional payment, identity, bank account, tax, fraud-prevention, and compliance information directly from you under Stripe&#x27;s own terms and privacy policy. Awnbeat does not receive your full payment card or bank account number.</p>
+<h3>Usage, Analytics, Diagnostics, and Logs</h3>
+<p>We may collect information about how the Service is used, including:</p>
+<ul>
+<li>Analytics events, event names, source, anonymous ID, user ID where available, properties, and timestamps.</li>
+<li>Product interactions such as views, searches, taps, RSVPs, saves, follows, joins, checkout attempts, and notification interactions.</li>
+<li>Crash, performance, network, error, security, and server logs.</li>
+<li>IP address and request metadata when you interact with our backend, public pages, or third-party infrastructure.</li>
+</ul>
+<p>The app includes feature flags for analytics and production crash reporting. Confirm the final production SDKs and App Store privacy labels before launch.</p>
+<h2>3. How We Use Information</h2>
+<p>We use information to:</p>
+<ul>
+<li>Provide, maintain, personalize, and improve the Service.</li>
+<li>Create and authenticate accounts.</li>
+<li>Display profiles, posts, events, communities, locations, messages, search results, suggestions, and notifications.</li>
+<li>Process RSVPs, guest RSVPs, waitlists, invites, check-ins, no-shows, reminders, event registrations, refunds, and payouts.</li>
+<li>Enable hosts and community organizers to manage events, members, paid event offerings, and payout dashboards.</li>
+<li>Upload, store, display, moderate, and review photos, videos, and other content.</li>
+<li>Send push notifications, app notifications, event reminders, payment updates, and service messages.</li>
+<li>Provide support, respond to feedback, and troubleshoot issues.</li>
+<li>Detect, prevent, investigate, and respond to fraud, spam, abuse, harassment, unsafe activity, payment risk, security incidents, and policy violations.</li>
+<li>Enforce our Terms, moderate content, process reports, and protect users and the public.</li>
+<li>Analyze usage, debug, test, develop, and improve features.</li>
+<li>Comply with legal, tax, accounting, payment, regulatory, law-enforcement, and safety obligations.</li>
+</ul>
+<h2>4. How We Disclose Information</h2>
+<p>We may disclose information:</p>
+<ul>
+<li>To other users as part of the Service, such as public profiles, public posts, public events, public communities, attendee information, community memberships, messages to conversation participants, host-visible RSVP records, and guest RSVP details for relevant hosts.</li>
+<li>To hosts, community owners, admins, moderators, or event organizers where needed to manage events, memberships, RSVPs, attendance, reports, or safety.</li>
+<li>To payment processors and financial partners, including Stripe and Stripe Connect, to process payments, refunds, disputes, taxes, fraud checks, onboarding, and payouts.</li>
+<li>To infrastructure and service providers, including Supabase, Apple services, APNs, cloud hosting, storage, analytics, crash reporting, support, feedback, email, security, and operations providers.</li>
+<li>To third-party services you choose to connect, link to, or open, such as Apple Calendar, Apple Health, Strava, Instagram, TikTok, Facebook, X, Typeform, maps, venue websites, or external links.</li>
+<li>To comply with law, legal process, regulatory requests, payment network rules, tax obligations, or enforceable government requests.</li>
+<li>To protect rights, safety, security, users, Awnbeat, partners, venues, payment processors, or the public.</li>
+<li>In connection with a business transaction, such as merger, financing, acquisition, reorganization, bankruptcy, or sale of assets.</li>
+<li>With your consent or at your direction.</li>
+</ul>
+<p>We do not sell your personal information in the ordinary sense of exchanging it for money. Confirm before publication whether any analytics, advertising, or marketing integrations create &quot;sale,&quot; &quot;sharing,&quot; or &quot;targeted advertising&quot; obligations under applicable privacy laws.</p>
+<h2>5. Public Visibility and Sharing Choices</h2>
+<p>Awnbeat is social by design. Some information may be visible to others, including profile information, public posts, public events, public communities, event public links, event attendees, community membership, social links, host information, and content you submit to shared spaces.</p>
+<p>You can limit some sharing by choosing what you post, choosing event or community visibility where available, using private or community-only spaces where available, blocking users, removing content, leaving communities, deleting your account, and managing iOS permissions.</p>
+<p>Even private or limited-audience content may be seen by intended recipients, hosts, admins, moderators, service providers, or Awnbeat personnel when needed for operations, safety, support, moderation, legal compliance, or enforcement.</p>
+<h2>6. Your Controls and Choices</h2>
+<p>Depending on the feature, you may be able to:</p>
+<ul>
+<li>Edit profile information such as display name, bio, photo, city, interests, social links, and homepage preferences.</li>
+<li>Delete your account in the app.</li>
+<li>Delete or change content you created where deletion or editing is supported.</li>
+<li>Join or leave communities.</li>
+<li>RSVP, update RSVP status, or cancel event registrations where supported.</li>
+<li>Block users and report users, posts, events, communities, messages, or locations.</li>
+<li>Manage notification preferences and revoke notification permission in iOS settings.</li>
+<li>Revoke location, contacts, calendar, photos, and Apple Health permissions in iOS settings.</li>
+<li>Request a refund for eligible transactions where supported.</li>
+<li>Contact us to request access, correction, deletion, or other privacy rights available under applicable law.</li>
+</ul>
+<p>Some data cannot be fully deleted through self-service controls, including records we need for legal, tax, accounting, safety, security, payment, dispute, fraud-prevention, or moderation purposes, or records that involve other users.</p>
+<h2>7. Data Retention</h2>
+<p>We keep information for as long as reasonably necessary to provide the Service, maintain your account, process transactions, operate communities and events, comply with law, resolve disputes, enforce our Terms, prevent abuse, maintain security, and keep business records.</p>
+<p>Examples:</p>
+<ul>
+<li>Account and profile information is generally retained while your account exists.</li>
+<li>User content is retained until deleted, removed, or no longer needed, subject to backups and legitimate retention needs.</li>
+<li>Payment, refund, payout, tax, accounting, and fraud-prevention records may be retained for longer periods required by law, payment processors, financial rules, or legitimate business needs.</li>
+<li>Reports, blocks, moderation records, and safety records may be retained to protect users and enforce policies.</li>
+<li>Guest RSVP and invite records may be retained to operate events, manage attendance, prevent abuse, and link guest RSVPs to accounts where applicable.</li>
+<li>Backups and logs may persist for a limited period before deletion or overwriting.</li>
+</ul>
+<h2>8. Security</h2>
+<p>We use reasonable administrative, technical, and organizational safeguards designed to protect information. The current architecture uses Supabase authentication, database row-level security policies, server-side secrets for privileged operations, Stripe webhook signature verification, server-side APNs credentials, authenticated edge functions for sensitive actions, and logging practices intended to avoid exposing sensitive identifiers.</p>
+<p>No method of transmission or storage is completely secure. You are responsible for keeping your device, phone number, Apple account, and authentication methods secure.</p>
+<h2>9. Children and Teens</h2>
+<p>The Service is not intended for children under 13. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has provided personal information to Awnbeat, contact us so we can take appropriate action.</p>
+<p>Users under the age of majority should use the Service only with parent or guardian permission. Users must be at least 18, or the age of majority where they live, to host paid events, receive payouts, or create a Stripe Connect account.</p>
+<h2>10. Health and Sensitive Information</h2>
+<p>Awnbeat may process fitness and wellness-related information, such as activity interests, event participation, running workout details imported from Apple Health, Strava-linked profile information, posts about workouts, and wellness communities. Do not post health, medical, or sensitive information you do not want others to see.</p>
+<p>We do not use Apple Health information for advertising and do not sell Apple Health information. Apple Health access is optional and controlled through iOS settings.</p>
+<h2>11. International Users</h2>
+<p>Awnbeat is currently drafted for a United States-based launch context, but the Service may be accessed from other places. Your information may be processed in the United States or other countries where Awnbeat, Supabase, Stripe, Apple, or other service providers operate. Data protection laws may differ from those in your location.</p>
+<p>If the Service is offered in jurisdictions with specific privacy rights, we will handle requests as required by applicable law.</p>
+<h2>12. State Privacy Rights</h2>
+<p>Depending on where you live, you may have rights to request access, correction, deletion, portability, restriction, objection, or information about certain disclosures of your personal information. You may also have the right to appeal a denied request.</p>
+<p>To make a privacy request, contact us at [privacy request email]. We may need to verify your identity before fulfilling a request. We will not discriminate against you for exercising privacy rights, but some requests may affect our ability to provide the Service.</p>
+<h2>13. Third-Party Links and Services</h2>
+<p>The Service may link to or integrate with third-party services, including Apple, Apple Health, Apple Calendar, MapKit, Supabase, Stripe, Strava, Instagram, TikTok, Facebook, X, Typeform, venues, websites, and public event pages. Third-party services have their own privacy practices. We are not responsible for those practices.</p>
+<h2>14. App Store Privacy Information</h2>
+<p>Apple requires app developers to disclose the data types collected by the app and third-party partners, whether data is linked to users, and whether data is used to track users. Based on the current app, likely data categories include contact information, health and fitness, financial and purchase information, precise or coarse location, contacts, user content, identifiers, usage data, diagnostics, and other app activity. Confirm final App Store privacy labels against the production build and third-party SDKs before submission.</p>
+<h2>15. Changes to This Policy</h2>
+<p>We may update this Privacy Policy from time to time. If we make material changes, we will provide notice as appropriate, such as through the app, website, or updated &quot;Last updated&quot; date. Your continued use of the Service after changes become effective means you acknowledge the updated policy.</p>
+<h2>16. Contact</h2>
+<p>For privacy questions or requests, contact:</p>
+<p>Awnbeat, Inc. info@awnbeat.com</p>
+    </article>
+  </main>
+
+  <footer id="awn-footer">
+    <div class="awn-footer-inner">
+      <img src="/logo.png" alt="Awnbeat" class="awn-footer-logo">
+      <div class="awn-footer-links">
+        <a href="/terms/" class="awn-footer-link">Terms of Service</a>
+        <span class="awn-footer-dot">&bull;</span>
+        <a href="/privacy/" class="awn-footer-link">Privacy Policy</a>
+      </div>
+      <a href="mailto:info@awnbeat.com" class="awn-footer-email">info@awnbeat.com</a>
+      <p class="awn-footer-copy">&copy; 2026 Awnbeat Inc. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
