@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awnbeat Support - Awnbeat</title>
+<meta name="description" content="Contact Awnbeat support.">
+<link rel="icon" type="image/png" href="/logo.png">
+<style>
+  @font-face {
+    font-family: "Chopin";
+    src: url("/fonts/Chopin-TrialVF-RomanVF-BF65b1d690f1fee.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Chopin";
+    src: url("/fonts/Chopin-TrialVF-ItalicVF-BF65b1d69313dde.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+  }
+  *, *::before, *::after { box-sizing: border-box; font-family: "Chopin", sans-serif; }
+  html { background-color: #ffffff; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  html, body { margin: 0; padding: 0; overflow-x: hidden; }
+  body { color: #1a1a1a; font-weight: 100; min-height: 100vh; }
+  .awn-bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: #ffffff; }
+  .awn-bg-watermark { position: absolute; inset: 0; background-image: url('/logo.png'), url('/logo.png'); background-repeat: repeat, repeat; background-size: 200px 200px, 200px 200px; background-position: 0 0, 100px 100px; opacity: 0.07; }
+  .awn-bg-gradient { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(140,217,166,0.18) 0%, rgba(140,217,166,0.08) 25%, rgba(250,153,89,0.12) 45%, rgba(250,153,89,0.14) 55%, rgba(122,204,235,0.10) 75%, rgba(122,204,235,0.22) 100%); }
+  .awn-bg-center { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 28%, rgba(255,255,255,0.86) 0%, rgba(255,255,255,0.48) 58%, transparent 100%); }
+  .awn-bg-blob { position: absolute; border-radius: 50%; pointer-events: none; }
+  @keyframes blob-g1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(40px,30px); } }
+  @keyframes blob-g2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-30px,40px); } }
+  @keyframes blob-o1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(35px,-25px); } }
+  @keyframes blob-o2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-35px,30px); } }
+  @keyframes blob-b1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(30px,-30px); } }
+  @keyframes blob-b2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-25px,-20px); } }
+  .awn-blob-g1 { width: 80vw; height: 80vw; top: -30vw; left: -25vw; background: radial-gradient(circle, rgba(140,217,166,0.55) 0%, rgba(140,217,166,0.2) 40%, transparent 70%); animation: blob-g1 18s ease-in-out infinite; }
+  .awn-blob-g2 { width: 60vw; height: 60vw; top: -20vw; right: -20vw; background: radial-gradient(circle, rgba(140,217,166,0.45) 0%, rgba(140,217,166,0.15) 40%, transparent 70%); animation: blob-g2 22s ease-in-out infinite; }
+  .awn-blob-o1 { width: 65vw; height: 65vw; top: 30%; left: -25vw; background: radial-gradient(circle, rgba(250,153,89,0.5) 0%, rgba(250,153,89,0.18) 40%, transparent 70%); animation: blob-o1 20s ease-in-out infinite; }
+  .awn-blob-o2 { width: 60vw; height: 60vw; top: 38%; right: -22vw; background: radial-gradient(circle, rgba(250,153,89,0.45) 0%, rgba(250,153,89,0.15) 40%, transparent 70%); animation: blob-o2 25s ease-in-out infinite; }
+  .awn-blob-b1 { width: 75vw; height: 75vw; bottom: -25vw; left: -20vw; background: radial-gradient(circle, rgba(122,204,235,0.55) 0%, rgba(122,204,235,0.2) 40%, transparent 70%); animation: blob-b1 24s ease-in-out infinite; }
+  .awn-blob-b2 { width: 60vw; height: 60vw; bottom: -18vw; right: -20vw; background: radial-gradient(circle, rgba(122,204,235,0.5) 0%, rgba(122,204,235,0.18) 40%, transparent 70%); animation: blob-b2 19s ease-in-out infinite; }
+  #awn-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 72px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); background: rgba(255,255,255,0.72); border-bottom: 1px solid rgba(140,217,166,0.25); }
+  .awn-header-inner { position: relative; max-width: 1200px; height: 100%; margin: 0 auto; padding: 0 48px; display: flex; align-items: center; justify-content: space-between; }
+  .awn-header-logo-wrap { display: flex; align-items: center; gap: 10px; color: #1a1a1a; text-decoration: none; }
+  .awn-header-logo-wrap img { height: 50px; width: auto; object-fit: contain; display: block; }
+  .awn-brand-name { font-size: 20px; font-weight: 100; color: #1a1a1a; letter-spacing: -0.03em; white-space: nowrap; }
+  .awn-nav-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 36px; white-space: nowrap; }
+  .awn-nav-link { font-size: 14px; font-weight: 100; color: #1a1a1a; text-decoration: none; letter-spacing: -0.02em; opacity: 0.7; transition: opacity 0.2s ease, color 0.2s ease; }
+  .awn-nav-link:hover, .awn-nav-link.is-active { opacity: 1; }
+  .support-main { width: min(100%, 980px); margin: 0 auto; padding: 132px 24px 72px; }
+  .support-kicker { margin: 0 0 14px; color: #5f7b61; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .support-main h1 { margin: 0; color: #1a1a1a; font-size: clamp(38px, 6vw, 72px); font-weight: 100; line-height: 0.98; letter-spacing: -0.04em; }
+  .support-intro { max-width: 650px; margin: 20px 0 38px; color: rgba(26,26,26,0.68); font-size: clamp(17px, 2vw, 21px); line-height: 1.52; letter-spacing: -0.008em; }
+  .support-panel { padding: clamp(26px, 4vw, 48px); border: 1px solid rgba(140,217,166,0.26); border-radius: 22px; background: rgba(255,255,255,0.62); box-shadow: 0 18px 54px rgba(35,60,45,0.09); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+  .support-form { display: grid; gap: 22px; }
+  .support-field { display: grid; gap: 9px; }
+  .support-field label { color: rgba(26,26,26,0.78); font-size: 15px; line-height: 1.3; letter-spacing: -0.01em; }
+  .support-field input, .support-field textarea { width: 100%; border: 1px solid rgba(140,217,166,0.34); border-radius: 14px; background: rgba(255,255,255,0.72); color: #1a1a1a; font-size: 17px; font-weight: 100; line-height: 1.45; letter-spacing: -0.006em; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+  .support-field input { min-height: 56px; padding: 0 18px; }
+  .support-field textarea { min-height: 190px; padding: 16px 18px; resize: vertical; }
+  .support-field input:focus, .support-field textarea:focus { border-color: rgba(76,154,101,0.8); background: rgba(255,255,255,0.86); box-shadow: 0 0 0 4px rgba(140,217,166,0.18); }
+  .support-field input::placeholder, .support-field textarea::placeholder { color: rgba(26,26,26,0.38); }
+  .support-actions { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; padding-top: 6px; }
+  .support-button { min-height: 54px; padding: 0 28px; border: 1px solid rgba(140,217,166,0.55); border-radius: 14px; background: rgba(140,217,166,0.28); color: #1a1a1a; cursor: pointer; font-size: 16px; font-weight: 100; letter-spacing: -0.01em; box-shadow: 0 4px 24px rgba(140,217,166,0.18); transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
+  .support-button:hover { background: rgba(140,217,166,0.42); border-color: rgba(140,217,166,0.75); transform: translateY(-1px); }
+  .support-note { margin: 0; max-width: 470px; color: rgba(26,26,26,0.58); font-size: 14px; line-height: 1.5; }
+  .direct-access { margin-top: 30px; padding: 26px; border: 1px solid rgba(122,204,235,0.28); border-radius: 18px; background: rgba(255,255,255,0.48); }
+  .direct-access p { margin: 0; color: rgba(26,26,26,0.68); font-size: 17px; line-height: 1.56; }
+  .direct-access a, .support-note a { color: #4c9a65; text-decoration: none; }
+  .direct-access a:hover, .support-note a:hover { text-decoration: underline; }
+  #awn-footer { padding: 70px 24px 42px; text-align: center; background: rgba(255,255,255,0.5); border-top: 1px solid rgba(140,217,166,0.22); }
+  .awn-footer-inner { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .awn-footer-logo { width: 42px; height: 42px; object-fit: contain; opacity: 0.88; }
+  .awn-footer-links { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .awn-footer-link, .awn-footer-email { color: #1a1a1a; text-decoration: none; font-size: 14px; font-weight: 100; opacity: 0.72; transition: opacity 0.2s ease, color 0.2s ease; }
+  .awn-footer-link:hover, .awn-footer-email:hover { opacity: 1; color: #4db87a; }
+  .awn-footer-dot { color: rgba(26,26,26,0.36); }
+  .awn-footer-copy { margin: 0; color: rgba(26,26,26,0.52); font-size: 13px; }
+  @media (max-width: 809.98px) {
+    .awn-header-inner { padding: 0 16px; }
+    .awn-header-logo-wrap img { height: 38px; }
+    .awn-brand-name { display: none; }
+    .awn-nav-center { gap: 18px; }
+    .awn-nav-link { font-size: 13px; }
+    .support-main { padding: 112px 16px 54px; }
+    .support-panel, .direct-access { border-radius: 18px; }
+    .support-actions { align-items: stretch; }
+    .support-button { width: 100%; }
+  }
+</style>
+</head>
+<body>
+  <div class="awn-bg" aria-hidden="true">
+    <div class="awn-bg-watermark"></div>
+    <div class="awn-bg-gradient"></div>
+    <div class="awn-bg-center"></div>
+    <div class="awn-bg-blob awn-blob-g1"></div>
+    <div class="awn-bg-blob awn-blob-g2"></div>
+    <div class="awn-bg-blob awn-blob-o1"></div>
+    <div class="awn-bg-blob awn-blob-o2"></div>
+    <div class="awn-bg-blob awn-blob-b1"></div>
+    <div class="awn-bg-blob awn-blob-b2"></div>
+  </div>
+
+  <header id="awn-header">
+    <div class="awn-header-inner">
+      <a href="/" class="awn-header-logo-wrap" aria-label="Awnbeat home">
+        <img src="/logo.png" alt="Awnbeat">
+        <span class="awn-brand-name">Awnbeat</span>
+      </a>
+      <nav class="awn-nav-center" aria-label="Primary navigation">
+        <a href="/" class="awn-nav-link">Home</a>
+        <a href="/how-it-works.html" class="awn-nav-link">How It Works</a>
+        <a href="/support/" class="awn-nav-link is-active">Support</a>
+      </nav>
+      <a href="https://form.typeform.com/to/qrWW17Tv" target="_blank" rel="noopener" class="awn-nav-link">Join</a>
+    </div>
+  </header>
+
+  <main class="support-main">
+    <p class="support-kicker">Awnbeat support</p>
+    <h1>How can we help?</h1>
+    <p class="support-intro">Send us the email address we should reply to and a few details about what you need. We will use your message to follow up directly.</p>
+
+    <section class="support-panel" aria-labelledby="support-form-title">
+      <h2 id="support-form-title" style="position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Support request form</h2>
+      <form class="support-form" id="support-form">
+        <div class="support-field">
+          <label for="support-email">Email</label>
+          <input id="support-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+        <div class="support-field">
+          <label for="support-message">Support message</label>
+          <textarea id="support-message" name="message" placeholder="Tell us what is happening or what you need help with." required></textarea>
+        </div>
+        <div class="support-actions">
+          <button class="support-button" type="submit">Send support request</button>
+          <p class="support-note">This opens your email app with a prepared message to <a href="mailto:info@awnbeat.com">info@awnbeat.com</a>.</p>
+        </div>
+      </form>
+    </section>
+
+    <section class="direct-access" aria-label="Direct email access">
+      <p>Need direct access? Email us anytime at <a href="mailto:info@awnbeat.com">info@awnbeat.com</a>.</p>
+    </section>
+  </main>
+
+  <footer id="awn-footer">
+    <div class="awn-footer-inner">
+      <img src="/logo.png" alt="Awnbeat" class="awn-footer-logo">
+      <div class="awn-footer-links">
+        <a href="/support/" class="awn-footer-link">Support</a>
+        <span class="awn-footer-dot">&bull;</span>
+        <a href="/terms/" class="awn-footer-link">Terms of Service</a>
+        <span class="awn-footer-dot">&bull;</span>
+        <a href="/privacy/" class="awn-footer-link">Privacy Policy</a>
+      </div>
+      <a href="mailto:info@awnbeat.com" class="awn-footer-email">info@awnbeat.com</a>
+      <p class="awn-footer-copy">&copy; 2026 Awnbeat Inc. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('support-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var email = document.getElementById('support-email').value.trim();
+      var message = document.getElementById('support-message').value.trim();
+      var body = [
+        'Reply-to email: ' + email,
+        '',
+        'Support message:',
+        message
+      ].join('\n');
+      window.location.href = 'mailto:info@awnbeat.com?subject=' + encodeURIComponent('Awnbeat support request') + '&body=' + encodeURIComponent(body);
+    });
+  </script>
+</body>
+</html>
