@@ -2384,7 +2384,6 @@
     // Desktop full-page navigation: one wheel gesture advances exactly one section.
     const snapSections = Array.from(document.querySelectorAll("main > .panel"));
     const desktopSnap = window.matchMedia("(min-width: 981px)");
-    const mobileSnap = window.matchMedia("(max-width: 640px)");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let isSectionNavigating = false;
     let wheelDistance = 0;
@@ -2392,10 +2391,6 @@
     let navigationFallbackTimer;
     let activeSnapTarget = 0;
     let ignoreWheelUntil = 0;
-    let touchStartY = null;
-    let touchStartX = null;
-
-    const fullPageSnapEnabled = () => desktopSnap.matches || mobileSnap.matches;
 
     const activeSectionIndex = () => {
       const scrollPosition = window.scrollY;
@@ -2416,7 +2411,7 @@
     };
 
     const navigateSection = (direction) => {
-      if (!fullPageSnapEnabled() || reducedMotion.matches || isSectionNavigating) return;
+      if (!desktopSnap.matches || reducedMotion.matches || isSectionNavigating) return;
       const nextIndex = Math.max(0, Math.min(snapSections.length - 1, activeSectionIndex() + direction));
       const targetSection = snapSections[nextIndex];
       const targetTop = nextIndex === snapSections.length - 1
@@ -2455,36 +2450,6 @@
         finishSectionNavigation();
       }
     });
-
-    // Mobile uses a deliberate swipe threshold so small upward drags do not leave a section.
-    window.addEventListener("touchstart", (event) => {
-      if (!mobileSnap.matches || reducedMotion.matches || event.touches.length !== 1 || event.target.closest("a, button, input, textarea, select, [contenteditable='true']")) return;
-      touchStartY = event.touches[0].clientY;
-      touchStartX = event.touches[0].clientX;
-    }, { passive: true });
-
-    window.addEventListener("touchmove", (event) => {
-      if (!mobileSnap.matches || touchStartY === null || event.touches.length !== 1) return;
-      const deltaY = event.touches[0].clientY - touchStartY;
-      const deltaX = event.touches[0].clientX - touchStartX;
-      if (Math.abs(deltaY) > Math.abs(deltaX)) event.preventDefault();
-    }, { passive: false });
-
-    window.addEventListener("touchend", (event) => {
-      if (!mobileSnap.matches || touchStartY === null || reducedMotion.matches) return;
-      const deltaY = event.changedTouches[0].clientY - touchStartY;
-      const deltaX = event.changedTouches[0].clientX - touchStartX;
-      touchStartY = null;
-      touchStartX = null;
-      if (Math.abs(deltaY) >= 82 && Math.abs(deltaY) > Math.abs(deltaX) * 1.2) {
-        navigateSection(deltaY < 0 ? 1 : -1);
-      }
-    }, { passive: true });
-
-    window.addEventListener("touchcancel", () => {
-      touchStartY = null;
-      touchStartX = null;
-    }, { passive: true });
 
     window.addEventListener("keydown", (event) => {
       if (!desktopSnap.matches || reducedMotion.matches || event.target.closest("button, a, input, textarea, select, [contenteditable='true']")) return;
