@@ -135,6 +135,10 @@
       letter-spacing: -0.02em;
     }
 
+    .header-app-store {
+      display: none;
+    }
+
     .header-share {
       padding: 0 16px;
       cursor: pointer;
@@ -1643,6 +1647,254 @@
       .final-download-row {
         align-items: flex-start;
       }
+
+      /* Mobile full-screen scenes: one section per swipe, visual first, copy below. */
+      :root {
+        --header-height: 58px;
+        --footer-height: 114px;
+      }
+
+      html {
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        overscroll-behavior-y: contain;
+      }
+
+      .site-header {
+        height: var(--header-height);
+      }
+
+      .header-inner {
+        position: relative;
+        justify-content: space-between;
+      }
+
+      .header-brand-mark {
+        width: 34px;
+        height: 34px;
+        transform: none;
+      }
+
+      .header-app-store {
+        position: absolute;
+        z-index: 1;
+        left: 50%;
+        display: block;
+        transform: translateX(-50%);
+      }
+
+      .header-app-store img {
+        display: block;
+        width: 112px;
+        height: auto;
+      }
+
+      .header-actions {
+        z-index: 2;
+        gap: 4px;
+      }
+
+      .header-share,
+      .header-language {
+        height: 30px;
+        font-size: 11px;
+      }
+
+      .header-share {
+        width: 30px;
+        padding: 0;
+        font-size: 0;
+      }
+
+      .header-share span {
+        display: none;
+      }
+
+      .header-share::after {
+        content: "↗";
+        font-size: 16px;
+      }
+
+      .header-language {
+        min-width: 58px;
+        max-width: 58px;
+        padding: 0 6px;
+      }
+
+      #current-language {
+        max-width: 36px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .panel:not(.final-panel) {
+        height: 100svh;
+        min-height: 100svh;
+        padding: calc(var(--header-height) + 10px) var(--page-gutter) 16px;
+        overflow: hidden;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
+
+      .panel-inner,
+      .hero .panel-inner,
+      .discover .panel-inner,
+      .communities .panel-inner,
+      .community-panel .panel-inner {
+        height: 100%;
+        min-height: 0;
+        gap: 8px;
+      }
+
+      .panel-visual,
+      .hero .panel-visual,
+      .discover .panel-visual,
+      .communities .panel-visual,
+      .community-panel .panel-visual {
+        order: 1;
+        flex: 1 1 auto;
+        min-height: 0;
+      }
+
+      .panel-copy,
+      .hero .panel-copy,
+      .discover .panel-copy,
+      .communities .panel-copy,
+      .community-panel .panel-copy {
+        order: 2;
+        flex: 0 0 auto;
+      }
+
+      .panel-copy h1,
+      .panel-copy h2 {
+        max-width: 18ch;
+        font-size: clamp(29px, 8.4vw, 36px);
+        line-height: 0.94;
+      }
+
+      .hero h1 {
+        font-size: clamp(28px, 7.8vw, 34px);
+      }
+
+      .lede {
+        max-width: 35ch;
+        margin-top: 10px;
+        font-size: 14px;
+        line-height: 1.28;
+      }
+
+      .panel:not(.final-panel) .app-download-block,
+      .app-qr-row,
+      .app-qr-copy {
+        display: none;
+      }
+
+      .hero-phone-stack {
+        width: min(100%, 390px);
+        height: min(51svh, 410px);
+        transform: translateY(1%) scale(0.68);
+      }
+
+      .event-card-stack {
+        height: min(48svh, 365px);
+        transform: scale(0.8);
+        transform-origin: center;
+      }
+
+      .location-showcase {
+        height: min(48svh, 370px);
+        transform: translate(-1%, 0) scale(0.68);
+      }
+
+      .community-card-grid {
+        width: min(90%, 340px);
+        gap: 8px;
+      }
+
+      .final-panel {
+        height: 100svh;
+        min-height: 100svh;
+        padding: 0 !important;
+        overflow: hidden;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
+
+      .final-panel .panel-inner {
+        height: 100%;
+        min-height: 0;
+        padding: calc(var(--header-height) + 8px) var(--page-gutter) 10px;
+        justify-content: center;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .final-art {
+        order: 1;
+        flex: 1 1 auto;
+        min-height: 0;
+      }
+
+      .final-art img {
+        width: min(52%, 220px);
+      }
+
+      .final-content {
+        order: 2;
+        flex: 0 0 auto;
+        text-align: center;
+      }
+
+      .final-download-title {
+        margin-bottom: 16px;
+        font-size: clamp(24px, 7vw, 30px);
+      }
+
+      .final-download-row {
+        align-items: center;
+        gap: 10px;
+      }
+
+      .final-app-icon {
+        width: 104px;
+      }
+
+      .final-download-row .app-download-block {
+        display: block !important;
+        width: auto;
+        margin: 0;
+      }
+
+      .final-download-row .app-store-badge img {
+        width: 138px;
+      }
+
+      .site-footer {
+        min-height: var(--footer-height);
+        padding: 12px var(--page-gutter) 14px;
+      }
+
+      .footer-inner {
+        align-items: center;
+        gap: 8px;
+        text-align: center;
+        font-size: 12px;
+        transform: none;
+      }
+
+      .footer-brand-mark {
+        width: 92px;
+        height: 34px;
+      }
+
+      .footer-links {
+        justify-content: center;
+        gap: 6px 14px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1713,6 +1965,7 @@
       <div class="header-brand-mark">
         <img src="awnbeat-wordmark.png" alt="Awnbeat">
       </div>
+      <a class="header-app-store" href="https://apps.apple.com/" target="_blank" rel="noopener" aria-label="Download Awnbeat on the App Store"><img src="app-store-badge.svg" alt="Download on the App Store"></a>
       <div class="header-actions">
         <button class="header-share" id="share-page" type="button"><span data-i18n="share">Share</span> ↗</button>
         <div class="language-menu">
