@@ -23,8 +23,8 @@
   <style>
     @font-face {
       font-family: "Chopin";
-      src: url("/fonts/Chopin-TrialVF-RomanVF-BF65b1d690f1fee.ttf") format("truetype");
-      font-weight: 100 900;
+      src: url("fonts/Chopin-Trial-Regular-BF65b1d6917c0ec.otf") format("opentype");
+      font-weight: 400;
       font-style: normal;
       font-display: swap;
     }
@@ -66,6 +66,7 @@
       color: var(--ink);
       background: var(--background);
       font-family: "Chopin", Arial, sans-serif;
+      font-synthesis: none;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
@@ -1905,8 +1906,10 @@
     const desktopSnap = window.matchMedia("(min-width: 981px)");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let isSectionNavigating = false;
+    let wheelGestureLocked = false;
     let wheelDistance = 0;
     let wheelResetTimer;
+    let wheelGestureReleaseTimer;
 
     const activeSectionIndex = () => {
       const scrollPosition = window.scrollY;
@@ -1928,7 +1931,15 @@
       if (Math.abs(window.scrollY - targetTop) < 4) return;
       isSectionNavigating = true;
       window.scrollTo({ top: targetTop, behavior: "smooth" });
-      window.setTimeout(() => { isSectionNavigating = false; }, 760);
+      window.setTimeout(() => { isSectionNavigating = false; }, 820);
+    };
+
+    const releaseWheelGestureAfterRest = () => {
+      window.clearTimeout(wheelGestureReleaseTimer);
+      wheelGestureReleaseTimer = window.setTimeout(() => {
+        wheelGestureLocked = false;
+        wheelDistance = 0;
+      }, 1050);
     };
 
     window.addEventListener("wheel", (event) => {
@@ -1936,12 +1947,14 @@
       if (!event.deltaY) return;
 
       event.preventDefault();
-      if (isSectionNavigating) return;
+      releaseWheelGestureAfterRest();
+      if (wheelGestureLocked || isSectionNavigating) return;
       wheelDistance += event.deltaY;
       window.clearTimeout(wheelResetTimer);
       wheelResetTimer = window.setTimeout(() => { wheelDistance = 0; }, 140);
 
       if (Math.abs(wheelDistance) >= 32) {
+        wheelGestureLocked = true;
         navigateSection(wheelDistance > 0 ? 1 : -1);
         wheelDistance = 0;
       }
