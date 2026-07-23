@@ -1,0 +1,2016 @@
+<!doctype html>
+<!--
+  AWNBEAT HOMEPAGE DRAFT
+  Inspired by Lemon8's full-screen product storytelling layout.
+  This file is intentionally standalone and does not affect index.html.
+
+  QUICK EDITING GUIDE
+  1. Change the palette in :root.
+  2. Edit page copy directly in each <section>.
+  3. Rearrange sections by moving whole <section> blocks.
+  4. Replace phone images by changing their src attributes.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Awnbeat helps people discover local activities, events, and communities.">
+  <title>Awnbeat — Homepage Draft</title>
+
+  <style>
+    @font-face {
+      font-family: "Chopin";
+      src: url("/fonts/Chopin-TrialVF-RomanVF-BF65b1d690f1fee.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* Start here when you want to change the visual direction. */
+    :root {
+      --ink: #171717;
+      --background: #FA9959;
+      --background: radial-gradient(circle, rgba(250, 153, 89, 1) 5%, rgba(140, 217, 166, 1) 52%, rgba(140, 217, 166, 1) 100%);
+      --discover-gradient: linear-gradient(90deg, rgba(250, 153, 89, 1) 26%, rgba(140, 217, 166, 1) 53%, rgba(140, 217, 166, 1) 100%);
+      --paper: #8cd9a6;
+      --yellow: #8cd9a6;
+      --green: #8cd9a6;
+      --green-strong: #4db87a;
+      --orange: #fa9959;
+      --blue: #7acceb;
+      --line: rgba(23, 23, 23, 0.2);
+      --page-gutter: clamp(22px, 4.2vw, 68px);
+      --header-height: 96px;
+      --footer-height: 91px;
+      --max-width: 1440px;
+      --radius-small: 14px;
+      --radius-large: 40px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--background);
+      font-family: "Chopin", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: 4px;
+    }
+
+    .site-header {
+      position: absolute;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--header-height);
+      padding: 0 var(--page-gutter);
+    }
+
+    .header-inner {
+      width: min(100%, var(--max-width));
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+      z-index: 1;
+    }
+
+    .header-share,
+    .header-language {
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      border-radius: 999px;
+      background: rgba(77, 179, 230, 0.62);
+      -webkit-backdrop-filter: blur(14px) saturate(135%);
+      backdrop-filter: blur(14px) saturate(135%);
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    .header-share {
+      padding: 0 16px;
+      cursor: pointer;
+    }
+
+    .header-share:hover,
+    .header-language:hover {
+      background: rgba(77, 179, 230, 0.8);
+    }
+
+    .language-option:hover {
+      background: rgba(140, 217, 166, 0.32);
+    }
+
+    .language-menu {
+      position: relative;
+    }
+
+    .header-language {
+      min-width: 132px;
+      padding: 0 14px;
+      cursor: pointer;
+    }
+
+    .language-dropdown {
+      position: absolute;
+      z-index: 30;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 176px;
+      padding: 7px;
+      border: 1px solid rgba(23, 23, 23, 0.22);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 14px 28px rgba(23, 23, 23, 0.12);
+    }
+
+    .language-dropdown[hidden] {
+      display: none;
+    }
+
+    .language-option {
+      width: 100%;
+      min-height: 38px;
+      padding: 8px 10px;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 620;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .language-option[aria-selected="true"] {
+      background: rgba(140, 217, 166, 0.55);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 25px;
+      font-weight: 760;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      object-fit: cover;
+      mix-blend-mode: multiply;
+    }
+
+    .header-brand-mark,
+    .footer-brand-mark {
+      flex: 0 0 auto;
+      display: block;
+    }
+
+    .header-brand-mark {
+      width: 246px;
+      height: 246px;
+      transform: translate(-24px, 14px);
+    }
+
+    .header-brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .logo-lockup {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 25px;
+      font-weight: 780;
+      letter-spacing: -0.04em;
+    }
+
+    .logo-lockup img {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      mix-blend-mode: multiply;
+    }
+
+    .button-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .panel {
+      position: relative;
+      min-height: 100svh;
+      padding: calc(var(--header-height) + 36px) var(--page-gutter) 54px;
+      display: flex;
+      align-items: center;
+      background: var(--background);
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 2;
+      width: min(100%, var(--max-width));
+      min-height: min(690px, calc(100svh - 150px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(340px, 0.9fr) minmax(420px, 1.1fr);
+      align-items: center;
+      gap: clamp(56px, 8vw, 130px);
+    }
+
+    .panel-copy {
+      max-width: 680px;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 720;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    h1,
+    h2 {
+      margin: 0;
+      letter-spacing: -0.055em;
+      line-height: 0.98;
+      text-wrap: balance;
+    }
+
+    h1 {
+      max-width: 760px;
+      font-size: clamp(52px, 6.1vw, 92px);
+      font-weight: 820;
+    }
+
+    /* The hero headline shares the same text column as its supporting paragraph. */
+    .hero h1 {
+      max-width: 680px;
+      font-size: clamp(34px, 3.97vw, 60px);
+    }
+
+    .hero-title-line {
+      white-space: nowrap;
+    }
+
+    h2 {
+      max-width: 670px;
+      font-size: clamp(44px, 5.2vw, 78px);
+      font-weight: 800;
+    }
+
+    .lede {
+      max-width: 560px;
+      margin: 28px 0 0;
+      font-size: clamp(18px, 1.75vw, 25px);
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+    }
+
+    .action-row {
+      margin-top: 38px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .button-primary,
+    .button-secondary {
+      min-height: 56px;
+      padding: 15px 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 720;
+      transition: transform 180ms ease, background-color 180ms ease;
+    }
+
+    .button-primary {
+      background: var(--ink);
+      color: white;
+    }
+
+    .button-secondary {
+      background: rgba(255, 255, 255, 0.38);
+    }
+
+    .button-secondary:hover {
+      background: white;
+    }
+
+    .download-card {
+      width: min(100%, 520px);
+      margin-top: 36px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-small);
+      background: rgba(255, 255, 255, 0.54);
+      backdrop-filter: blur(12px);
+    }
+
+    .app-download-block {
+      width: min(100%, 540px);
+      margin-top: 34px;
+    }
+
+    .app-store-badge {
+      display: inline-block;
+    }
+
+    .app-store-badge img {
+      width: 168px;
+      height: auto;
+    }
+
+    .app-qr-row {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .qr-placeholder {
+      flex: 0 0 78px;
+      width: 78px;
+      height: 78px;
+      border: 2px dashed rgba(23, 23, 23, 0.52);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.46);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: 0.08em;
+    }
+
+    .app-qr-copy strong,
+    .app-qr-copy span {
+      display: block;
+    }
+
+    .app-qr-copy {
+      width: 210px;
+      max-width: 100%;
+    }
+
+    .app-qr-copy strong {
+      font-size: 20px;
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+      white-space: nowrap;
+    }
+
+    .app-qr-copy span {
+      margin-top: 7px;
+      color: rgba(23, 23, 23, 0.7);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .download-mark {
+      flex: 0 0 64px;
+      width: 64px;
+      height: 64px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--ink);
+      border-radius: 12px;
+      background: white;
+      font-size: 30px;
+      font-weight: 850;
+    }
+
+    .download-mark img {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      object-fit: cover;
+      mix-blend-mode: multiply;
+    }
+
+    .download-copy strong,
+    .download-copy span {
+      display: block;
+    }
+
+    .download-copy strong {
+      margin-bottom: 4px;
+      font-size: 17px;
+    }
+
+    .download-copy span {
+      font-size: 14px;
+      line-height: 1.35;
+      opacity: 0.72;
+    }
+
+    .panel-visual {
+      position: relative;
+      min-height: 620px;
+      display: grid;
+      place-items: center;
+    }
+
+    .phone-main {
+      position: relative;
+      z-index: 3;
+      width: min(360px, 72%);
+      max-height: 72svh;
+      object-fit: contain;
+      filter: drop-shadow(0 28px 38px rgba(23, 23, 23, 0.2));
+      transform: rotate(-3deg);
+    }
+
+    .phone-stack {
+      position: relative;
+      width: min(520px, 100%);
+      height: 620px;
+    }
+
+    .phone-stack img {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: min(310px, 64%);
+      max-height: 590px;
+      object-fit: contain;
+      transform-origin: center bottom;
+      filter: drop-shadow(0 26px 28px rgba(23, 23, 23, 0.18));
+    }
+
+    .phone-stack img:nth-child(1) {
+      z-index: 1;
+      transform: translateX(-86%) rotate(-10deg) scale(0.88);
+    }
+
+    .phone-stack img:nth-child(2) {
+      z-index: 3;
+      transform: translateX(-50%);
+    }
+
+    .phone-stack img:nth-child(3) {
+      z-index: 2;
+      transform: translateX(-14%) rotate(10deg) scale(0.88);
+    }
+
+    /* Row two: a roomy, animated stack of real Awnbeat event cards. */
+    .event-card-stack {
+      position: relative;
+      width: min(650px, 100%);
+      height: 560px;
+      transform: translateY(-5%);
+    }
+
+    .event-card-item {
+      position: absolute;
+      width: 46%;
+      height: auto;
+      border-radius: 18px;
+      transform: translate3d(0, 0, 0) rotate(var(--rotation));
+      transform-origin: center;
+      will-change: transform, opacity;
+    }
+
+    .event-card-item--climb {
+      z-index: 5;
+      top: 1%;
+      left: 27%;
+      width: 48%;
+      --rotation: -2deg;
+      --enter-x: 0;
+      --enter-y: -80px;
+      --enter-rotation: -9deg;
+      --delay: 80ms;
+    }
+
+    .event-card-item--pickleball {
+      z-index: 4;
+      top: 19%;
+      left: 0;
+      --rotation: -9deg;
+      --enter-x: -110px;
+      --enter-y: 38px;
+      --enter-rotation: -18deg;
+      --delay: 220ms;
+    }
+
+    .event-card-item--football {
+      z-index: 3;
+      top: 20%;
+      right: 0;
+      --rotation: 8deg;
+      --enter-x: 110px;
+      --enter-y: 38px;
+      --enter-rotation: 17deg;
+      --delay: 360ms;
+    }
+
+    .event-card-item--ride {
+      z-index: 2;
+      bottom: 0;
+      left: 7%;
+      --rotation: -6deg;
+      --enter-x: -80px;
+      --enter-y: 100px;
+      --enter-rotation: -14deg;
+      --delay: 500ms;
+    }
+
+    .event-card-item--soccer {
+      z-index: 1;
+      right: 6%;
+      bottom: 0;
+      --rotation: 7deg;
+      --enter-x: 80px;
+      --enter-y: 100px;
+      --enter-rotation: 15deg;
+      --delay: 640ms;
+    }
+
+    .js .event-card-item {
+      opacity: 0;
+      transform: translate3d(var(--enter-x), var(--enter-y), 0) rotate(var(--enter-rotation)) scale(0.9);
+    }
+
+    .js .event-card-stack.is-revealed .event-card-item {
+      animation: event-card-reveal 1150ms cubic-bezier(0.16, 1, 0.3, 1) var(--delay) both;
+    }
+
+    @keyframes event-card-reveal {
+      from {
+        opacity: 0;
+        transform: translate3d(var(--enter-x), var(--enter-y), 0) rotate(var(--enter-rotation)) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotate(var(--rotation)) scale(1);
+      }
+    }
+
+    /* Hero mockups: phone 1 is the main, centered device. */
+    .hero-phone-stack {
+      position: relative;
+      width: min(560px, 100%);
+      height: min(660px, 72svh);
+      /* Reduce the entire first-row mockup composition by 30%. */
+      transform: translateY(5%) scale(0.7);
+      transform-origin: center;
+    }
+
+    .hero-phone {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: min(340px, 64%);
+      max-height: 100%;
+      object-fit: contain;
+      transform-origin: center bottom;
+      filter: drop-shadow(0 26px 28px rgba(23, 23, 23, 0.2));
+      will-change: transform, opacity;
+    }
+
+    .hero-phone--center {
+      z-index: 3;
+      width: min(434px, 81.6%);
+      max-height: none;
+      opacity: 1;
+      transform: translateX(-50%);
+    }
+
+    .hero-phone--left {
+      z-index: 1;
+      width: min(315px, 60%);
+      opacity: 1;
+      transform: translateX(-112%) translateY(18px) rotate(-17deg);
+      animation: hero-phone-left-reveal 1050ms cubic-bezier(0.16, 1, 0.3, 1) 350ms both;
+    }
+
+    .hero-phone--right {
+      z-index: 2;
+      width: min(315px, 60%);
+      opacity: 1;
+      transform: translateX(12%) translateY(18px) rotate(17deg);
+      animation: hero-phone-right-reveal 1050ms cubic-bezier(0.16, 1, 0.3, 1) 540ms both;
+    }
+
+    @keyframes hero-phone-left-reveal {
+      from {
+        opacity: 0;
+        transform: translateX(-138%) translateY(58px) rotate(-24deg) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-112%) translateY(18px) rotate(-17deg) scale(1);
+      }
+    }
+
+    @keyframes hero-phone-right-reveal {
+      from {
+        opacity: 0;
+        transform: translateX(38%) translateY(58px) rotate(24deg) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(12%) translateY(18px) rotate(17deg) scale(1);
+      }
+    }
+
+    .hero {
+      border-top: 0;
+      background: #FA9959;
+      background: linear-gradient(90deg, rgba(250, 153, 89, 1) 26%, rgba(140, 217, 166, 1) 53%, rgba(140, 217, 166, 1) 100%);
+    }
+
+    .hero .panel-inner,
+    .discover .panel-inner {
+      grid-template-areas: "copy visual";
+    }
+
+    .hero .panel-visual,
+    .discover .panel-visual {
+      grid-area: visual;
+    }
+
+    .hero .panel-copy,
+    .discover .panel-copy {
+      grid-area: copy;
+    }
+
+    .hero-orb,
+    .discover-orb,
+    .community-orb {
+      display: none;
+    }
+
+    .hero-orb.blue {
+      right: -14vw;
+      bottom: -32vw;
+      width: 58vw;
+      height: 58vw;
+      background: radial-gradient(circle at 40% 40%, #b6f3ee 0, var(--blue) 55%, transparent 72%);
+    }
+
+    .hero-orb.orange {
+      right: -22vw;
+      bottom: -31vw;
+      width: 47vw;
+      height: 47vw;
+      background: radial-gradient(circle, #ffcf98 0, var(--orange) 58%, transparent 72%);
+    }
+
+    .discover {
+      background: #FA9959;
+      background: var(--discover-gradient);
+    }
+
+    .discover-orb {
+      left: -18vw;
+      bottom: -36vw;
+      width: 66vw;
+      height: 66vw;
+      background: radial-gradient(circle, #f8f26a 0, rgba(248, 242, 106, 0.7) 42%, transparent 70%);
+    }
+
+    .communities {
+      border-top: 0;
+      background: #FA9959;
+      background: var(--discover-gradient);
+    }
+
+    /* Match row two at the seam, then gently reveal row three's angled gradient. */
+    .communities::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: clamp(100px, 12vw, 170px);
+      pointer-events: none;
+      background: var(--discover-gradient);
+      -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.76) 34%, transparent 100%);
+      mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.76) 34%, transparent 100%);
+    }
+
+    .communities .panel-inner {
+      grid-template-columns: minmax(420px, 1fr) minmax(360px, 0.95fr);
+      grid-template-areas: "copy visual";
+    }
+
+    .communities .panel-copy {
+      grid-area: copy;
+    }
+
+    .communities .panel-visual {
+      grid-area: visual;
+      min-height: auto;
+    }
+
+    /* Row three: layered location screens, revealed alongside nearby place cards. */
+    .location-showcase {
+      position: relative;
+      isolation: isolate;
+      width: min(510px, 96%);
+      height: min(660px, 72svh);
+      perspective: 1400px;
+      transform: translate(-5%, -9%) scale(0.92);
+      transform-origin: center;
+    }
+
+    .location-phone-stack {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      transform: translateY(-10%);
+    }
+
+    .location-phone-stack img {
+      position: absolute;
+      bottom: 0;
+      max-height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 26px 28px rgba(23, 23, 23, 0.22));
+      backface-visibility: hidden;
+      will-change: transform, opacity;
+    }
+
+    .location-phone--map {
+      z-index: 1;
+      bottom: 56px;
+      left: 2%;
+      width: min(340px, 68%);
+      transform: translateZ(-40px);
+    }
+
+    .location-phone--details {
+      z-index: 2;
+      left: 31%;
+      width: min(300px, 60%);
+      transform: translate3d(0, 25%, 80px);
+    }
+
+    .location-content-card {
+      position: absolute;
+      z-index: 4;
+      width: clamp(210px, 52%, 300px);
+      --card-final-y: 0px;
+      display: block;
+      opacity: 1;
+      transform: translate3d(0, var(--card-final-y), 0);
+      will-change: transform, opacity;
+    }
+
+    .location-content-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 16px 26px rgba(23, 23, 23, 0.16);
+    }
+
+    .location-content-card--carpenter { top: 6%; right: -5%; --card-enter-x: 42px; --card-enter-y: -18px; --card-delay: 1090ms; }
+    .location-content-card--moneygram { top: 43%; left: -38%; width: clamp(252px, 62.4%, 360px); --card-enter-x: -46px; --card-enter-y: 10px; --card-delay: 1200ms; }
+    .location-content-card--toyota { top: 51%; right: -28%; --card-enter-x: 46px; --card-enter-y: 12px; --card-delay: 1310ms; }
+    .location-content-card--garden { bottom: 5%; left: -38%; width: clamp(252px, 62.4%, 360px); --card-enter-x: -38px; --card-enter-y: 30px; --card-delay: 1420ms; }
+    .location-content-card--high-point { bottom: 20%; right: -28%; --card-enter-x: 42px; --card-enter-y: 22px; --card-delay: 1530ms; --card-final-y: 40%; }
+
+    .js .location-showcase .location-phone--map,
+    .js .location-showcase .location-phone--details,
+    .js .location-showcase .location-content-card {
+      opacity: 0;
+    }
+
+    .js .location-showcase.is-revealed .location-phone--map {
+      animation: location-map-reveal 1800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .js .location-showcase.is-revealed .location-phone--details {
+      animation: location-details-reveal 1800ms cubic-bezier(0.16, 1, 0.3, 1) 180ms both;
+    }
+
+    .js .location-showcase.is-revealed .location-content-card {
+      animation: location-content-card-reveal 700ms cubic-bezier(0.16, 1, 0.3, 1) var(--card-delay) both;
+    }
+
+    @keyframes location-map-reveal {
+      from { opacity: 0; transform: translate3d(-34px, 88px, -120px) rotateY(-180deg) rotateZ(-10deg) scale(0.86); }
+      to { opacity: 1; transform: translate3d(0, 0, -40px) rotateY(0) rotateZ(0) scale(1); }
+    }
+
+    @keyframes location-details-reveal {
+      from { opacity: 0; transform: translate3d(34px, calc(25% + 88px), 180px) rotateY(180deg) rotateZ(10deg) scale(0.86); }
+      to { opacity: 1; transform: translate3d(0, 25%, 80px) rotateY(0) rotateZ(0) scale(1); }
+    }
+
+    @keyframes location-content-card-reveal {
+      from { opacity: 0; transform: translate3d(var(--card-enter-x), calc(var(--card-enter-y) + var(--card-final-y)), 0) scale(0.94); }
+      to { opacity: 1; transform: translate3d(0, var(--card-final-y), 0) scale(1); }
+    }
+
+    /* Row three: six nearby places in an uncluttered two-by-three grid. */
+    .location-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(12px, 1.4vw, 20px);
+      width: min(680px, 100%);
+    }
+
+    .location-card {
+      min-height: 154px;
+      padding: clamp(18px, 2vw, 26px);
+      border: 1px solid rgba(23, 23, 23, 0.18);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      will-change: transform, opacity;
+    }
+
+    .location-card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--orange);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .location-card strong {
+      display: block;
+      margin-top: 18px;
+      font-size: clamp(17px, 1.45vw, 21px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .location-card span {
+      display: block;
+      margin-top: 7px;
+      color: rgba(23, 23, 23, 0.65);
+      font-size: 14px;
+    }
+
+    .location-card:nth-child(-n + 2) {
+      --row-delay: 80ms;
+    }
+
+    .location-card:nth-child(n + 3):nth-child(-n + 4) {
+      --row-delay: 280ms;
+    }
+
+    .location-card:nth-child(n + 5) {
+      --row-delay: 480ms;
+    }
+
+    .js .location-card-grid .location-card {
+      opacity: 0;
+      transform: translateY(-22px);
+    }
+
+    .js .location-card-grid.is-revealed .location-card {
+      animation: location-card-reveal 760ms cubic-bezier(0.16, 1, 0.3, 1) var(--row-delay) both;
+    }
+
+    @keyframes location-card-reveal {
+      from {
+        opacity: 0;
+        transform: translateY(-22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Row four: restore the community cards below the new locations section. */
+    .community-panel {
+      background: #8CD9A6;
+      background-image: radial-gradient(ellipse 70% 70% at 0% 0%, rgba(250, 153, 89, 1) 0%, rgba(250, 153, 89, 1) 22%, rgba(227, 177, 118, 1) 44%, rgba(140, 217, 166, 1) 72%);
+    }
+
+    /* Continue row three's edge exactly, then reveal row four's corner-only glow. */
+    .community-panel::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: clamp(120px, 15vw, 210px);
+      pointer-events: none;
+      background: var(--discover-gradient);
+      -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.78) 32%, transparent 100%);
+      mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.78) 32%, transparent 100%);
+    }
+
+    .community-panel .panel-inner {
+      grid-template-columns: minmax(420px, 1fr) minmax(360px, 0.95fr);
+      grid-template-areas: "copy visual";
+    }
+
+    .community-panel .panel-copy {
+      grid-area: copy;
+    }
+
+    .community-panel .panel-visual {
+      grid-area: visual;
+      min-height: auto;
+    }
+
+    .community-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(12px, 1.4vw, 20px);
+      width: min(680px, 100%);
+    }
+
+    .community-card-grid img {
+      width: 100%;
+      height: auto;
+      border-radius: 18px;
+      will-change: transform, opacity;
+    }
+
+    .community-card-grid img:nth-child(-n + 2) { --row-delay: 80ms; }
+    .community-card-grid img:nth-child(n + 3):nth-child(-n + 4) { --row-delay: 280ms; }
+    .community-card-grid img:nth-child(n + 5) { --row-delay: 480ms; }
+
+    .js .community-card-grid img {
+      opacity: 0;
+      transform: translateY(-22px);
+    }
+
+    .js .community-card-grid.is-revealed img {
+      animation: community-card-reveal 760ms cubic-bezier(0.16, 1, 0.3, 1) var(--row-delay) both;
+    }
+
+    @keyframes community-card-reveal {
+      from { opacity: 0; transform: translateY(-22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .community-orb {
+      right: -14vw;
+      top: -22vw;
+      width: 54vw;
+      height: 54vw;
+      background: radial-gradient(circle, #b9eef7 0, rgba(122, 204, 235, 0.8) 50%, transparent 71%);
+    }
+
+    .event-card {
+      position: absolute;
+      z-index: 5;
+      left: -6%;
+      bottom: 10%;
+      width: min(270px, 50%);
+      padding: 18px;
+      border: 1px solid var(--ink);
+      border-radius: 22px;
+      background: white;
+      transform: rotate(-5deg);
+      box-shadow: 0 18px 0 rgba(23, 23, 23, 0.09);
+    }
+
+    .event-card small,
+    .event-card strong,
+    .event-card span {
+      display: block;
+    }
+
+    .event-card small {
+      margin-bottom: 28px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .event-card strong {
+      font-size: 25px;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .event-card span {
+      margin-top: 12px;
+      font-size: 14px;
+      opacity: 0.68;
+    }
+
+    .panel.final-panel {
+      min-height: 100svh;
+      padding: 0;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      align-items: stretch;
+      background: #8CD9A6;
+      color: var(--ink);
+      scroll-snap-align: end;
+      scroll-snap-stop: always;
+    }
+
+    .final-panel .panel-inner {
+      min-height: auto;
+      padding: 80px var(--page-gutter);
+      grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.9fr);
+      align-items: center;
+      align-self: center;
+      gap: clamp(38px, 6vw, 90px);
+      text-align: left;
+      transform: translateY(clamp(56px, 8vh, 108px));
+    }
+
+    .final-art {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .final-art img {
+      width: min(100%, 660px);
+      height: auto;
+    }
+
+    .final-content {
+      width: min(100%, 640px);
+      margin: 0;
+    }
+
+    .final-download-title {
+      margin: 0 0 42px;
+      font-size: clamp(28px, 3vw, 44px);
+      font-weight: 780;
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+
+    .final-content h2 {
+      max-width: 640px;
+      margin: 0;
+      font-size: clamp(48px, 7vw, 102px);
+    }
+
+    .final-app-icon {
+      width: clamp(150px, 18vw, 280px);
+      height: auto;
+      margin: 0;
+      border: 2px solid rgba(255, 255, 255, 0.72);
+      border-radius: 22.5%;
+    }
+
+    .final-download-row {
+      display: flex;
+      align-items: center;
+      gap: clamp(22px, 3vw, 42px);
+    }
+
+    .final-download-row .app-download-block {
+      width: min(100%, 260px);
+      margin-top: 0;
+    }
+
+    .final-download-row .app-qr-row {
+      margin-top: 14px;
+    }
+
+    .final-download-row .qr-placeholder {
+      flex-basis: clamp(75px, 9vw, 140px);
+      width: clamp(75px, 9vw, 140px);
+      height: clamp(75px, 9vw, 140px);
+    }
+
+    .final-content .lede {
+      margin-right: 0;
+      margin-left: 0;
+      color: rgba(23, 23, 23, 0.74);
+    }
+
+    .final-content .action-row {
+      justify-content: flex-start;
+    }
+
+    .final-content .button-primary {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: white;
+    }
+
+    .site-footer {
+      min-height: var(--footer-height);
+      padding: 28px var(--page-gutter);
+      background: #4DB3E6;
+      background: linear-gradient(360deg, rgba(77, 179, 230, 1) 0%, rgba(140, 217, 166, 1) 68%, rgba(140, 217, 166, 1) 100%);
+      color: var(--ink);
+      scroll-snap-align: end;
+      scroll-snap-stop: always;
+    }
+
+    .final-panel .site-footer {
+      scroll-snap-align: none;
+      scroll-snap-stop: normal;
+    }
+
+    .footer-inner {
+      width: min(100%, var(--max-width));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      font-size: 14px;
+      color: rgba(23, 23, 23, 0.7);
+      transform: translateY(64px);
+    }
+
+    .footer-brand {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 760;
+      letter-spacing: -0.03em;
+    }
+
+    .footer-brand img {
+      width: 34px;
+      height: 34px;
+      object-fit: cover;
+      mix-blend-mode: multiply;
+    }
+
+    .footer-brand-mark {
+      width: 186px;
+      height: 186px;
+    }
+
+    .footer-brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-links a:hover {
+      color: var(--ink);
+    }
+
+    @media (max-width: 980px) {
+      :root {
+        --header-height: 82px;
+      }
+
+      html {
+        scroll-snap-type: none;
+      }
+
+      .panel {
+        min-height: auto;
+        padding-top: calc(var(--header-height) + 42px);
+        padding-bottom: 70px;
+      }
+
+      .panel-inner,
+      .communities .panel-inner,
+      .community-panel .panel-inner {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        gap: 34px;
+      }
+
+      .final-panel .panel-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        transform: none;
+      }
+
+      .final-art img {
+        width: min(100%, 620px);
+      }
+
+      .final-content {
+        margin: 0 auto;
+      }
+
+      .final-content h2 {
+        margin: 0 auto;
+      }
+
+      .final-content .lede {
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .final-content .action-row {
+        justify-content: center;
+      }
+
+      .final-download-row {
+        justify-content: center;
+      }
+
+      .hero .panel-inner,
+      .discover .panel-inner,
+      .communities .panel-inner,
+      .community-panel .panel-inner {
+        grid-template-areas: "copy" "visual";
+      }
+
+      .panel-copy {
+        max-width: 760px;
+      }
+
+      .panel-visual {
+        min-height: 590px;
+      }
+
+      .phone-main {
+        width: min(360px, 60vw);
+        max-height: none;
+      }
+
+      .phone-stack {
+        height: 590px;
+      }
+
+      .event-card-stack {
+        height: 520px;
+      }
+
+      .hero-phone-stack {
+        width: min(500px, 100%);
+        height: 590px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --page-gutter: 20px;
+      }
+
+      .brand {
+        font-size: 22px;
+      }
+
+      .header-actions {
+        gap: 7px;
+      }
+
+      .header-share,
+      .header-language {
+        height: 38px;
+        font-size: 13px;
+      }
+
+      .header-share {
+        padding: 0 13px;
+      }
+
+      .header-language {
+        max-width: 112px;
+        padding-left: 11px;
+      }
+
+      .brand-logo {
+        width: 36px;
+        height: 36px;
+      }
+
+      .panel {
+        padding-top: calc(var(--header-height) + 28px);
+        padding-bottom: 52px;
+      }
+
+      h1 {
+        font-size: clamp(46px, 14vw, 66px);
+      }
+
+      .hero h1 {
+        font-size: clamp(30px, 9.1vw, 43px);
+      }
+
+      h2 {
+        font-size: clamp(42px, 12vw, 60px);
+      }
+
+      .lede {
+        margin-top: 20px;
+        font-size: 18px;
+      }
+
+      .action-row {
+        margin-top: 28px;
+      }
+
+      .button-primary,
+      .button-secondary {
+        width: 100%;
+      }
+
+      .download-card {
+        align-items: flex-start;
+      }
+
+      .app-qr-row {
+        align-items: flex-start;
+      }
+
+      .app-store-badge img {
+        width: 154px;
+      }
+
+      .app-qr-row {
+        gap: 12px;
+      }
+
+      .qr-placeholder {
+        flex-basis: 68px;
+        width: 68px;
+        height: 68px;
+      }
+
+      .app-qr-copy strong {
+        font-size: 18px;
+      }
+
+      .app-qr-copy span {
+        font-size: 13px;
+      }
+
+      .download-mark {
+        flex-basis: 54px;
+        width: 54px;
+        height: 54px;
+      }
+
+      .panel-visual {
+        min-height: 470px;
+      }
+
+      .phone-main {
+        width: min(290px, 72vw);
+      }
+
+      .phone-stack {
+        height: 470px;
+      }
+
+      .phone-stack img {
+        width: min(245px, 66%);
+        max-height: 450px;
+      }
+
+      .event-card-stack {
+        height: min(112vw, 510px);
+      }
+
+      .event-card-item {
+        border-radius: 12px;
+      }
+
+      .location-card {
+        border-radius: 12px;
+      }
+
+      .location-showcase {
+        height: 440px;
+        transform: translate(-3%, -6%) scale(0.92);
+      }
+
+      .location-phone-stack img {
+        max-height: 100%;
+      }
+
+      .location-phone--map {
+        bottom: 34px;
+        left: 2%;
+        width: min(260px, 68%);
+      }
+
+      .location-phone--details {
+        left: 31%;
+        width: min(230px, 60%);
+      }
+
+      .community-card-grid img {
+        border-radius: 12px;
+      }
+
+      .hero-phone-stack {
+        width: 100%;
+        height: 470px;
+      }
+
+      .hero-phone {
+        width: min(255px, 68%);
+      }
+
+      .hero-phone--left,
+      .hero-phone--right {
+        width: min(235px, 62%);
+      }
+
+      .hero-phone--center {
+        width: min(326px, 86.7%);
+      }
+
+      .event-card {
+        left: 0;
+        width: 190px;
+        padding: 15px;
+      }
+
+      .event-card small {
+        margin-bottom: 16px;
+      }
+
+      .event-card strong {
+        font-size: 20px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .final-download-row {
+        align-items: center;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+
+      .hero-phone--left,
+      .hero-phone--right {
+        animation: none;
+        opacity: 1;
+      }
+
+      .js .event-card-item,
+      .js .event-card-stack.is-revealed .event-card-item {
+        animation: none;
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotate(var(--rotation)) scale(1);
+      }
+
+      .js .location-card-grid .location-card,
+      .js .location-card-grid.is-revealed .location-card {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+
+      .js .location-showcase .location-phone--map,
+      .js .location-showcase.is-revealed .location-phone--map {
+        animation: none;
+        opacity: 1;
+        transform: translateZ(-40px);
+      }
+
+      .js .location-showcase .location-phone--details,
+      .js .location-showcase.is-revealed .location-phone--details {
+        animation: none;
+        opacity: 1;
+        transform: translate3d(0, 25%, 80px);
+      }
+
+      .js .location-showcase .location-content-card,
+      .js .location-showcase.is-revealed .location-content-card {
+        animation: none;
+        opacity: 1;
+        transform: translate3d(0, var(--card-final-y), 0);
+      }
+
+      .js .community-card-grid img,
+      .js .community-card-grid.is-revealed img {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-brand-mark">
+        <img src="awnbeat-wordmark.png" alt="Awnbeat">
+      </div>
+      <div class="header-actions">
+        <button class="header-share" id="share-page" type="button"><span data-i18n="share">Share</span> ↗</button>
+        <div class="language-menu">
+          <button class="header-language" id="language-toggle" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="language-dropdown"><span id="current-language">English</span> <span aria-hidden="true">⌄</span></button>
+          <div class="language-dropdown" id="language-dropdown" role="listbox" aria-label="Choose language" hidden>
+            <button class="language-option" type="button" data-language="en" role="option" aria-selected="true">English (Default)</button>
+            <button class="language-option" type="button" data-language="es" role="option" aria-selected="false">Español</button>
+            <button class="language-option" type="button" data-language="ar" role="option" aria-selected="false">العربية</button>
+            <button class="language-option" type="button" data-language="vi" role="option" aria-selected="false">Tiếng Việt</button>
+            <button class="language-option" type="button" data-language="hi" role="option" aria-selected="false">हिन्दी</button>
+            <button class="language-option" type="button" data-language="ko" role="option" aria-selected="false">한국어</button>
+            <button class="language-option" type="button" data-language="ja" role="option" aria-selected="false">日本語</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- SECTION 1: Hero -->
+    <section class="panel hero" id="top">
+      <span class="hero-orb blue" aria-hidden="true"></span>
+      <span class="hero-orb orange" aria-hidden="true"></span>
+
+      <div class="panel-inner">
+        <div class="panel-visual" aria-label="Awnbeat app screens">
+          <div class="hero-phone-stack">
+            <img class="hero-phone hero-phone--left" src="hero-phone-2.png" alt="Awnbeat map of nearby sports and activities">
+            <img class="hero-phone hero-phone--center" src="hero-phone-center.png" alt="Awnbeat home screen showing featured and suggested fitness activities">
+            <img class="hero-phone hero-phone--right" src="hero-phone-3.png" alt="Awnbeat hiking community screen">
+          </div>
+        </div>
+
+        <div class="panel-copy">
+          <h1><span class="hero-title-line" data-i18n="heroFirst">Activity and community</span><br><span data-i18n="heroSecond">made easy</span></h1>
+          <p class="lede" data-i18n="heroLede">Discover local activities, connect with your community, and get moving with ease</p>
+
+          <div class="app-download-block">
+            <a class="app-store-badge" href="https://apps.apple.com/" target="_blank" rel="noopener" aria-label="Download Awnbeat on the App Store"><img src="app-store-badge.svg" alt="Download on the App Store"></a>
+            <div class="app-qr-row">
+              <div class="qr-placeholder" aria-label="App Store QR code placeholder">QR</div>
+              <div class="app-qr-copy"><strong data-i18n="getApp">Get the Awnbeat App</strong><span data-i18n="qrLede">Scan the QR code to get the app or download from the app store</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Discovery -->
+    <section class="panel discover" id="discover">
+      <span class="discover-orb" aria-hidden="true"></span>
+
+      <div class="panel-inner">
+        <div class="panel-visual">
+          <div class="event-card-stack" aria-label="A selection of Awnbeat activities and events">
+            <img class="event-card-item event-card-item--climb" src="awnbeat-sunday-climb.png" alt="Sunday Climb event">
+            <img class="event-card-item event-card-item--pickleball" src="awnbeat-lisas-pickleball-day.png" alt="Lisa's Pickleball Day event">
+            <img class="event-card-item event-card-item--football" src="awnbeat-friday-night-flag-football.png" alt="Friday Night Flag Football event">
+            <img class="event-card-item event-card-item--ride" src="awnbeat-thursday-night-ride.png" alt="Thursday Night Ride event">
+            <img class="event-card-item event-card-item--soccer" src="awnbeat-ntx-soccer-day.png" alt="NTX Soccer Day event">
+          </div>
+        </div>
+
+        <div class="panel-copy">
+          <h2 data-i18n="discoverTitle">Stay fit, have fun</h2>
+          <p class="lede" data-i18n="discoverLede">From pickup games to social activities, find new hobbies and events that get you outside</p>
+          <div class="app-download-block">
+            <a class="app-store-badge" href="https://apps.apple.com/" target="_blank" rel="noopener" aria-label="Download Awnbeat on the App Store"><img src="app-store-badge.svg" alt="Download on the App Store"></a>
+            <div class="app-qr-row">
+              <div class="qr-placeholder" aria-label="App Store QR code placeholder">QR</div>
+              <div class="app-qr-copy"><strong data-i18n="getApp">Get the Awnbeat App</strong><span data-i18n="qrLede">Scan the QR code to get the app or download from the app store</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Locations -->
+    <section class="panel communities" id="locations">
+      <span class="community-orb" aria-hidden="true"></span>
+
+      <div class="panel-inner">
+        <div class="panel-copy">
+          <h2 data-i18n="locationsTitle">Where to play &amp; connect</h2>
+          <p class="lede" data-i18n="locationsLede">Find places where your next activity can happen</p>
+          <div class="app-download-block">
+            <a class="app-store-badge" href="https://apps.apple.com/" target="_blank" rel="noopener" aria-label="Download Awnbeat on the App Store"><img src="app-store-badge.svg" alt="Download on the App Store"></a>
+            <div class="app-qr-row">
+              <div class="qr-placeholder" aria-label="App Store QR code placeholder">QR</div>
+              <div class="app-qr-copy"><strong data-i18n="getApp">Get the Awnbeat App</strong><span data-i18n="qrLede">Scan the QR code to get the app or download from the app store</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-visual">
+          <div class="location-showcase" aria-label="Awnbeat location screens and nearby places to play">
+            <div class="location-phone-stack">
+              <img class="location-phone--map" src="location-phone-map.png" alt="Awnbeat map screen showing places to play nearby">
+              <img class="location-phone--details" src="location-phone-details.png" alt="Awnbeat Glencoe Park details screen with upcoming events">
+            </div>
+            <img class="location-content-card location-content-card--carpenter" src="location-card-carpenter-park.png" alt="Carpenter Park Courts location card">
+            <img class="location-content-card location-content-card--moneygram" src="location-card-moneygram.png" alt="MoneyGram Soccer Park location card">
+            <img class="location-content-card location-content-card--toyota" src="location-card-toyota.png" alt="Toyota Soccer Center location card">
+            <img class="location-content-card location-content-card--garden" src="location-card-sports-garden.png" alt="The Sports Garden location card">
+            <img class="location-content-card location-content-card--high-point" src="location-card-high-point.png" alt="High Point Tennis Center location card">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Communities -->
+    <section class="panel community-panel" id="communities">
+      <div class="panel-inner">
+        <div class="panel-copy">
+          <h2 data-i18n="communityTitle">Community for all</h2>
+          <p class="lede" data-i18n="communityLede">Sports and fitness are things we all understand, a shared experience that connects people everywhere</p>
+          <div class="app-download-block">
+            <a class="app-store-badge" href="https://apps.apple.com/" target="_blank" rel="noopener" aria-label="Download Awnbeat on the App Store"><img src="app-store-badge.svg" alt="Download on the App Store"></a>
+            <div class="app-qr-row">
+              <div class="qr-placeholder" aria-label="App Store QR code placeholder">QR</div>
+              <div class="app-qr-copy"><strong data-i18n="getApp">Get the Awnbeat App</strong><span data-i18n="qrLede">Scan the QR code to get the app or download from the app store</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-visual">
+          <div class="community-card-grid" aria-label="Awnbeat communities">
+            <img src="community-wellness-warriors.png" alt="Wellness Warriors community">
+            <img src="community-ladies-first.png" alt="Ladies First community">
+            <img src="community-dallas-basketball.png" alt="Dallas Basketball Pickup community">
+            <img src="community-nguyen-winners.png" alt="Nguyen Winners volleyball community">
+            <img src="community-bike-trail.png" alt="Bike Trail Group community">
+            <img src="community-young-professionals.png" alt="Young Professionals - The Village tennis community">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: Final call to action -->
+    <section class="panel final-panel">
+      <div class="panel-inner">
+        <div class="final-art">
+          <img src="footer-art.png" alt="People playing basketball, volleyball, tennis, dancing, and climbing">
+        </div>
+        <div class="final-content">
+          <p class="final-download-title" data-i18n="download">Get outside with Awnbeat</p>
+          <div class="final-download-row">
+            <img class="final-app-icon" src="appiconlight.png" alt="Awnbeat app icon">
+            <div class="app-download-block">
+              <a class="app-store-badge" href="https://apps.apple.com/" target="_blank" rel="noopener" aria-label="Download Awnbeat on the App Store"><img src="app-store-badge.svg" alt="Download on the App Store"></a>
+              <div class="app-qr-row">
+                <div class="qr-placeholder" aria-label="App Store QR code placeholder">QR</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <div class="footer-brand-mark">
+            <img src="awnbeat-wordmark.png" alt="Awnbeat">
+          </div>
+          <span>© <span id="year">2026</span> Awnbeat Inc.</span>
+          <nav class="footer-links" aria-label="Footer navigation">
+            <a href="/support/" data-i18n="support">Support</a>
+            <a href="/terms/" data-i18n="terms">Terms</a>
+            <a href="/privacy/" data-i18n="privacy">Privacy</a>
+            <a href="https://www.instagram.com/awnbeat.app/" target="_blank" rel="noopener" data-i18n="instagram">Instagram</a>
+          </nav>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    document.documentElement.classList.add("js");
+    document.querySelector("#year").textContent = new Date().getFullYear();
+
+    const translations = {
+      en: {
+        share: "Share", linkCopied: "Link copied", copyPrompt: "Copy this link:", shareText: "Find your next activity with Awnbeat.",
+        heroFirst: "Activity and community", heroSecond: "made easy", heroLede: "Discover local activities, connect with your community, and get moving with ease", waitlist: "Join the waitlist", howItWorks: "See how it works", comingSoon: "Awnbeat is coming soon", comingSoonLede: "Join the early community and be first to hear when the app launches.",
+        discoverTitle: "Stay fit, have fun", discoverLede: "From pickup games to social activities, find new hobbies and events that get you outside", exploreExperience: "Explore the experience",
+        locationsTitle: "Where to play & connect", locationsLede: "Find places where your next activity can happen", explorePlaces: "Explore nearby places", courtTitle: "Neighborhood courts", courtLede: "Pickup basketball & open play", tennisTitle: "Local tennis courts", tennisLede: "Rallies, matches & lessons", fieldTitle: "Community fields", fieldLede: "Soccer, flag football & more", climbTitle: "Climbing gyms", climbLede: "Bouldering, classes & partners", trailTitle: "Trails & greenways", trailLede: "Ride, run, or explore together", studioTitle: "Studios & parks", studioLede: "Yoga, fitness, and fresh air",
+        communityTitle: "Community for all", communityLede: "Sports and fitness are things we all understand, a shared experience that connects people everywhere", buildWithUs: "Build with us", download: "Get outside with Awnbeat", getApp: "Get the Awnbeat App", qrLede: "Scan the QR code to get the app or download from the app store", support: "Support", terms: "Terms", privacy: "Privacy", instagram: "Instagram"
+      },
+      es: {
+        share: "Compartir", linkCopied: "Enlace copiado", copyPrompt: "Copia este enlace:", shareText: "Encuentra tu próxima actividad con Awnbeat.",
+        heroFirst: "Actividad y comunidad", heroSecond: "sin complicaciones", heroLede: "Descubre actividades locales, conecta con tu comunidad y ponte en movimiento fácilmente", waitlist: "Únete a la lista de espera", howItWorks: "Así funciona", comingSoon: "Awnbeat llegará pronto", comingSoonLede: "Únete a la comunidad inicial y entérate primero cuando se lance la app.",
+        discoverTitle: "Mantente en forma, diviértete", discoverLede: "Desde partidos improvisados hasta actividades sociales, encuentra nuevos pasatiempos y eventos que te hagan salir", exploreExperience: "Explora la experiencia",
+        locationsTitle: "Dónde jugar y conectar", locationsLede: "Encuentra lugares donde puede ocurrir tu próxima actividad", explorePlaces: "Explora lugares cercanos", courtTitle: "Canchas del vecindario", courtLede: "Baloncesto informal y juego abierto", tennisTitle: "Canchas de tenis locales", tennisLede: "Peloteos, partidos y clases", fieldTitle: "Campos comunitarios", fieldLede: "Fútbol, fútbol bandera y más", climbTitle: "Gimnasios de escalada", climbLede: "Búlder, clases y compañeros", trailTitle: "Senderos y vías verdes", trailLede: "Pedalea, corre o explora juntos", studioTitle: "Estudios y parques", studioLede: "Yoga, fitness y aire libre",
+        communityTitle: "Comunidad para todos", communityLede: "El deporte y el fitness son cosas que todos entendemos, una experiencia compartida que conecta a las personas en todas partes", buildWithUs: "Construye con nosotros", download: "Sal al aire libre con Awnbeat", getApp: "Obtén la app de Awnbeat", qrLede: "Escanea el código QR para obtener la app o descárgala desde App Store", support: "Soporte", terms: "Términos", privacy: "Privacidad", instagram: "Instagram"
+      },
+      ar: {
+        share: "مشاركة", linkCopied: "تم نسخ الرابط", copyPrompt: "انسخ هذا الرابط:", shareText: "اعثر على نشاطك القادم مع Awnbeat.",
+        heroFirst: "النشاط والمجتمع", heroSecond: "بكل سهولة", heroLede: "اكتشف الأنشطة المحلية، وتواصل مع مجتمعك، وانطلق بسهولة", waitlist: "انضم إلى قائمة الانتظار", howItWorks: "كيف يعمل", comingSoon: "Awnbeat قريبًا", comingSoonLede: "انضم إلى المجتمع المبكر وكن أول من يعرف عند إطلاق التطبيق.",
+        discoverTitle: "حافظ على لياقتك واستمتع", discoverLede: "من المباريات العفوية إلى الأنشطة الاجتماعية، اعثر على هوايات وفعاليات جديدة تدعوك للخروج", exploreExperience: "استكشف التجربة",
+        locationsTitle: "أين تلعب وتتواصل", locationsLede: "اعثر على أماكن يمكن أن يحدث فيها نشاطك القادم", explorePlaces: "استكشف الأماكن القريبة", courtTitle: "ملاعب الحي", courtLede: "كرة سلة ولعب مفتوح", tennisTitle: "ملاعب تنس محلية", tennisLede: "تبادلات ومباريات ودروس", fieldTitle: "ملاعب مجتمعية", fieldLede: "كرة قدم وفلاج فوتبول والمزيد", climbTitle: "صالات تسلق", climbLede: "بولدر ودروس ورفاق", trailTitle: "مسارات وممرات خضراء", trailLede: "اركب أو اركض أو استكشف معًا", studioTitle: "استوديوهات وحدائق", studioLede: "يوغا ولياقة وهواء نقي",
+        communityTitle: "مجتمع للجميع", communityLede: "الرياضة واللياقة أشياء نفهمها جميعًا، تجربة مشتركة تربط الناس في كل مكان", buildWithUs: "ابنِ معنا", download: "انطلق إلى الخارج مع Awnbeat", getApp: "احصل على تطبيق Awnbeat", qrLede: "امسح رمز QR للحصول على التطبيق أو نزّله من App Store", support: "الدعم", terms: "الشروط", privacy: "الخصوصية", instagram: "إنستغرام"
+      },
+      vi: {
+        share: "Chia sẻ", linkCopied: "Đã sao chép liên kết", copyPrompt: "Sao chép liên kết này:", shareText: "Tìm hoạt động tiếp theo của bạn cùng Awnbeat.",
+        heroFirst: "Hoạt động và cộng đồng", heroSecond: "thật dễ dàng", heroLede: "Khám phá hoạt động địa phương, kết nối với cộng đồng và vận động thật dễ dàng", waitlist: "Tham gia danh sách chờ", howItWorks: "Cách hoạt động", comingSoon: "Awnbeat sắp ra mắt", comingSoonLede: "Tham gia cộng đồng sớm và là người đầu tiên biết khi ứng dụng ra mắt.",
+        discoverTitle: "Khỏe mạnh, vui vẻ", discoverLede: "Từ các trận đấu tự phát đến hoạt động xã hội, hãy tìm sở thích và sự kiện mới đưa bạn ra ngoài", exploreExperience: "Khám phá trải nghiệm",
+        locationsTitle: "Nơi chơi và kết nối", locationsLede: "Tìm những nơi hoạt động tiếp theo của bạn có thể diễn ra", explorePlaces: "Khám phá địa điểm gần đây", courtTitle: "Sân chơi khu phố", courtLede: "Bóng rổ tự do và chơi mở", tennisTitle: "Sân quần vợt địa phương", tennisLede: "Đánh giao hữu, thi đấu và lớp học", fieldTitle: "Sân cộng đồng", fieldLede: "Bóng đá, bóng bầu dục cờ và hơn thế", climbTitle: "Phòng tập leo núi", climbLede: "Leo khối, lớp học và bạn đồng hành", trailTitle: "Đường mòn và lối xanh", trailLede: "Đạp xe, chạy hoặc khám phá cùng nhau", studioTitle: "Phòng tập và công viên", studioLede: "Yoga, thể chất và không khí trong lành",
+        communityTitle: "Cộng đồng cho mọi người", communityLede: "Thể thao và thể chất là những điều chúng ta đều hiểu, một trải nghiệm chung kết nối mọi người ở khắp nơi", buildWithUs: "Cùng xây dựng với chúng tôi", download: "Ra ngoài cùng Awnbeat", getApp: "Tải ứng dụng Awnbeat", qrLede: "Quét mã QR để tải ứng dụng hoặc tải từ App Store", support: "Hỗ trợ", terms: "Điều khoản", privacy: "Quyền riêng tư", instagram: "Instagram"
+      },
+      hi: {
+        share: "साझा करें", linkCopied: "लिंक कॉपी हो गया", copyPrompt: "इस लिंक को कॉपी करें:", shareText: "Awnbeat के साथ अपनी अगली गतिविधि खोजें।",
+        heroFirst: "गतिविधि और समुदाय", heroSecond: "आसान बनाया", heroLede: "स्थानीय गतिविधियाँ खोजें, अपने समुदाय से जुड़ें और आसानी से सक्रिय हों", waitlist: "प्रतीक्षा सूची में जुड़ें", howItWorks: "यह कैसे काम करता है", comingSoon: "Awnbeat जल्द आ रहा है", comingSoonLede: "शुरुआती समुदाय से जुड़ें और ऐप लॉन्च होने की खबर सबसे पहले पाएं।",
+        discoverTitle: "फिट रहें, मज़े करें", discoverLede: "अनौपचारिक खेलों से सामाजिक गतिविधियों तक, नई रुचियाँ और कार्यक्रम खोजें जो आपको बाहर ले जाएँ", exploreExperience: "अनुभव जानें",
+        locationsTitle: "खेलने और जुड़ने की जगह", locationsLede: "ऐसी जगहें खोजें जहाँ आपकी अगली गतिविधि हो सकती है", explorePlaces: "पास की जगहें देखें", courtTitle: "पड़ोस के कोर्ट", courtLede: "पिकअप बास्केटबॉल और खुला खेल", tennisTitle: "स्थानीय टेनिस कोर्ट", tennisLede: "रैलियाँ, मैच और कक्षाएँ", fieldTitle: "सामुदायिक मैदान", fieldLede: "फुटबॉल, फ्लैग फुटबॉल और बहुत कुछ", climbTitle: "क्लाइम्बिंग जिम", climbLede: "बोल्डरिंग, कक्षाएँ और साथी", trailTitle: "ट्रेल और ग्रीनवे", trailLede: "साइकिल चलाएँ, दौड़ें या साथ घूमें", studioTitle: "स्टूडियो और पार्क", studioLede: "योग, फिटनेस और ताज़ी हवा",
+        communityTitle: "सबके लिए समुदाय", communityLede: "खेल और फिटनेस ऐसी चीज़ें हैं जिन्हें हम सभी समझते हैं, एक साझा अनुभव जो हर जगह लोगों को जोड़ता है", buildWithUs: "हमारे साथ बनाएं", download: "Awnbeat के साथ बाहर निकलें", getApp: "Awnbeat ऐप प्राप्त करें", qrLede: "ऐप पाने के लिए QR कोड स्कैन करें या App Store से डाउनलोड करें", support: "सहायता", terms: "शर्तें", privacy: "गोपनीयता", instagram: "Instagram"
+      },
+      ko: {
+        share: "공유", linkCopied: "링크가 복사되었습니다", copyPrompt: "이 링크를 복사하세요:", shareText: "Awnbeat에서 다음 활동을 찾아보세요.",
+        heroFirst: "활동과 커뮤니티를", heroSecond: "더 쉽게", heroLede: "지역 활동을 발견하고, 커뮤니티와 연결되며, 쉽게 움직여 보세요", waitlist: "대기 명단에 참여", howItWorks: "이용 방법", comingSoon: "Awnbeat이 곧 출시됩니다", comingSoonLede: "얼리 커뮤니티에 참여하고 앱 출시 소식을 가장 먼저 받아 보세요.",
+        discoverTitle: "건강하게, 즐겁게", discoverLede: "즉석 경기부터 사교 활동까지, 밖으로 나가게 하는 새로운 취미와 이벤트를 찾아보세요", exploreExperience: "경험 살펴보기",
+        locationsTitle: "함께 놀고 연결할 곳", locationsLede: "다음 활동이 열릴 장소를 찾아보세요", explorePlaces: "주변 장소 살펴보기", courtTitle: "동네 코트", courtLede: "픽업 농구와 오픈 플레이", tennisTitle: "지역 테니스 코트", tennisLede: "랠리, 경기, 레슨", fieldTitle: "커뮤니티 운동장", fieldLede: "축구, 플래그 풋볼 등", climbTitle: "클라이밍 짐", climbLede: "볼더링, 수업, 파트너", trailTitle: "트레일과 그린웨이", trailLede: "함께 타고, 달리고, 탐험하세요", studioTitle: "스튜디오와 공원", studioLede: "요가, 피트니스, 신선한 공기",
+        communityTitle: "모두를 위한 커뮤니티", communityLede: "스포츠와 피트니스는 우리 모두가 이해하는 것, 어디서나 사람들을 연결하는 공동의 경험입니다", buildWithUs: "함께 만들어 가요", download: "Awnbeat과 함께 밖으로 나가세요", getApp: "Awnbeat 앱 받기", qrLede: "QR 코드를 스캔해 앱을 받거나 App Store에서 다운로드하세요", support: "지원", terms: "이용약관", privacy: "개인정보", instagram: "Instagram"
+      },
+      ja: {
+        share: "共有", linkCopied: "リンクをコピーしました", copyPrompt: "このリンクをコピー:", shareText: "Awnbeatで次のアクティビティを見つけよう。",
+        heroFirst: "アクティビティとコミュニティを", heroSecond: "もっと簡単に", heroLede: "地元のアクティビティを見つけ、コミュニティとつながり、気軽に体を動かそう", waitlist: "ウェイトリストに参加", howItWorks: "仕組みを見る", comingSoon: "Awnbeatは近日公開", comingSoonLede: "アーリーコミュニティに参加して、アプリ公開の知らせをいち早く受け取りましょう。",
+        discoverTitle: "健康に、楽しく", discoverLede: "気軽なゲームから交流イベントまで、外に出たくなる新しい趣味やイベントを見つけよう", exploreExperience: "体験を見てみる",
+        locationsTitle: "遊んでつながる場所", locationsLede: "次のアクティビティが生まれる場所を見つけよう", explorePlaces: "近くの場所を探す", courtTitle: "近所のコート", courtLede: "ピックアップバスケとオープンプレー", tennisTitle: "地域のテニスコート", tennisLede: "ラリー、試合、レッスン", fieldTitle: "コミュニティのフィールド", fieldLede: "サッカー、フラッグフットボールなど", climbTitle: "クライミングジム", climbLede: "ボルダリング、クラス、仲間", trailTitle: "トレイルと緑道", trailLede: "一緒に走って、乗って、探検しよう", studioTitle: "スタジオと公園", studioLede: "ヨガ、フィットネス、新鮮な空気",
+        communityTitle: "みんなのためのコミュニティ", communityLede: "スポーツとフィットネスは誰もが理解できるもの。どこにいても人をつなぐ共有の体験です", buildWithUs: "一緒につくろう", download: "Awnbeatと外へ出よう", getApp: "Awnbeatアプリを入手", qrLede: "QRコードをスキャンするか、App Storeからアプリをダウンロードしてください", support: "サポート", terms: "利用規約", privacy: "プライバシー", instagram: "Instagram"
+      }
+    };
+
+    const languageNames = { en: "English", es: "Español", ar: "العربية", vi: "Tiếng Việt", hi: "हिन्दी", ko: "한국어", ja: "日本語" };
+    let activeLanguage = "en";
+    const languageToggle = document.querySelector("#language-toggle");
+    const languageDropdown = document.querySelector("#language-dropdown");
+    const currentLanguage = document.querySelector("#current-language");
+    const languageOptions = document.querySelectorAll(".language-option");
+
+    const setLanguage = (language) => {
+      const copy = translations[language] || translations.en;
+      activeLanguage = translations[language] ? language : "en";
+      document.documentElement.lang = activeLanguage;
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const value = copy[element.dataset.i18n];
+        if (value) element.textContent = value;
+      });
+      currentLanguage.textContent = languageNames[activeLanguage];
+      languageOptions.forEach((option) => option.setAttribute("aria-selected", String(option.dataset.language === activeLanguage)));
+      try { window.localStorage.setItem("awnbeat-language", activeLanguage); } catch (error) { /* Keep the current selection for this visit. */ }
+    };
+
+    const closeLanguageMenu = () => {
+      languageDropdown.hidden = true;
+      languageToggle.setAttribute("aria-expanded", "false");
+    };
+
+    languageToggle.addEventListener("click", () => {
+      const willOpen = languageDropdown.hidden;
+      languageDropdown.hidden = !willOpen;
+      languageToggle.setAttribute("aria-expanded", String(willOpen));
+    });
+
+    languageOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        setLanguage(option.dataset.language);
+        closeLanguageMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(".language-menu")) closeLanguageMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeLanguageMenu();
+    });
+
+    try { setLanguage(window.localStorage.getItem("awnbeat-language") || "en"); } catch (error) { setLanguage("en"); }
+
+    const shareButton = document.querySelector("#share-page");
+    if (shareButton) {
+      shareButton.addEventListener("click", async () => {
+        const shareData = {
+          title: "Awnbeat",
+          text: translations[activeLanguage].shareText,
+          url: window.location.href
+        };
+
+        try {
+          if (navigator.share) {
+            await navigator.share(shareData);
+            return;
+          }
+
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(window.location.href);
+            const shareLabel = shareButton.querySelector("[data-i18n='share']");
+            shareLabel.textContent = translations[activeLanguage].linkCopied;
+            window.setTimeout(() => { shareLabel.textContent = translations[activeLanguage].share; }, 1800);
+          } else {
+            window.prompt(translations[activeLanguage].copyPrompt, window.location.href);
+          }
+        } catch (error) {
+          if (error.name !== "AbortError") {
+            window.prompt(translations[activeLanguage].copyPrompt, window.location.href);
+          }
+        }
+      });
+    }
+
+    // Desktop full-page navigation: one wheel gesture advances exactly one section.
+    const snapSections = Array.from(document.querySelectorAll("main > .panel"));
+    const desktopSnap = window.matchMedia("(min-width: 981px)");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let isSectionNavigating = false;
+    let wheelDistance = 0;
+    let wheelResetTimer;
+
+    const activeSectionIndex = () => {
+      const scrollPosition = window.scrollY;
+      return snapSections.reduce((closestIndex, section, index) => {
+        const currentDistance = Math.abs(section.offsetTop - scrollPosition);
+        const closestDistance = Math.abs(snapSections[closestIndex].offsetTop - scrollPosition);
+        return currentDistance < closestDistance ? index : closestIndex;
+      }, 0);
+    };
+
+    const navigateSection = (direction) => {
+      if (!desktopSnap.matches || reducedMotion.matches || isSectionNavigating) return;
+      const nextIndex = Math.max(0, Math.min(snapSections.length - 1, activeSectionIndex() + direction));
+      const targetSection = snapSections[nextIndex];
+      const targetTop = nextIndex === snapSections.length - 1
+        ? document.documentElement.scrollHeight - window.innerHeight
+        : targetSection.offsetTop;
+
+      if (Math.abs(window.scrollY - targetTop) < 4) return;
+      isSectionNavigating = true;
+      window.scrollTo({ top: targetTop, behavior: "smooth" });
+      window.setTimeout(() => { isSectionNavigating = false; }, 760);
+    };
+
+    window.addEventListener("wheel", (event) => {
+      if (!desktopSnap.matches || reducedMotion.matches || event.ctrlKey) return;
+      if (!event.deltaY) return;
+
+      event.preventDefault();
+      if (isSectionNavigating) return;
+      wheelDistance += event.deltaY;
+      window.clearTimeout(wheelResetTimer);
+      wheelResetTimer = window.setTimeout(() => { wheelDistance = 0; }, 140);
+
+      if (Math.abs(wheelDistance) >= 32) {
+        navigateSection(wheelDistance > 0 ? 1 : -1);
+        wheelDistance = 0;
+      }
+    }, { passive: false });
+
+    window.addEventListener("keydown", (event) => {
+      if (!desktopSnap.matches || reducedMotion.matches || event.target.closest("button, a, input, textarea, select, [contenteditable='true']")) return;
+      const forwardKeys = ["ArrowDown", "PageDown", " "];
+      const backwardKeys = ["ArrowUp", "PageUp"];
+      if (forwardKeys.includes(event.key)) {
+        event.preventDefault();
+        navigateSection(1);
+      } else if (backwardKeys.includes(event.key)) {
+        event.preventDefault();
+        navigateSection(-1);
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (event.key === "End") {
+        event.preventDefault();
+        window.scrollTo({ top: document.documentElement.scrollHeight - window.innerHeight, behavior: "smooth" });
+      }
+    });
+
+    const eventCardStack = document.querySelector(".event-card-stack");
+    if (eventCardStack) {
+      const revealEventCards = () => eventCardStack.classList.add("is-revealed");
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+        revealEventCards();
+      } else {
+        const eventCardObserver = new IntersectionObserver((entries, observer) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            revealEventCards();
+            observer.disconnect();
+          }
+        }, { threshold: 0.2 });
+        eventCardObserver.observe(eventCardStack);
+      }
+    }
+
+    const locationShowcase = document.querySelector(".location-showcase");
+    if (locationShowcase) {
+      const revealLocationShowcase = () => locationShowcase.classList.add("is-revealed");
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+        revealLocationShowcase();
+      } else {
+        const locationShowcaseObserver = new IntersectionObserver((entries, observer) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            revealLocationShowcase();
+            observer.disconnect();
+          }
+        }, { threshold: 0.16 });
+        locationShowcaseObserver.observe(locationShowcase);
+      }
+    }
+
+    const communityCardGrid = document.querySelector(".community-card-grid");
+    if (communityCardGrid) {
+      const revealCommunityCards = () => communityCardGrid.classList.add("is-revealed");
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+        revealCommunityCards();
+      } else {
+        const communityCardObserver = new IntersectionObserver((entries, observer) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            revealCommunityCards();
+            observer.disconnect();
+          }
+        }, { threshold: 0.16 });
+        communityCardObserver.observe(communityCardGrid);
+      }
+    }
+  </script>
+</body>
+</html>
