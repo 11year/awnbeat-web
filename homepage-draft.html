@@ -1906,10 +1906,11 @@
     const desktopSnap = window.matchMedia("(min-width: 981px)");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let isSectionNavigating = false;
-    let wheelGestureLocked = false;
     let wheelDistance = 0;
     let wheelResetTimer;
-    let wheelGestureReleaseTimer;
+    let navigationFallbackTimer;
+    let activeSnapTarget = 0;
+    let ignoreWheelUntil = 0;
 
     const activeSectionIndex = () => {
       const scrollPosition = window.scrollY;
@@ -1918,6 +1919,15 @@
         const closestDistance = Math.abs(snapSections[closestIndex].offsetTop - scrollPosition);
         return currentDistance < closestDistance ? index : closestIndex;
       }, 0);
+    };
+
+    const finishSectionNavigation = () => {
+      if (!isSectionNavigating) return;
+      window.clearTimeout(navigationFallbackTimer);
+      isSectionNavigating = false;
+      wheelDistance = 0;
+      // Ignore only the trailing momentum from the gesture that just completed.
+      ignoreWheelUntil = performance.now() + 180;
     };
 
     const navigateSection = (direction) => {
@@ -1930,16 +1940,10 @@
 
       if (Math.abs(window.scrollY - targetTop) < 4) return;
       isSectionNavigating = true;
+      activeSnapTarget = targetTop;
+      window.clearTimeout(navigationFallbackTimer);
       window.scrollTo({ top: targetTop, behavior: "smooth" });
-      window.setTimeout(() => { isSectionNavigating = false; }, 820);
-    };
-
-    const releaseWheelGestureAfterRest = () => {
-      window.clearTimeout(wheelGestureReleaseTimer);
-      wheelGestureReleaseTimer = window.setTimeout(() => {
-        wheelGestureLocked = false;
-        wheelDistance = 0;
-      }, 1050);
+      navigationFallbackTimer = window.setTimeout(finishSectionNavigation, 1200);
     };
 
     window.addEventListener("wheel", (event) => {
@@ -1947,18 +1951,25 @@
       if (!event.deltaY) return;
 
       event.preventDefault();
-      releaseWheelGestureAfterRest();
-      if (wheelGestureLocked || isSectionNavigating) return;
+      if (isSectionNavigating || performance.now() < ignoreWheelUntil) {
+        wheelDistance = 0;
+        return;
+      }
       wheelDistance += event.deltaY;
       window.clearTimeout(wheelResetTimer);
       wheelResetTimer = window.setTimeout(() => { wheelDistance = 0; }, 140);
 
       if (Math.abs(wheelDistance) >= 32) {
-        wheelGestureLocked = true;
         navigateSection(wheelDistance > 0 ? 1 : -1);
         wheelDistance = 0;
       }
     }, { passive: false });
+
+    window.addEventListener("scrollend", () => {
+      if (isSectionNavigating && Math.abs(window.scrollY - activeSnapTarget) < 4) {
+        finishSectionNavigation();
+      }
+    });
 
     window.addEventListener("keydown", (event) => {
       if (!desktopSnap.matches || reducedMotion.matches || event.target.closest("button, a, input, textarea, select, [contenteditable='true']")) return;
