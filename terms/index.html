@@ -25,7 +25,7 @@
   *, *::before, *::after { box-sizing: border-box; font-family: "Chopin", sans-serif; }
   html { background-color: #ffffff; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   html, body { margin: 0; padding: 0; overflow-x: hidden; }
-  body { color: #1a1a1a; font-weight: 100; min-height: 100vh; }
+  body { color: #1a1a1a; font-weight: 400; min-height: 100vh; }
   .awn-bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: #ffffff; }
   .awn-bg-watermark { position: absolute; inset: 0; background-image: url('/logo.png'), url('/logo.png'); background-repeat: repeat, repeat; background-size: 200px 200px, 200px 200px; background-position: 0 0, 100px 100px; opacity: 0.07; }
   .awn-bg-gradient { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(140,217,166,0.18) 0%, rgba(140,217,166,0.08) 25%, rgba(250,153,89,0.12) 45%, rgba(250,153,89,0.14) 55%, rgba(122,204,235,0.10) 75%, rgba(122,204,235,0.22) 100%); }
@@ -34,29 +34,29 @@
   .awn-header-inner { position: relative; max-width: 1200px; height: 100%; margin: 0 auto; padding: 0 48px; display: flex; align-items: center; justify-content: space-between; }
   .awn-header-logo-wrap { display: flex; align-items: center; gap: 10px; color: #1a1a1a; text-decoration: none; }
   .awn-header-logo-wrap img { height: 50px; width: auto; object-fit: contain; display: block; }
-  .awn-brand-name { font-size: 20px; font-weight: 100; color: #1a1a1a; letter-spacing: -0.03em; white-space: nowrap; }
+  .awn-brand-name { font-size: 20px; font-weight: 400; color: #1a1a1a; letter-spacing: -0.03em; white-space: nowrap; }
   .awn-nav-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 36px; white-space: nowrap; }
-  .awn-nav-link { font-size: 14px; font-weight: 100; color: #1a1a1a; text-decoration: none; letter-spacing: -0.02em; opacity: 0.7; transition: opacity 0.2s ease; }
+  .awn-nav-link { font-size: 14px; font-weight: 400; color: #1a1a1a; text-decoration: none; letter-spacing: -0.02em; opacity: 0.7; transition: opacity 0.2s ease; }
   .awn-nav-link:hover, .awn-nav-link.is-active { opacity: 1; }
   .legal-main { width: min(100%, 980px); margin: 0 auto; padding: 132px 24px 72px; }
   .legal-kicker { margin: 0 0 14px; color: #5f7b61; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
-  .legal-main h1 { margin: 0; color: #1a1a1a; font-size: clamp(34px, 5vw, 58px); font-weight: 100; line-height: 1.05; letter-spacing: -0.035em; }
+  .legal-main h1 { margin: 0; color: #1a1a1a; font-size: clamp(34px, 5vw, 58px); font-weight: 400; line-height: 1.05; letter-spacing: -0.035em; }
   .legal-updated { margin: 18px 0 36px; color: rgba(26,26,26,0.62); font-size: 17px; line-height: 1.5; }
   .legal-content { padding: clamp(26px, 4vw, 48px); border: 1px solid rgba(140,217,166,0.26); border-radius: 22px; background: rgba(255,255,255,0.62); box-shadow: 0 18px 54px rgba(35,60,45,0.09); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
-  .legal-content h2 { margin: 42px 0 14px; color: #1a1a1a; font-size: clamp(22px, 2.4vw, 31px); font-weight: 100; line-height: 1.16; letter-spacing: -0.025em; }
+  .legal-content h2 { margin: 42px 0 14px; color: #1a1a1a; font-size: clamp(22px, 2.4vw, 31px); font-weight: 400; line-height: 1.16; letter-spacing: -0.025em; }
   .legal-content h2:first-child { margin-top: 0; }
-  .legal-content h3 { margin: 28px 0 10px; color: #1a1a1a; font-size: 20px; font-weight: 220; line-height: 1.25; letter-spacing: -0.012em; }
-  .legal-content p { margin: 0 0 18px; color: rgba(26,26,26,0.76); font-size: 17px; font-weight: 100; line-height: 1.68; letter-spacing: -0.005em; }
+  .legal-content h3 { margin: 28px 0 10px; color: #1a1a1a; font-size: 20px; font-weight: 400; line-height: 1.25; letter-spacing: -0.012em; }
+  .legal-content p { margin: 0 0 18px; color: rgba(26,26,26,0.76); font-size: 17px; font-weight: 400; line-height: 1.68; letter-spacing: -0.005em; }
   .legal-content ul, .legal-content ol { margin: 0 0 22px; padding-left: 24px; color: rgba(26,26,26,0.76); }
-  .legal-content li { margin: 0 0 10px; padding-left: 4px; font-size: 17px; font-weight: 100; line-height: 1.58; }
-  .legal-content strong { font-weight: 420; color: rgba(18,18,18,0.92); }
+  .legal-content li { margin: 0 0 10px; padding-left: 4px; font-size: 17px; font-weight: 400; line-height: 1.58; }
+  .legal-content strong, .legal-content b { font-weight: 400; color: inherit; }
   .legal-content a { color: #4c9a65; text-decoration: none; }
   .legal-content a:hover { text-decoration: underline; }
   #awn-footer { padding: 70px 24px 42px; text-align: center; background: rgba(255,255,255,0.5); border-top: 1px solid rgba(140,217,166,0.22); }
   .awn-footer-inner { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 18px; }
   .awn-footer-logo { width: 42px; height: 42px; object-fit: contain; opacity: 0.88; }
   .awn-footer-links { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
-  .awn-footer-link, .awn-footer-email { color: #1a1a1a; text-decoration: none; font-size: 14px; font-weight: 100; opacity: 0.72; transition: opacity 0.2s ease, color 0.2s ease; }
+  .awn-footer-link, .awn-footer-email { color: #1a1a1a; text-decoration: none; font-size: 14px; font-weight: 400; opacity: 0.72; transition: opacity 0.2s ease, color 0.2s ease; }
   .awn-footer-link:hover, .awn-footer-email:hover { opacity: 1; color: #4db87a; }
   .awn-footer-dot { color: rgba(26,26,26,0.36); }
   .awn-footer-copy { margin: 0; color: rgba(26,26,26,0.52); font-size: 13px; }
