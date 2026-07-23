@@ -1895,6 +1895,64 @@
         justify-content: center;
         gap: 6px 14px;
       }
+
+      /* Keep every mobile scene visually complete inside its own viewport. */
+      .panel:not(.final-panel) {
+        contain: layout paint;
+      }
+
+      .panel-copy {
+        width: 100%;
+        text-align: center;
+      }
+
+      .panel-copy h1,
+      .panel-copy h2,
+      .panel-copy .lede {
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .panel-copy h1,
+      .panel-copy h2 {
+        max-width: 20ch;
+        font-size: clamp(32px, 9vw, 39px);
+      }
+
+      .hero h1 {
+        font-size: clamp(31px, 8.6vw, 37px);
+      }
+
+      .lede {
+        max-width: 34ch;
+        font-size: 15px;
+        line-height: 1.32;
+      }
+
+      .header-brand-mark {
+        width: 36px;
+        height: 36px;
+      }
+
+      .header-brand-mark picture,
+      .header-brand-mark img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .header-brand-mark img {
+        object-fit: contain;
+      }
+
+      .hero .panel-visual {
+        padding-top: 14px;
+      }
+
+      .hero-phone-stack {
+        height: min(44svh, 350px);
+        transform: translateY(10px) scale(0.56);
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1963,7 +2021,10 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="header-brand-mark">
-        <img src="awnbeat-wordmark.png" alt="Awnbeat">
+        <picture>
+          <source media="(max-width: 640px)" srcset="awnbeat-mobile-logo.png">
+          <img src="awnbeat-wordmark.png" alt="Awnbeat">
+        </picture>
       </div>
       <a class="header-app-store" href="https://apps.apple.com/" target="_blank" rel="noopener" aria-label="Download Awnbeat on the App Store"><img src="app-store-badge.svg" alt="Download on the App Store"></a>
       <div class="header-actions">
