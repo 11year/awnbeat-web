@@ -1522,6 +1522,127 @@
         align-items: center;
         flex-direction: column;
       }
+
+      /* Mobile story layout: each section reads as a clean, single-column scene. */
+      .site-header {
+        position: fixed;
+        height: 72px;
+        background: rgba(140, 217, 166, 0.72);
+        -webkit-backdrop-filter: blur(18px) saturate(135%);
+        backdrop-filter: blur(18px) saturate(135%);
+      }
+
+      .header-inner {
+        gap: 10px;
+      }
+
+      .header-brand-mark {
+        width: 116px;
+        height: 56px;
+        transform: translate(-10px, 3px);
+      }
+
+      .panel {
+        min-height: 100svh;
+        padding-top: 96px;
+        padding-bottom: 64px;
+      }
+
+      .panel-inner,
+      .hero .panel-inner,
+      .discover .panel-inner,
+      .communities .panel-inner,
+      .community-panel .panel-inner,
+      .final-panel .panel-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 30px;
+      }
+
+      .panel-copy,
+      .hero .panel-copy,
+      .discover .panel-copy,
+      .communities .panel-copy,
+      .community-panel .panel-copy {
+        order: 1;
+        width: 100%;
+      }
+
+      .panel-visual,
+      .hero .panel-visual,
+      .discover .panel-visual,
+      .communities .panel-visual,
+      .community-panel .panel-visual {
+        order: 2;
+        width: 100%;
+        min-height: 420px;
+      }
+
+      .hero .panel-visual,
+      .discover .panel-visual {
+        display: grid;
+        place-items: center;
+      }
+
+      .hero-phone-stack {
+        transform: translateY(0) scale(0.78);
+      }
+
+      .event-card-stack {
+        width: min(100%, 420px);
+        height: 420px;
+        margin: 0 auto;
+      }
+
+      .location-showcase {
+        width: min(100%, 390px);
+        height: 430px;
+        margin: 0 auto;
+        transform: translate(-1%, 0) scale(0.82);
+      }
+
+      .location-phone-stack {
+        transform: none;
+      }
+
+      .location-phone--map {
+        bottom: 28px;
+        left: 5%;
+      }
+
+      .location-phone--details {
+        left: 32%;
+      }
+
+      .location-content-card--carpenter { top: 5%; right: -2%; }
+      .location-content-card--moneygram { left: -8%; }
+      .location-content-card--toyota { right: -8%; }
+      .location-content-card--garden { left: -8%; }
+      .location-content-card--high-point { right: -8%; }
+
+      .community-card-grid {
+        width: 100%;
+        gap: 10px;
+      }
+
+      .final-panel {
+        min-height: auto;
+      }
+
+      .final-panel .panel-inner {
+        padding: 96px var(--page-gutter) 52px;
+        text-align: left;
+      }
+
+      .final-art,
+      .final-content {
+        width: 100%;
+      }
+
+      .final-download-row {
+        align-items: flex-start;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
