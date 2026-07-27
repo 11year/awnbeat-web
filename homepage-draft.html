@@ -2007,6 +2007,37 @@
         height: min(43dvh, 360px);
         transform: translateY(26px) scale(0.52);
       }
+
+      .panel:not(.final-panel),
+      .final-panel {
+        height: auto;
+        min-height: 100dvh;
+        overflow: visible;
+      }
+
+      .panel-inner,
+      .final-panel .panel-inner {
+        height: auto;
+        min-height: calc(100dvh - var(--header-height) - 38px);
+        overflow: visible;
+      }
+
+      .hero-title-line {
+        white-space: normal;
+      }
+
+      .panel-copy h1,
+      .panel-copy h2 {
+        max-width: min(100%, 22ch);
+        line-height: 1.06;
+        overflow-wrap: normal;
+        word-break: normal;
+      }
+
+      .final-download-title {
+        line-height: 1.12;
+        text-wrap: balance;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
