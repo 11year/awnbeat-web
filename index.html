@@ -2038,6 +2038,55 @@
         line-height: 1.12;
         text-wrap: balance;
       }
+
+      .communities {
+        contain: layout;
+      }
+
+      .communities .panel-visual {
+        display: grid;
+        place-items: center;
+        overflow: visible;
+      }
+
+      .location-showcase {
+        width: min(122vw, 460px);
+        height: min(52dvh, 410px);
+        transform: translate(0, 0) scale(0.72);
+        transform-origin: center;
+      }
+
+      .location-content-card {
+        width: clamp(190px, 44%, 230px);
+      }
+
+      .location-content-card--carpenter {
+        top: 1%;
+        right: -38%;
+      }
+
+      .location-content-card--moneygram {
+        top: 31%;
+        left: -38%;
+        width: clamp(220px, 52%, 270px);
+      }
+
+      .location-content-card--toyota {
+        top: 42%;
+        right: -40%;
+      }
+
+      .location-content-card--garden {
+        bottom: -2%;
+        left: -38%;
+        width: clamp(220px, 52%, 270px);
+      }
+
+      .location-content-card--high-point {
+        right: -40%;
+        bottom: 14%;
+        --card-final-y: 0px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
