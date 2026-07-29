@@ -2209,31 +2209,42 @@
       }
 
       .communities .panel-visual {
-        height: min(50dvh, 390px);
+        height: min(54dvh, 430px);
       }
 
       .communities .location-showcase {
-        height: min(47dvh, 370px);
+        height: min(51dvh, 405px);
+      }
+
+      .communities .panel-copy {
+        margin-top: 18px;
       }
 
       .site-footer .footer-brand-mark {
         display: none;
       }
 
+      .panel.messaging-panel {
+        contain: layout;
+      }
+
       .messaging-panel .panel-visual {
         display: grid;
         place-items: center;
-        overflow: visible;
-      }
-
-      .messaging-panel {
-        contain: layout;
+        flex: 0 0 auto;
+        height: min(54dvh, 420px);
+        min-height: 0;
+        overflow: hidden;
       }
 
       .messaging-stage {
         width: min(100%, 390px);
-        height: min(54dvh, 420px);
+        height: 100%;
         margin: 0 auto;
+      }
+
+      .messaging-panel .panel-copy {
+        margin-top: 14px;
       }
 
       .messaging-phone {
