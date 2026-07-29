@@ -2192,9 +2192,28 @@
       }
 
       .discover .event-card-stack {
-        height: min(58dvh, 548px);
-        transform: scale(1.2);
+        width: min(100%, 360px);
+        height: min(44dvh, 340px);
+        transform: scale(1.05);
         transform-origin: center;
+      }
+
+      .discover .panel-visual,
+      .communities .panel-visual {
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        height: min(48dvh, 380px);
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      .communities .panel-visual {
+        height: min(50dvh, 390px);
+      }
+
+      .communities .location-showcase {
+        height: min(47dvh, 370px);
       }
 
       .site-footer .footer-brand-mark {
@@ -2204,12 +2223,16 @@
       .messaging-panel .panel-visual {
         display: grid;
         place-items: center;
-        overflow: hidden;
+        overflow: visible;
+      }
+
+      .messaging-panel {
+        contain: layout;
       }
 
       .messaging-stage {
         width: min(100%, 390px);
-        height: min(57dvh, 438px);
+        height: min(54dvh, 420px);
         margin: 0 auto;
       }
 
@@ -2228,22 +2251,22 @@
       }
 
       .messaging-float-card--run {
-        top: 8%;
+        top: 0;
         left: 0;
       }
 
       .messaging-float-card--court {
-        top: 29%;
+        top: 28%;
         right: 0;
       }
 
       .messaging-float-card--teams {
         left: 0;
-        bottom: 27%;
+        bottom: 0;
       }
 
       .messaging-float-card--rides {
-        bottom: 8%;
+        bottom: 14%;
         right: 0;
       }
     }
