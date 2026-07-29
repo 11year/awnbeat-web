@@ -1043,7 +1043,7 @@
     .messaging-panel {
       overflow: hidden;
       background: #8CD9A6;
-      background-image: radial-gradient(ellipse 72% 72% at 100% 0%, rgba(122, 204, 235, 0.95) 0%, rgba(140, 217, 166, 1) 42%, rgba(250, 153, 89, 0.92) 100%);
+      background-image: linear-gradient(90deg, rgba(140, 217, 166, 1) 0%, rgba(140, 217, 166, 1) 100%);
     }
 
     .messaging-panel::before {
@@ -1055,7 +1055,7 @@
       left: 0;
       height: clamp(120px, 15vw, 210px);
       pointer-events: none;
-      background: radial-gradient(ellipse 70% 70% at 0% 0%, rgba(250, 153, 89, 1) 0%, rgba(250, 153, 89, 1) 22%, rgba(227, 177, 118, 1) 44%, rgba(140, 217, 166, 1) 72%);
+      background: #8CD9A6;
       -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.78) 32%, transparent 100%);
       mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.78) 32%, transparent 100%);
     }
@@ -1099,54 +1099,30 @@
       filter: drop-shadow(0 28px 38px rgba(23, 23, 23, 0.24));
     }
 
-    .messaging-carousel-row {
+    .messaging-float-card {
       position: absolute;
-      z-index: 1;
-      right: 0;
-      left: 0;
-      display: flex;
-      gap: 22px;
-      width: max-content;
-      will-change: transform;
-    }
-
-    .messaging-carousel-row--top {
-      top: 15%;
-      animation: messaging-carousel-left 26s linear infinite;
-    }
-
-    .messaging-carousel-row--bottom {
-      bottom: 15%;
-      animation: messaging-carousel-right 30s linear infinite;
-    }
-
-    .messaging-glass-card {
+      z-index: 2;
       width: clamp(190px, 17vw, 260px);
-      padding: 11px;
-      border: 1px solid rgba(255, 255, 255, 0.58);
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.28));
-      -webkit-backdrop-filter: blur(18px) saturate(140%);
-      backdrop-filter: blur(18px) saturate(140%);
-      box-shadow: 0 18px 36px rgba(23, 23, 23, 0.14);
+      padding: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.46);
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(8px) saturate(120%);
+      backdrop-filter: blur(8px) saturate(120%);
+      box-shadow: 0 14px 28px rgba(23, 23, 23, 0.12);
     }
 
-    .messaging-glass-card img {
+    .messaging-float-card img {
       width: 100%;
       height: auto;
-      border-radius: 11px;
-      box-shadow: 0 8px 18px rgba(23, 23, 23, 0.12);
+      border-radius: 9px;
+      box-shadow: 0 6px 14px rgba(23, 23, 23, 0.1);
     }
 
-    @keyframes messaging-carousel-left {
-      from { transform: translateX(0); }
-      to { transform: translateX(calc(-50% - 11px)); }
-    }
-
-    @keyframes messaging-carousel-right {
-      from { transform: translateX(calc(-50% - 11px)); }
-      to { transform: translateX(0); }
-    }
+    .messaging-float-card--run { top: 11%; right: 2%; }
+    .messaging-float-card--court { top: 31%; left: 18%; }
+    .messaging-float-card--teams { right: 1%; bottom: 29%; }
+    .messaging-float-card--rides { bottom: 10%; left: 17%; }
 
     .community-orb {
       right: -14vw;
@@ -2241,26 +2217,34 @@
         width: min(206px, 53%);
       }
 
-      .messaging-carousel-row {
-        gap: 12px;
-      }
-
-      .messaging-carousel-row--top {
-        top: 13%;
-      }
-
-      .messaging-carousel-row--bottom {
-        bottom: 13%;
-      }
-
-      .messaging-glass-card {
+      .messaging-float-card {
         width: clamp(124px, 36vw, 148px);
-        padding: 7px;
-        border-radius: 13px;
+        padding: 4px;
+        border-radius: 11px;
       }
 
-      .messaging-glass-card img {
-        border-radius: 8px;
+      .messaging-float-card img {
+        border-radius: 7px;
+      }
+
+      .messaging-float-card--run {
+        top: 8%;
+        right: 0;
+      }
+
+      .messaging-float-card--court {
+        top: 29%;
+        left: 0;
+      }
+
+      .messaging-float-card--teams {
+        right: 0;
+        bottom: 27%;
+      }
+
+      .messaging-float-card--rides {
+        bottom: 8%;
+        left: 0;
       }
     }
 
@@ -2323,9 +2307,6 @@
         transform: none;
       }
 
-      .messaging-carousel-row {
-        animation: none;
-      }
     }
   </style>
 </head>
@@ -2482,8 +2463,8 @@
     <section class="panel messaging-panel" id="messaging">
       <div class="panel-inner">
         <div class="panel-copy">
-          <h2>Messaging that keeps everyone moving</h2>
-          <p class="lede">Manage topics, coordinate rides, check court status, and keep every community conversation organized before the activity starts.</p>
+          <h2>Chat with Your People</h2>
+          <p class="lede">Keep community conversation organized and get in touch with those who get you out.</p>
           <div class="app-download-block">
             <a class="app-store-badge" href="https://apps.apple.com/" target="_blank" rel="noopener" aria-label="Download Awnbeat on the App Store"><img src="app-store-badge.svg" alt="Download on the App Store"></a>
             <div class="app-qr-row">
@@ -2495,27 +2476,11 @@
 
         <div class="panel-visual">
           <div class="messaging-stage" aria-label="Awnbeat community messaging tools">
-            <div class="messaging-carousel-row messaging-carousel-row--top" aria-hidden="true">
-              <div class="messaging-glass-card"><img src="messaging-carousel-tonights-run.png" alt=""></div>
-              <div class="messaging-glass-card"><img src="messaging-carousel-court-status.png" alt=""></div>
-              <div class="messaging-glass-card"><img src="messaging-carousel-teams.png" alt=""></div>
-              <div class="messaging-glass-card"><img src="messaging-carousel-rides.png" alt=""></div>
-              <div class="messaging-glass-card"><img src="messaging-carousel-tonights-run.png" alt=""></div>
-              <div class="messaging-glass-card"><img src="messaging-carousel-court-status.png" alt=""></div>
-              <div class="messaging-glass-card"><img src="messaging-carousel-teams.png" alt=""></div>
-              <div class="messaging-glass-card"><img src="messaging-carousel-rides.png" alt=""></div>
-            </div>
+            <div class="messaging-float-card messaging-float-card--run" aria-hidden="true"><img src="messaging-carousel-tonights-run.png" alt=""></div>
+            <div class="messaging-float-card messaging-float-card--court" aria-hidden="true"><img src="messaging-carousel-court-status.png" alt=""></div>
             <img class="messaging-phone" src="messaging-chat-phone.png" alt="Awnbeat chat room with organized topics and community messages">
-            <div class="messaging-carousel-row messaging-carousel-row--bottom" aria-hidden="true">
-              <div class="messaging-glass-card"><img src="messaging-carousel-rides.png" alt=""></div>
-              <div class="messaging-glass-card"><img src="messaging-carousel-teams.png" alt=""></div>
-              <div class="messaging-glass-card"><img src="messaging-carousel-court-status.png" alt=""></div>
-              <div class="messaging-glass-card"><img src="messaging-carousel-tonights-run.png" alt=""></div>
-              <div class="messaging-glass-card"><img src="messaging-carousel-rides.png" alt=""></div>
-              <div class="messaging-glass-card"><img src="messaging-carousel-teams.png" alt=""></div>
-              <div class="messaging-glass-card"><img src="messaging-carousel-court-status.png" alt=""></div>
-              <div class="messaging-glass-card"><img src="messaging-carousel-tonights-run.png" alt=""></div>
-            </div>
+            <div class="messaging-float-card messaging-float-card--teams" aria-hidden="true"><img src="messaging-carousel-teams.png" alt=""></div>
+            <div class="messaging-float-card messaging-float-card--rides" aria-hidden="true"><img src="messaging-carousel-rides.png" alt=""></div>
           </div>
         </div>
       </div>
