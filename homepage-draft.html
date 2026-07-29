@@ -1040,6 +1040,114 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    .messaging-panel {
+      overflow: hidden;
+      background: #8CD9A6;
+      background-image: radial-gradient(ellipse 72% 72% at 100% 0%, rgba(122, 204, 235, 0.95) 0%, rgba(140, 217, 166, 1) 42%, rgba(250, 153, 89, 0.92) 100%);
+    }
+
+    .messaging-panel::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: clamp(120px, 15vw, 210px);
+      pointer-events: none;
+      background: radial-gradient(ellipse 70% 70% at 0% 0%, rgba(250, 153, 89, 1) 0%, rgba(250, 153, 89, 1) 22%, rgba(227, 177, 118, 1) 44%, rgba(140, 217, 166, 1) 72%);
+      -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.78) 32%, transparent 100%);
+      mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.78) 32%, transparent 100%);
+    }
+
+    .messaging-panel .panel-inner {
+      grid-template-columns: minmax(420px, 1fr) minmax(440px, 1.08fr);
+      grid-template-areas: "copy visual";
+    }
+
+    .messaging-panel .panel-copy {
+      grid-area: copy;
+    }
+
+    .messaging-panel .panel-visual {
+      grid-area: visual;
+      min-height: auto;
+      display: flex;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+
+    .messaging-stage {
+      position: relative;
+      width: min(100%, 760px);
+      height: min(690px, 72svh);
+      margin-left: auto;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .messaging-phone {
+      position: absolute;
+      z-index: 3;
+      top: 50%;
+      left: 50%;
+      width: min(350px, 46%);
+      max-height: 100%;
+      height: auto;
+      object-fit: contain;
+      transform: translate(-50%, -50%);
+      filter: drop-shadow(0 28px 38px rgba(23, 23, 23, 0.24));
+    }
+
+    .messaging-carousel-row {
+      position: absolute;
+      z-index: 1;
+      right: 0;
+      left: 0;
+      display: flex;
+      gap: 22px;
+      width: max-content;
+      will-change: transform;
+    }
+
+    .messaging-carousel-row--top {
+      top: 15%;
+      animation: messaging-carousel-left 26s linear infinite;
+    }
+
+    .messaging-carousel-row--bottom {
+      bottom: 15%;
+      animation: messaging-carousel-right 30s linear infinite;
+    }
+
+    .messaging-glass-card {
+      width: clamp(190px, 17vw, 260px);
+      padding: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.28));
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      backdrop-filter: blur(18px) saturate(140%);
+      box-shadow: 0 18px 36px rgba(23, 23, 23, 0.14);
+    }
+
+    .messaging-glass-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 11px;
+      box-shadow: 0 8px 18px rgba(23, 23, 23, 0.12);
+    }
+
+    @keyframes messaging-carousel-left {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(-50% - 11px)); }
+    }
+
+    @keyframes messaging-carousel-right {
+      from { transform: translateX(calc(-50% - 11px)); }
+      to { transform: translateX(0); }
+    }
+
     .community-orb {
       right: -14vw;
       top: -22vw;
@@ -1269,7 +1377,8 @@
 
       .panel-inner,
       .communities .panel-inner,
-      .community-panel .panel-inner {
+      .community-panel .panel-inner,
+      .messaging-panel .panel-inner {
         min-height: auto;
         grid-template-columns: 1fr;
         gap: 34px;
@@ -1309,7 +1418,8 @@
       .hero .panel-inner,
       .discover .panel-inner,
       .communities .panel-inner,
-      .community-panel .panel-inner {
+      .community-panel .panel-inner,
+      .messaging-panel .panel-inner {
         grid-template-areas: "copy" "visual";
       }
 
@@ -1565,6 +1675,7 @@
       .discover .panel-inner,
       .communities .panel-inner,
       .community-panel .panel-inner,
+      .messaging-panel .panel-inner,
       .final-panel .panel-inner {
         display: flex;
         flex-direction: column;
@@ -1576,7 +1687,8 @@
       .hero .panel-copy,
       .discover .panel-copy,
       .communities .panel-copy,
-      .community-panel .panel-copy {
+      .community-panel .panel-copy,
+      .messaging-panel .panel-copy {
         order: 1;
         width: 100%;
       }
@@ -1585,7 +1697,8 @@
       .hero .panel-visual,
       .discover .panel-visual,
       .communities .panel-visual,
-      .community-panel .panel-visual {
+      .community-panel .panel-visual,
+      .messaging-panel .panel-visual {
         order: 2;
         width: 100%;
         min-height: 420px;
@@ -1752,7 +1865,8 @@
       .hero .panel-inner,
       .discover .panel-inner,
       .communities .panel-inner,
-      .community-panel .panel-inner {
+      .community-panel .panel-inner,
+      .messaging-panel .panel-inner {
         height: 100%;
         min-height: 0;
         gap: 8px;
@@ -1762,7 +1876,8 @@
       .hero .panel-visual,
       .discover .panel-visual,
       .communities .panel-visual,
-      .community-panel .panel-visual {
+      .community-panel .panel-visual,
+      .messaging-panel .panel-visual {
         order: 1;
         flex: 1 1 auto;
         min-height: 0;
@@ -1772,7 +1887,8 @@
       .hero .panel-copy,
       .discover .panel-copy,
       .communities .panel-copy,
-      .community-panel .panel-copy {
+      .community-panel .panel-copy,
+      .messaging-panel .panel-copy {
         order: 2;
         flex: 0 0 auto;
       }
@@ -2108,6 +2224,44 @@
       .site-footer .footer-brand-mark {
         display: none;
       }
+
+      .messaging-panel .panel-visual {
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+      }
+
+      .messaging-stage {
+        width: min(100%, 390px);
+        height: min(57dvh, 438px);
+        margin: 0 auto;
+      }
+
+      .messaging-phone {
+        width: min(206px, 53%);
+      }
+
+      .messaging-carousel-row {
+        gap: 12px;
+      }
+
+      .messaging-carousel-row--top {
+        top: 13%;
+      }
+
+      .messaging-carousel-row--bottom {
+        bottom: 13%;
+      }
+
+      .messaging-glass-card {
+        width: clamp(124px, 36vw, 148px);
+        padding: 7px;
+        border-radius: 13px;
+      }
+
+      .messaging-glass-card img {
+        border-radius: 8px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -2167,6 +2321,10 @@
         animation: none;
         opacity: 1;
         transform: none;
+      }
+
+      .messaging-carousel-row {
+        animation: none;
       }
     }
   </style>
@@ -2320,7 +2478,50 @@
       </div>
     </section>
 
-    <!-- SECTION 5: Final call to action -->
+    <!-- SECTION 5: Messaging -->
+    <section class="panel messaging-panel" id="messaging">
+      <div class="panel-inner">
+        <div class="panel-copy">
+          <h2>Messaging that keeps everyone moving</h2>
+          <p class="lede">Manage topics, coordinate rides, check court status, and keep every community conversation organized before the activity starts.</p>
+          <div class="app-download-block">
+            <a class="app-store-badge" href="https://apps.apple.com/" target="_blank" rel="noopener" aria-label="Download Awnbeat on the App Store"><img src="app-store-badge.svg" alt="Download on the App Store"></a>
+            <div class="app-qr-row">
+              <div class="qr-placeholder" aria-label="App Store QR code placeholder">QR</div>
+              <div class="app-qr-copy"><strong data-i18n="getApp">Get the Awnbeat App</strong><span data-i18n="qrLede">Scan the QR code to get the app or download from the app store</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-visual">
+          <div class="messaging-stage" aria-label="Awnbeat community messaging tools">
+            <div class="messaging-carousel-row messaging-carousel-row--top" aria-hidden="true">
+              <div class="messaging-glass-card"><img src="messaging-carousel-tonights-run.png" alt=""></div>
+              <div class="messaging-glass-card"><img src="messaging-carousel-court-status.png" alt=""></div>
+              <div class="messaging-glass-card"><img src="messaging-carousel-teams.png" alt=""></div>
+              <div class="messaging-glass-card"><img src="messaging-carousel-rides.png" alt=""></div>
+              <div class="messaging-glass-card"><img src="messaging-carousel-tonights-run.png" alt=""></div>
+              <div class="messaging-glass-card"><img src="messaging-carousel-court-status.png" alt=""></div>
+              <div class="messaging-glass-card"><img src="messaging-carousel-teams.png" alt=""></div>
+              <div class="messaging-glass-card"><img src="messaging-carousel-rides.png" alt=""></div>
+            </div>
+            <img class="messaging-phone" src="messaging-chat-phone.png" alt="Awnbeat chat room with organized topics and community messages">
+            <div class="messaging-carousel-row messaging-carousel-row--bottom" aria-hidden="true">
+              <div class="messaging-glass-card"><img src="messaging-carousel-rides.png" alt=""></div>
+              <div class="messaging-glass-card"><img src="messaging-carousel-teams.png" alt=""></div>
+              <div class="messaging-glass-card"><img src="messaging-carousel-court-status.png" alt=""></div>
+              <div class="messaging-glass-card"><img src="messaging-carousel-tonights-run.png" alt=""></div>
+              <div class="messaging-glass-card"><img src="messaging-carousel-rides.png" alt=""></div>
+              <div class="messaging-glass-card"><img src="messaging-carousel-teams.png" alt=""></div>
+              <div class="messaging-glass-card"><img src="messaging-carousel-court-status.png" alt=""></div>
+              <div class="messaging-glass-card"><img src="messaging-carousel-tonights-run.png" alt=""></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: Final call to action -->
     <section class="panel final-panel">
       <div class="panel-inner">
         <div class="final-art">
