@@ -2209,15 +2209,19 @@
       }
 
       .communities .panel-visual {
-        height: min(54dvh, 430px);
+        height: min(56dvh, 448px);
       }
 
       .communities .location-showcase {
-        height: min(51dvh, 405px);
+        height: min(53dvh, 424px);
+      }
+
+      .communities .location-phone--details {
+        transform: translate3d(0, 0, 80px) !important;
       }
 
       .communities .panel-copy {
-        margin-top: 18px;
+        margin-top: 20px;
       }
 
       .site-footer .footer-brand-mark {
@@ -2230,7 +2234,9 @@
 
       .messaging-panel .panel-visual {
         display: grid;
+        grid-template-columns: minmax(0, 1fr);
         place-items: center;
+        justify-content: stretch;
         flex: 0 0 auto;
         height: min(54dvh, 420px);
         min-height: 0;
@@ -2238,9 +2244,11 @@
       }
 
       .messaging-stage {
-        width: min(100%, 390px);
+        width: 100%;
+        max-width: 390px;
         height: 100%;
         margin: 0 auto;
+        justify-self: center;
       }
 
       .messaging-panel .panel-copy {
