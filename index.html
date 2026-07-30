@@ -272,9 +272,9 @@
     }
 
     .header-brand-mark {
-      width: 246px;
-      height: 246px;
-      transform: translate(-24px, 14px);
+      width: 369px;
+      height: 369px;
+      transform: translate(-70px, 14px);
     }
 
     .header-brand-mark img {
@@ -2026,6 +2026,13 @@
         font-size: clamp(24px, 7vw, 30px);
       }
 
+      .final-supporting-copy {
+        max-width: 32ch;
+        margin: -4px auto 18px;
+        font-size: 15px;
+        line-height: 1.38;
+      }
+
       .final-download-row {
         align-items: center;
         gap: 10px;
@@ -2359,6 +2366,29 @@
       .messaging-float-card--rides {
         bottom: 14%;
         right: 0;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .header-app-store img {
+        width: 96px;
+      }
+
+      .header-actions {
+        gap: 3px;
+      }
+
+      .header-share {
+        width: 28px;
+      }
+
+      .header-language {
+        min-width: 52px;
+        max-width: 52px;
+      }
+
+      #current-language {
+        max-width: 30px;
       }
     }
 
