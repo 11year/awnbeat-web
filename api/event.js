@@ -94,6 +94,52 @@ function eventMeta(event, eventId) {
   };
 }
 
+function eventStructuredData(event, meta) {
+  const startDate = cleanText(event?.start_time);
+  if (!startDate) return null;
+
+  const locationName = cleanText(event.location) || cleanText(event.address) || "Location shared after joining";
+  const addressParts = [cleanText(event.address), cleanText(event.city), cleanText(event.state)].filter(Boolean);
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: cleanText(event.title),
+    description: cleanText(event.description) || FALLBACK_DESCRIPTION,
+    startDate,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    image: [meta.image],
+    url: meta.canonicalUrl,
+    organizer: {
+      "@type": "Organization",
+      name: "Awnbeat",
+      url: SITE_ORIGIN
+    },
+    location: {
+      "@type": "Place",
+      name: locationName
+    },
+    offers: {
+      "@type": "Offer",
+      url: meta.canonicalUrl,
+      price: event.is_free === false ? String((Number(event.price_cents || 0) / 100).toFixed(2)) : "0",
+      priceCurrency: event.currency || "USD",
+      availability: "https://schema.org/InStock"
+    }
+  };
+
+  if (addressParts.length) {
+    data.location.address = {
+      "@type": "PostalAddress",
+      streetAddress: cleanText(event.address),
+      addressLocality: cleanText(event.city),
+      addressRegion: cleanText(event.state)
+    };
+  }
+
+  return data;
+}
+
 function unavailableHtml(eventId) {
   const meta = eventMeta(null, eventId);
 
@@ -128,6 +174,7 @@ function eventHtml(event, eventId) {
   return pageShell({
     meta,
     event,
+    structuredData: eventStructuredData(event, meta),
     body: `
       <main class="event-shell">
         <article class="event-card">
@@ -185,7 +232,7 @@ function eventHtml(event, eventId) {
   });
 }
 
-function pageShell({ meta, event, body }) {
+function pageShell({ meta, event, structuredData, body }) {
   const title = `${meta.title}${event ? " | Awnbeat" : ""}`;
 
   return `<!doctype html>
@@ -195,6 +242,7 @@ function pageShell({ meta, event, body }) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(meta.description)}">
+  <meta name="robots" content="${event ? "index, follow, max-image-preview:large" : "noindex, follow"}">
   <link rel="canonical" href="${escapeHtml(meta.canonicalUrl)}">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Awnbeat">
@@ -206,6 +254,7 @@ function pageShell({ meta, event, body }) {
   <meta name="twitter:title" content="${escapeHtml(meta.title)}">
   <meta name="twitter:description" content="${escapeHtml(meta.description)}">
   <meta name="twitter:image" content="${escapeHtml(meta.image)}">
+  ${structuredData ? `<script type="application/ld+json">${escapeJson(structuredData)}</script>` : ""}
   <style>
     @font-face {
       font-family: "Chopin";

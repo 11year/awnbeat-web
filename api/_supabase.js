@@ -73,6 +73,28 @@ async function fetchPublicEvent(eventId) {
   return Array.isArray(rows) && rows.length > 0 ? rows[0] : null;
 }
 
+async function fetchUpcomingPublicEventsForSitemap() {
+  const params = new URLSearchParams({
+    select: "id,start_time",
+    visibility: "eq.public",
+    status: "eq.published",
+    start_time: `gte.${new Date().toISOString()}`,
+    order: "start_time.asc",
+    limit: "1000"
+  });
+
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/events?${params.toString()}`, {
+    headers: supabaseHeaders({ Accept: "application/json" })
+  });
+
+  if (!response.ok) {
+    throw new Error(`Event sitemap lookup failed with ${response.status}`);
+  }
+
+  const rows = await response.json();
+  return Array.isArray(rows) ? rows : [];
+}
+
 async function upsertGuestRsvp({ eventId, name, phoneE164, notes }) {
   const payload = {
     event_id: eventId,
@@ -117,6 +139,7 @@ async function upsertGuestRsvp({ eventId, name, phoneE164, notes }) {
 
 module.exports = {
   fetchPublicEvent,
+  fetchUpcomingPublicEventsForSitemap,
   isUuid,
   upsertGuestRsvp
 };
