@@ -1128,25 +1128,38 @@
       overflow: hidden;
     }
 
-    .js .messaging-stage {
+    .js .messaging-stage .messaging-phone,
+    .js .messaging-stage .messaging-float-card {
       opacity: 0;
-      transform: translateY(20px);
     }
 
-    .js .messaging-stage.is-revealed {
-      opacity: 1;
-      transform: translateY(0);
-      animation: messaging-stage-reveal 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    .js .messaging-stage.is-revealed .messaging-phone {
+      animation: messaging-phone-reveal 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
-    @keyframes messaging-stage-reveal {
+    .js .messaging-stage.is-revealed .messaging-float-card {
+      animation: messaging-card-reveal 1400ms cubic-bezier(0.16, 1, 0.3, 1) var(--card-delay) both;
+    }
+
+    @keyframes messaging-phone-reveal {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translate(-50%, -50%) translateY(32px) scale(0.92);
       }
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    @keyframes messaging-card-reveal {
+      from {
+        opacity: 0;
+        transform: translate3d(var(--card-enter-x), var(--card-enter-y), 0) scale(0.88);
+      }
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
       }
     }
 
@@ -1166,8 +1179,8 @@
     .messaging-float-card {
       position: absolute;
       z-index: 2;
-      width: clamp(190px, 16vw, 240px);
-      padding: 5px;
+      width: clamp(285px, 24vw, 360px);
+      padding: 6px;
       border: 1px solid rgba(255, 255, 255, 0.46);
       border-radius: 13px;
       background: rgba(255, 255, 255, 0.24);
@@ -1177,16 +1190,20 @@
     }
 
     .messaging-float-card img {
+      display: block;
       width: 100%;
       height: auto;
       border-radius: 9px;
       box-shadow: 0 6px 14px rgba(23, 23, 23, 0.1);
+      image-rendering: auto;
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
 
-    .messaging-float-card--run { top: 13%; left: 0; }
-    .messaging-float-card--court { top: 31%; right: 0; }
-    .messaging-float-card--teams { left: 0; bottom: 25%; }
-    .messaging-float-card--rides { right: 0; bottom: 10%; }
+    .messaging-float-card--run { --card-delay: 650ms; --card-enter-x: -34px; --card-enter-y: 24px; top: 13%; left: 0; }
+    .messaging-float-card--court { --card-delay: 850ms; --card-enter-x: 34px; --card-enter-y: 24px; top: 31%; right: 0; }
+    .messaging-float-card--teams { --card-delay: 1050ms; --card-enter-x: -34px; --card-enter-y: 24px; left: 0; bottom: 25%; }
+    .messaging-float-card--rides { --card-delay: 1250ms; --card-enter-x: 34px; --card-enter-y: 24px; right: 0; bottom: 10%; }
 
     .community-orb {
       right: -14vw;
@@ -2339,7 +2356,7 @@
       }
 
       .messaging-float-card {
-        width: clamp(112px, 31vw, 126px);
+        width: clamp(168px, 46.5vw, 189px);
         padding: 4px;
         border-radius: 11px;
       }
@@ -2448,6 +2465,22 @@
       .js .community-card-grid.is-revealed img {
         animation: none;
         opacity: 1;
+        transform: none;
+      }
+
+      .js .messaging-stage .messaging-phone,
+      .js .messaging-stage .messaging-float-card,
+      .js .messaging-stage.is-revealed .messaging-phone,
+      .js .messaging-stage.is-revealed .messaging-float-card {
+        animation: none;
+        opacity: 1;
+      }
+
+      .js .messaging-stage .messaging-phone {
+        transform: translate(-50%, -50%);
+      }
+
+      .js .messaging-stage .messaging-float-card {
         transform: none;
       }
 
