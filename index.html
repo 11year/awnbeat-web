@@ -1086,6 +1086,28 @@
       overflow: hidden;
     }
 
+    .js .messaging-stage {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .js .messaging-stage.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+      animation: messaging-stage-reveal 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes messaging-stage-reveal {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .messaging-phone {
       position: absolute;
       z-index: 3;
@@ -2506,7 +2528,7 @@
       <div class="panel-inner">
         <div class="panel-copy">
           <h2>Chat with Your People</h2>
-          <p class="lede">Keep community conversation organized and get in touch with those who get you out.</p>
+          <p class="lede">Keep community conversation organized and get in touch with those who get you out</p>
           <div class="app-download-block">
             <a class="app-store-badge" href="https://apps.apple.com/" target="_blank" rel="noopener" aria-label="Download Awnbeat on the App Store"><img src="app-store-badge.svg" alt="Download on the App Store"></a>
             <div class="app-qr-row">
@@ -2832,6 +2854,22 @@
           }
         }, { threshold: 0.16 });
         communityCardObserver.observe(communityCardGrid);
+      }
+    }
+
+    const messagingStage = document.querySelector(".messaging-stage");
+    if (messagingStage) {
+      const revealMessagingStage = () => messagingStage.classList.add("is-revealed");
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+        revealMessagingStage();
+      } else {
+        const messagingStageObserver = new IntersectionObserver((entries, observer) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            revealMessagingStage();
+            observer.disconnect();
+          }
+        }, { threshold: 0.2 });
+        messagingStageObserver.observe(messagingStage);
       }
     }
   </script>
