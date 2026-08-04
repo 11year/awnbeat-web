@@ -1125,7 +1125,7 @@
       height: min(690px, 72svh);
       margin-left: auto;
       isolation: isolate;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .js .messaging-stage .messaging-phone,
@@ -1168,7 +1168,7 @@
       z-index: 3;
       top: 50%;
       left: 50%;
-      width: min(350px, 46%);
+      width: min(338px, 44%);
       max-height: 100%;
       height: auto;
       object-fit: contain;
@@ -1179,14 +1179,13 @@
     .messaging-float-card {
       position: absolute;
       z-index: 2;
-      width: clamp(285px, 24vw, 360px);
-      padding: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.46);
+      /* Keep the small source captures close to native size so their text stays crisp. */
+      width: clamp(172px, 16vw, 205px);
+      padding: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.72);
       border-radius: 13px;
-      background: rgba(255, 255, 255, 0.24);
-      -webkit-backdrop-filter: blur(8px) saturate(120%);
-      backdrop-filter: blur(8px) saturate(120%);
-      box-shadow: 0 14px 28px rgba(23, 23, 23, 0.12);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 12px 22px rgba(23, 23, 23, 0.14);
     }
 
     .messaging-float-card img {
@@ -1196,14 +1195,12 @@
       border-radius: 9px;
       box-shadow: 0 6px 14px rgba(23, 23, 23, 0.1);
       image-rendering: auto;
-      transform: translateZ(0);
-      backface-visibility: hidden;
     }
 
-    .messaging-float-card--run { --card-delay: 650ms; --card-enter-x: -34px; --card-enter-y: 24px; top: 13%; left: 0; }
-    .messaging-float-card--court { --card-delay: 850ms; --card-enter-x: 34px; --card-enter-y: 24px; top: 31%; right: 0; }
-    .messaging-float-card--teams { --card-delay: 1050ms; --card-enter-x: -34px; --card-enter-y: 24px; left: 0; bottom: 25%; }
-    .messaging-float-card--rides { --card-delay: 1250ms; --card-enter-x: 34px; --card-enter-y: 24px; right: 0; bottom: 10%; }
+    .messaging-float-card--run { --card-delay: 650ms; --card-enter-x: -26px; --card-enter-y: 20px; top: 8%; left: 1%; }
+    .messaging-float-card--court { --card-delay: 850ms; --card-enter-x: 26px; --card-enter-y: 20px; top: 28%; right: 1%; }
+    .messaging-float-card--teams { --card-delay: 1050ms; --card-enter-x: -26px; --card-enter-y: 20px; left: 1%; bottom: 19%; }
+    .messaging-float-card--rides { --card-delay: 1250ms; --card-enter-x: 26px; --card-enter-y: 20px; right: 1%; bottom: 4%; }
 
     .community-orb {
       right: -14vw;
@@ -2352,11 +2349,11 @@
       }
 
       .messaging-phone {
-        width: min(180px, 46%);
+        width: min(176px, 45%);
       }
 
       .messaging-float-card {
-        width: clamp(168px, 46.5vw, 189px);
+        width: clamp(156px, 43vw, 172px);
         padding: 4px;
         border-radius: 11px;
       }
@@ -2366,12 +2363,12 @@
       }
 
       .messaging-float-card--run {
-        top: 0;
+        top: 2%;
         left: 0;
       }
 
       .messaging-float-card--court {
-        top: 28%;
+        top: 26%;
         right: 0;
       }
 
@@ -2381,7 +2378,7 @@
       }
 
       .messaging-float-card--rides {
-        bottom: 14%;
+        bottom: 9%;
         right: 0;
       }
     }
