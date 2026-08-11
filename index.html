@@ -1845,61 +1845,70 @@
       }
 
       .header-brand-mark {
-        width: 34px;
-        height: 34px;
+        width: 75px;
+        height: 36px;
+        overflow: hidden;
         transform: none;
       }
 
       .header-app-store {
         position: absolute;
         z-index: 1;
-        left: 50%;
+        left: calc(50% - 32px);
         display: block;
         transform: translateX(-50%);
       }
 
       .header-app-store img {
         display: block;
-        width: 112px;
+        width: 96px;
         height: auto;
       }
 
       .header-actions {
         z-index: 2;
-        gap: 4px;
+        gap: 6px;
       }
 
       .header-share,
       .header-language {
-        height: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 32px;
         font-size: 11px;
+        line-height: 1;
+        white-space: nowrap;
       }
 
       .header-share {
-        width: 30px;
-        padding: 0;
-        font-size: 0;
+        width: 62px;
+        padding: 0 7px;
+        gap: 3px;
+        font-size: 9px;
       }
 
       .header-share span {
-        display: none;
+        display: inline-block;
+        max-width: none;
       }
 
       .header-share::after {
-        content: "↗";
-        font-size: 16px;
+        content: none;
       }
 
       .header-language {
-        min-width: 58px;
-        max-width: 58px;
-        padding: 0 6px;
+        width: 76px;
+        min-width: 0;
+        max-width: none;
+        padding: 0 7px;
+        gap: 3px;
+        font-size: 9px;
       }
 
       #current-language {
-        max-width: 36px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        display: inline-block;
+        max-width: none;
         white-space: nowrap;
       }
 
@@ -2112,7 +2121,7 @@
       }
 
       .header-brand-mark {
-        width: 36px;
+        width: 75px;
         height: 36px;
       }
 
@@ -2124,6 +2133,12 @@
       }
 
       .header-brand-mark img {
+        position: relative;
+        top: -39px;
+        left: -22px;
+        width: 115px;
+        max-width: none;
+        height: 115px;
         object-fit: contain;
       }
 
@@ -2373,8 +2388,12 @@
     }
 
     @media (max-width: 360px) {
+      .header-app-store {
+        left: calc(50% - 13px);
+      }
+
       .header-app-store img {
-        width: 96px;
+        width: 88px;
       }
 
       .header-actions {
@@ -2383,15 +2402,28 @@
 
       .header-share {
         width: 28px;
+        padding: 0;
+        font-size: 0;
+      }
+
+      .header-share span {
+        display: none;
+        max-width: none;
+      }
+
+      .header-share::after {
+        content: "↗";
+        font-size: 15px;
       }
 
       .header-language {
-        min-width: 52px;
-        max-width: 52px;
+        width: 68px;
+        padding: 0 5px;
+        font-size: 8px;
       }
 
       #current-language {
-        max-width: 30px;
+        max-width: none;
       }
     }
 
@@ -2479,7 +2511,7 @@
     <div class="header-inner">
       <div class="header-brand-mark">
         <picture>
-          <source media="(max-width: 640px)" srcset="awnbeat-mobile-logo.png">
+          <source media="(max-width: 640px)" srcset="awnbeat-mobile-logo-v2.png">
           <img src="awnbeat-wordmark.png" alt="Awnbeat">
         </picture>
       </div>
