@@ -4,7 +4,12 @@
     "details": [
       {
         "appID": "ZP6HP72572.awnbeat.awn",
-        "paths": ["/events/*"]
+        "paths": [
+          "/events/*",
+          "/communities/*",
+          "/posts/*",
+          "/profile/*"
+        ]
       }
     ]
   }
