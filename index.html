@@ -1865,6 +1865,12 @@
         height: auto;
       }
 
+      .language-menu {
+        display: flex;
+        align-items: center;
+        height: 28px;
+      }
+
       .header-actions {
         z-index: 2;
         gap: 3px;
@@ -1875,17 +1881,17 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        height: 22px;
-        font-size: 8px;
+        height: 28px;
+        font-size: 10px;
         line-height: 1;
         white-space: nowrap;
       }
 
       .header-share {
-        width: 42px;
-        padding: 0 2px;
-        gap: 1px;
-        font-size: 8px;
+        width: 53px;
+        padding: 0 3px;
+        gap: 2px;
+        font-size: 10px;
       }
 
       .header-share span {
@@ -1898,16 +1904,16 @@
       }
 
       html:lang(es) .header-share {
-        font-size: 7px;
+        font-size: 8.5px;
       }
 
       .header-language {
-        width: 52px;
+        width: 65px;
         min-width: 0;
         max-width: none;
-        padding: 0 2px;
-        gap: 1px;
-        font-size: 8px;
+        padding: 0 3px;
+        gap: 2px;
+        font-size: 10px;
       }
 
       #current-language {
@@ -2138,7 +2144,7 @@
 
       .header-brand-mark img {
         position: relative;
-        top: -58px;
+        top: -63px;
         left: -33px;
         width: 173px;
         max-width: none;
@@ -2391,6 +2397,12 @@
       }
     }
 
+    @media (max-width: 390px) {
+      .header-app-store img {
+        width: 90px;
+      }
+    }
+
     @media (max-width: 370px) {
       .site-header {
         padding-right: 10px;
@@ -2406,9 +2418,9 @@
       }
 
       .header-share {
-        width: 42px;
-        padding: 0 2px;
-        font-size: 8px;
+        width: 53px;
+        padding: 0 3px;
+        font-size: 10px;
       }
 
       .header-share span {
@@ -2421,9 +2433,9 @@
       }
 
       .header-language {
-        width: 52px;
-        padding: 0 2px;
-        font-size: 8px;
+        width: 65px;
+        padding: 0 3px;
+        font-size: 10px;
       }
 
       #current-language {
@@ -2432,8 +2444,13 @@
     }
 
     @media (max-width: 340px) {
+      .site-header {
+        padding-right: 8px;
+        padding-left: 8px;
+      }
+
       .header-app-store img {
-        width: 72px;
+        width: 60px;
       }
     }
 
