@@ -19,6 +19,17 @@
   ],
   "redirects": [
     {
+      "source": "/:path((?!\\.well-known/apple-app-site-association$).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.awnbeat.com"
+        }
+      ],
+      "destination": "https://awnbeat.com/:path*",
+      "permanent": true
+    },
+    {
       "source": "/privacy-policy",
       "destination": "/privacy/",
       "permanent": true
