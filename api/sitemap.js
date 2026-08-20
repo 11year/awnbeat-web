@@ -19,7 +19,7 @@ module.exports = async function handler(req, res) {
   try {
     const events = await fetchUpcomingPublicEventsForSitemap();
     const pages = [
-      urlEntry(`${SITE_ORIGIN}/`),
+      urlEntry(`${SITE_ORIGIN}/`, "2026-08-20"),
       urlEntry(`${SITE_ORIGIN}/support/`),
       urlEntry(`${SITE_ORIGIN}/terms/`),
       urlEntry(`${SITE_ORIGIN}/privacy/`),
