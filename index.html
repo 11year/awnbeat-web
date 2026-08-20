@@ -118,6 +118,16 @@
       scroll-snap-type: y mandatory;
     }
 
+    /* The desktop wheel controller owns section positioning. Keeping native
+       snapping enabled at the same time makes reverse gestures fight the
+       in-progress smooth scroll and can send the page in the wrong direction. */
+    @media (min-width: 981px) and (prefers-reduced-motion: no-preference) {
+      html {
+        scroll-behavior: auto;
+        scroll-snap-type: none;
+      }
+    }
+
     body {
       margin: 0;
       color: var(--ink);
@@ -2328,9 +2338,9 @@
       }
 
       .discover .event-card-stack {
-        width: min(100%, 360px);
+        width: min(calc(100% - 28px), 350px);
         height: min(44dvh, 340px);
-        transform: scale(1.05);
+        transform: none;
         transform-origin: center;
       }
 
@@ -2341,6 +2351,13 @@
         flex: 0 0 auto;
         height: min(48dvh, 380px);
         min-height: 0;
+      }
+
+      .discover .panel-visual {
+        overflow: visible;
+      }
+
+      .communities .panel-visual {
         overflow: hidden;
       }
 
@@ -2918,6 +2935,8 @@
     let navigationFallbackTimer;
     let activeSnapTarget = 0;
     let ignoreWheelUntil = 0;
+    let wheelDirection = 0;
+    let settledSectionIndex = 0;
 
     const activeSectionIndex = () => {
       const scrollPosition = window.scrollY;
@@ -2932,14 +2951,18 @@
       if (!isSectionNavigating) return;
       window.clearTimeout(navigationFallbackTimer);
       isSectionNavigating = false;
+      settledSectionIndex = activeSectionIndex();
       wheelDistance = 0;
+      wheelDirection = 0;
       // Ignore only the trailing momentum from the gesture that just completed.
-      ignoreWheelUntil = performance.now() + 180;
+      ignoreWheelUntil = performance.now() + 220;
     };
 
     const navigateSection = (direction) => {
       if (!desktopSnap.matches || reducedMotion.matches || isSectionNavigating) return;
-      const nextIndex = Math.max(0, Math.min(snapSections.length - 1, activeSectionIndex() + direction));
+      settledSectionIndex = activeSectionIndex();
+      const nextIndex = Math.max(0, Math.min(snapSections.length - 1, settledSectionIndex + direction));
+      if (nextIndex === settledSectionIndex) return;
       const targetSection = snapSections[nextIndex];
       const targetTop = nextIndex === snapSections.length - 1
         ? document.documentElement.scrollHeight - window.innerHeight
@@ -2947,6 +2970,7 @@
 
       if (Math.abs(window.scrollY - targetTop) < 4) return;
       isSectionNavigating = true;
+      settledSectionIndex = nextIndex;
       activeSnapTarget = targetTop;
       window.clearTimeout(navigationFallbackTimer);
       window.scrollTo({ top: targetTop, behavior: "smooth" });
@@ -2958,17 +2982,31 @@
       if (!event.deltaY) return;
 
       event.preventDefault();
-      if (isSectionNavigating || performance.now() < ignoreWheelUntil) {
+      const now = performance.now();
+      if (isSectionNavigating || now < ignoreWheelUntil) {
         wheelDistance = 0;
+        wheelDirection = 0;
+        // Momentum can outlive the smooth scroll. Extend the quiet window until
+        // the current gesture has actually stopped producing wheel events.
+        ignoreWheelUntil = now + 220;
         return;
       }
-      wheelDistance += event.deltaY;
-      window.clearTimeout(wheelResetTimer);
-      wheelResetTimer = window.setTimeout(() => { wheelDistance = 0; }, 140);
-
-      if (Math.abs(wheelDistance) >= 32) {
-        navigateSection(wheelDistance > 0 ? 1 : -1);
+      const nextWheelDirection = Math.sign(event.deltaY);
+      if (wheelDirection && nextWheelDirection !== wheelDirection) {
         wheelDistance = 0;
+      }
+      wheelDirection = nextWheelDirection;
+      wheelDistance += Math.abs(event.deltaY);
+      window.clearTimeout(wheelResetTimer);
+      wheelResetTimer = window.setTimeout(() => {
+        wheelDistance = 0;
+        wheelDirection = 0;
+      }, 160);
+
+      if (wheelDistance >= 32) {
+        navigateSection(wheelDirection);
+        wheelDistance = 0;
+        wheelDirection = 0;
       }
     }, { passive: false });
 
