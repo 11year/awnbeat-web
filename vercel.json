@@ -48,6 +48,26 @@
     {
       "source": "/events/:eventId",
       "destination": "/api/event?eventId=:eventId"
+    },
+    {
+      "source": "/communities/:entityId",
+      "destination": "/api/open-app?resource=communities&entityId=:entityId"
+    },
+    {
+      "source": "/groups/:entityId",
+      "destination": "/api/open-app?resource=groups&entityId=:entityId"
+    },
+    {
+      "source": "/posts/:entityId",
+      "destination": "/api/open-app?resource=posts&entityId=:entityId"
+    },
+    {
+      "source": "/profile/:entityId",
+      "destination": "/api/open-app?resource=profile&entityId=:entityId"
+    },
+    {
+      "source": "/chats/:entityId",
+      "destination": "/api/open-app?resource=chats&entityId=:entityId"
     }
   ]
 }

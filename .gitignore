@@ -8,3 +8,5 @@ __MACOSX
 how-it-works/_source
 how-it-works/_source_host
 how-it-works/_extract_host
+.vercel
+.env*
