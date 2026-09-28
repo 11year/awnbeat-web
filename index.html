@@ -118,16 +118,6 @@
       scroll-snap-type: y mandatory;
     }
 
-    /* The desktop wheel controller owns section positioning. Keeping native
-       snapping enabled at the same time makes reverse gestures fight the
-       in-progress smooth scroll and can send the page in the wrong direction. */
-    @media (min-width: 981px) and (prefers-reduced-motion: no-preference) {
-      html {
-        scroll-behavior: auto;
-        scroll-snap-type: none;
-      }
-    }
-
     body {
       margin: 0;
       color: var(--ink);
@@ -2924,116 +2914,6 @@
         }
       });
     }
-
-    // Desktop full-page navigation: one wheel gesture advances exactly one section.
-    const snapSections = Array.from(document.querySelectorAll("main > .panel"));
-    const desktopSnap = window.matchMedia("(min-width: 981px)");
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let isSectionNavigating = false;
-    let wheelDistance = 0;
-    let wheelResetTimer;
-    let navigationFallbackTimer;
-    let activeSnapTarget = 0;
-    let ignoreWheelUntil = 0;
-    let wheelDirection = 0;
-    let settledSectionIndex = 0;
-
-    const activeSectionIndex = () => {
-      const scrollPosition = window.scrollY;
-      return snapSections.reduce((closestIndex, section, index) => {
-        const currentDistance = Math.abs(section.offsetTop - scrollPosition);
-        const closestDistance = Math.abs(snapSections[closestIndex].offsetTop - scrollPosition);
-        return currentDistance < closestDistance ? index : closestIndex;
-      }, 0);
-    };
-
-    const finishSectionNavigation = () => {
-      if (!isSectionNavigating) return;
-      window.clearTimeout(navigationFallbackTimer);
-      isSectionNavigating = false;
-      settledSectionIndex = activeSectionIndex();
-      wheelDistance = 0;
-      wheelDirection = 0;
-      // Ignore only the trailing momentum from the gesture that just completed.
-      ignoreWheelUntil = performance.now() + 220;
-    };
-
-    const navigateSection = (direction) => {
-      if (!desktopSnap.matches || reducedMotion.matches || isSectionNavigating) return;
-      settledSectionIndex = activeSectionIndex();
-      const nextIndex = Math.max(0, Math.min(snapSections.length - 1, settledSectionIndex + direction));
-      if (nextIndex === settledSectionIndex) return;
-      const targetSection = snapSections[nextIndex];
-      const targetTop = nextIndex === snapSections.length - 1
-        ? document.documentElement.scrollHeight - window.innerHeight
-        : targetSection.offsetTop;
-
-      if (Math.abs(window.scrollY - targetTop) < 4) return;
-      isSectionNavigating = true;
-      settledSectionIndex = nextIndex;
-      activeSnapTarget = targetTop;
-      window.clearTimeout(navigationFallbackTimer);
-      window.scrollTo({ top: targetTop, behavior: "smooth" });
-      navigationFallbackTimer = window.setTimeout(finishSectionNavigation, 1200);
-    };
-
-    window.addEventListener("wheel", (event) => {
-      if (!desktopSnap.matches || reducedMotion.matches || event.ctrlKey) return;
-      if (!event.deltaY) return;
-
-      event.preventDefault();
-      const now = performance.now();
-      if (isSectionNavigating || now < ignoreWheelUntil) {
-        wheelDistance = 0;
-        wheelDirection = 0;
-        // Momentum can outlive the smooth scroll. Extend the quiet window until
-        // the current gesture has actually stopped producing wheel events.
-        ignoreWheelUntil = now + 220;
-        return;
-      }
-      const nextWheelDirection = Math.sign(event.deltaY);
-      if (wheelDirection && nextWheelDirection !== wheelDirection) {
-        wheelDistance = 0;
-      }
-      wheelDirection = nextWheelDirection;
-      wheelDistance += Math.abs(event.deltaY);
-      window.clearTimeout(wheelResetTimer);
-      wheelResetTimer = window.setTimeout(() => {
-        wheelDistance = 0;
-        wheelDirection = 0;
-      }, 160);
-
-      if (wheelDistance >= 32) {
-        navigateSection(wheelDirection);
-        wheelDistance = 0;
-        wheelDirection = 0;
-      }
-    }, { passive: false });
-
-    window.addEventListener("scrollend", () => {
-      if (isSectionNavigating && Math.abs(window.scrollY - activeSnapTarget) < 4) {
-        finishSectionNavigation();
-      }
-    });
-
-    window.addEventListener("keydown", (event) => {
-      if (!desktopSnap.matches || reducedMotion.matches || event.target.closest("button, a, input, textarea, select, [contenteditable='true']")) return;
-      const forwardKeys = ["ArrowDown", "PageDown", " "];
-      const backwardKeys = ["ArrowUp", "PageUp"];
-      if (forwardKeys.includes(event.key)) {
-        event.preventDefault();
-        navigateSection(1);
-      } else if (backwardKeys.includes(event.key)) {
-        event.preventDefault();
-        navigateSection(-1);
-      } else if (event.key === "Home") {
-        event.preventDefault();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else if (event.key === "End") {
-        event.preventDefault();
-        window.scrollTo({ top: document.documentElement.scrollHeight - window.innerHeight, behavior: "smooth" });
-      }
-    });
 
     const eventCardStack = document.querySelector(".event-card-stack");
     if (eventCardStack) {
