@@ -18,7 +18,7 @@
 
 ## Free ongoing work that earns broader search visibility
 
-- Publish useful, indexable pages for real searches: Dallas pickup basketball, Dallas pickleball, running groups, cycling, soccer, volleyball, climbing, and specific venues. Each page needs unique first-hand copy, a descriptive title/H1, and links from the homepage or a hub page.
+- Publish useful, indexable pages for real searches in each supported market: pickup basketball, pickleball, running groups, cycling, soccer, volleyball, climbing, and specific venues. Each page needs unique first-hand copy, a descriptive title/H1, and links from the homepage or a hub page.
 - Publish each public event at a stable URL with title, date/time, location, an event image, and Event schema. Do not include cancelled, private, or expired events in the sitemap.
 - Create city and neighborhood pages only where Awnbeat genuinely has activity. Mention the actual area, venue, activity, and event/community details; do not mass-produce thin location pages.
 - Ask event hosts, venues, clubs, universities, and community partners to link to their Awnbeat event or community page. Genuine local references are more valuable than directory spam or paid links.
