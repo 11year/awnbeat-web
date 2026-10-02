@@ -759,9 +759,12 @@
       background: linear-gradient(90deg, rgba(250, 153, 89, 1) 26%, rgba(140, 217, 166, 1) 53%, rgba(140, 217, 166, 1) 100%);
     }
 
-    .hero .panel-inner,
-    .discover .panel-inner {
+    .hero .panel-inner {
       grid-template-areas: "copy visual";
+    }
+
+    .discover .panel-inner {
+      grid-template-areas: "visual copy";
     }
 
     .hero .panel-visual,
@@ -1046,7 +1049,7 @@
 
     .community-panel .panel-inner {
       grid-template-columns: minmax(420px, 1fr) minmax(360px, 0.95fr);
-      grid-template-areas: "copy visual";
+      grid-template-areas: "visual copy";
     }
 
     .community-panel .panel-copy {
