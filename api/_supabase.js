@@ -10,6 +10,7 @@ const SUPABASE_ANON_KEY =
 
 const EVENT_COLUMNS = [
   "id",
+  "creator_id",
   "title",
   "description",
   "image_url",
@@ -137,8 +138,34 @@ async function upsertGuestRsvp({ eventId, name, phoneE164, notes }) {
   return Array.isArray(body) ? body[0] : body;
 }
 
+
+async function fetchHost(userId) {
+  const trimmedUserId = String(userId || "").trim();
+  if (!trimmedUserId) return { name: "", photoUrl: "" };
+
+  const params = new URLSearchParams({
+    select: "name,username,photo_url",
+    id: `eq.${trimmedUserId}`,
+    limit: "1"
+  });
+
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/users?${params.toString()}`, {
+    headers: supabaseHeaders({ Accept: "application/json" })
+  });
+
+  if (!response.ok) return { name: "", photoUrl: "" };
+
+  const rows = await response.json();
+  const user = Array.isArray(rows) && rows.length > 0 ? rows[0] : null;
+  const name = String(user?.name || "").replace(/\s+/g, " ").trim();
+  const username = String(user?.username || "").replace(/\s+/g, " ").trim();
+  const photoUrl = String(user?.photo_url || "").trim();
+  return { name: name || username, photoUrl };
+}
+
 module.exports = {
   fetchPublicEvent,
+  fetchHost,
   fetchUpcomingPublicEventsForSitemap,
   isUuid,
   upsertGuestRsvp
