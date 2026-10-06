@@ -685,71 +685,111 @@
       }
     }
 
-    /* Hero mockups: phone 1 is the main, centered device. */
+    /* Hero mockups: coverflow stack — one main phone, two behind, swipeable. */
     .hero-phone-stack {
       position: relative;
       width: min(560px, 100%);
       height: min(660px, 72svh);
-      /* Reduce the entire first-row mockup composition by 30%. */
+      padding-bottom: 28px;
+      box-sizing: border-box;
       transform: translateY(5%) scale(0.7);
       transform-origin: center;
+      touch-action: pan-y;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: grab;
+    }
+
+    .hero-phone-stack:active {
+      cursor: grabbing;
+    }
+
+    .hero-phone-track {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero-phone-slot {
+      --slot: 0;
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: min(315px, 60%);
+      transform: translateX(-50%);
+      transition:
+        transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 700ms ease;
+      will-change: transform, opacity;
+      pointer-events: none;
     }
 
     .hero-phone {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: min(340px, 64%);
+      display: block;
+      width: 100%;
+      height: auto;
       max-height: 100%;
       object-fit: contain;
-      transform-origin: center bottom;
+      object-position: center bottom;
       filter: drop-shadow(0 26px 28px rgba(23, 23, 23, 0.2));
-      will-change: transform, opacity;
+      pointer-events: none;
+      user-select: none;
     }
 
-    .hero-phone--center {
+    .hero-phone-slot.is-main {
       z-index: 3;
       width: min(434px, 81.6%);
-      max-height: none;
       opacity: 1;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(0) rotate(0deg) scale(1);
+      filter: none;
     }
 
-    .hero-phone--left {
+    .hero-phone-slot.is-left {
       z-index: 1;
-      width: min(315px, 60%);
-      opacity: 1;
-      transform: translateX(-112%) translateY(18px) rotate(-17deg);
-      animation: hero-phone-left-reveal 1050ms cubic-bezier(0.16, 1, 0.3, 1) 350ms both;
+      opacity: 0.92;
+      transform: translateX(-112%) translateY(18px) rotate(-17deg) scale(0.92);
     }
 
-    .hero-phone--right {
+    .hero-phone-slot.is-right {
       z-index: 2;
-      width: min(315px, 60%);
-      opacity: 1;
-      transform: translateX(12%) translateY(18px) rotate(17deg);
-      animation: hero-phone-right-reveal 1050ms cubic-bezier(0.16, 1, 0.3, 1) 540ms both;
+      opacity: 0.92;
+      transform: translateX(12%) translateY(18px) rotate(17deg) scale(0.92);
     }
 
-    @keyframes hero-phone-left-reveal {
-      from {
-        opacity: 0;
-        transform: translateX(-138%) translateY(58px) rotate(-24deg) scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(-112%) translateY(18px) rotate(-17deg) scale(1);
-      }
+    .hero-phone-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 2px;
+      display: flex;
+      gap: 10px;
+      transform: translateX(-50%);
+      z-index: 5;
     }
 
-    @keyframes hero-phone-right-reveal {
-      from {
-        opacity: 0;
-        transform: translateX(38%) translateY(58px) rotate(24deg) scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(12%) translateY(18px) rotate(17deg) scale(1);
+    .hero-phone-dot {
+      width: 9px;
+      height: 9px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.45);
+      cursor: pointer;
+      transition: background-color 250ms ease, transform 250ms ease;
+    }
+
+    .hero-phone-dot[aria-current="true"] {
+      background: #fff;
+      transform: scale(1.18);
+    }
+
+    .hero-phone-dot:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-phone-slot {
+        transition: none !important;
       }
     }
 
@@ -1709,13 +1749,8 @@
         width: min(255px, 68%);
       }
 
-      .hero-phone--left,
-      .hero-phone--right {
-        width: min(235px, 62%);
-      }
-
-      .hero-phone--center {
-        width: min(326px, 86.7%);
+      .hero-phone {
+        width: 100%;
       }
 
       .event-card {
@@ -2503,10 +2538,8 @@
         transition-duration: 0.01ms !important;
       }
 
-      .hero-phone--left,
-      .hero-phone--right {
-        animation: none;
-        opacity: 1;
+      .hero-phone {
+        transition: none !important;
       }
 
       .js .event-card-item,
@@ -2604,10 +2637,23 @@
 
       <div class="panel-inner">
         <div class="panel-visual" aria-label="Awnbeat app screens">
-          <div class="hero-phone-stack">
-            <img class="hero-phone hero-phone--left" src="hero-phone-2.png" alt="Awnbeat map of nearby sports and activities">
-            <img class="hero-phone hero-phone--center" src="hero-phone-center.png" alt="Awnbeat home screen showing featured and suggested fitness activities">
-            <img class="hero-phone hero-phone--right" src="hero-phone-3.png" alt="Awnbeat hiking community screen">
+          <div class="hero-phone-stack" data-hero-carousel tabindex="0" aria-roledescription="carousel" aria-label="Awnbeat app screens">
+            <div class="hero-phone-track">
+              <div class="hero-phone-slot is-main" data-hero-slide="0">
+                <img class="hero-phone" src="hero-carousel-home.png" alt="Awnbeat home screen with Autumn Plays and suggested activities">
+              </div>
+              <div class="hero-phone-slot is-right" data-hero-slide="1">
+                <img class="hero-phone" src="hero-carousel-locations.png" alt="Awnbeat Play Locations map with nearby courts and trails">
+              </div>
+              <div class="hero-phone-slot is-left" data-hero-slide="2">
+                <img class="hero-phone" src="hero-carousel-profile.png" alt="Awnbeat profile screen for Alex Morgan">
+              </div>
+            </div>
+            <div class="hero-phone-dots" role="tablist" aria-label="Choose app screen">
+              <button type="button" class="hero-phone-dot" role="tab" aria-label="Home screen" aria-current="true" data-hero-dot="0"></button>
+              <button type="button" class="hero-phone-dot" role="tab" aria-label="Play Locations screen" data-hero-dot="1"></button>
+              <button type="button" class="hero-phone-dot" role="tab" aria-label="Profile screen" data-hero-dot="2"></button>
+            </div>
           </div>
         </div>
 
@@ -2912,6 +2958,94 @@
           }
         }
       });
+    }
+
+
+
+    const heroCarousel = document.querySelector("[data-hero-carousel]");
+    if (heroCarousel) {
+      const slots = Array.from(heroCarousel.querySelectorAll("[data-hero-slide]"));
+      const dots = Array.from(heroCarousel.querySelectorAll("[data-hero-dot]"));
+      const order = slots.map((_, i) => i);
+      let pointerId = null;
+      let startX = 0;
+      let deltaX = 0;
+
+      const applyPositions = () => {
+        const [main, right, left] = order;
+        slots.forEach((slot) => {
+          slot.classList.remove("is-main", "is-left", "is-right");
+        });
+        slots[main].classList.add("is-main");
+        slots[right].classList.add("is-right");
+        slots[left].classList.add("is-left");
+        dots.forEach((dot, i) => {
+          if (i === main) dot.setAttribute("aria-current", "true");
+          else dot.removeAttribute("aria-current");
+        });
+      };
+
+      const rotate = (direction) => {
+        if (direction > 0) {
+          // Swipe left / next: right phone becomes main
+          order.push(order.shift());
+        } else {
+          // Swipe right / prev: left phone becomes main
+          order.unshift(order.pop());
+        }
+        applyPositions();
+      };
+
+      const goTo = (target) => {
+        let guard = 0;
+        while (order[0] !== target && guard < slots.length) {
+          rotate(1);
+          guard += 1;
+        }
+      };
+
+      dots.forEach((dot) => {
+        dot.addEventListener("click", () => {
+          goTo(Number(dot.getAttribute("data-hero-dot") || "0"));
+        });
+      });
+
+      heroCarousel.addEventListener("pointerdown", (event) => {
+        if (event.pointerType === "mouse" && event.button !== 0) return;
+        pointerId = event.pointerId;
+        startX = event.clientX;
+        deltaX = 0;
+        heroCarousel.setPointerCapture(pointerId);
+      });
+
+      heroCarousel.addEventListener("pointermove", (event) => {
+        if (pointerId !== event.pointerId) return;
+        deltaX = event.clientX - startX;
+      });
+
+      const endPointer = (event) => {
+        if (pointerId !== event.pointerId) return;
+        const threshold = Math.min(64, heroCarousel.clientWidth * 0.16);
+        if (deltaX <= -threshold) rotate(1);
+        else if (deltaX >= threshold) rotate(-1);
+        pointerId = null;
+        deltaX = 0;
+      };
+
+      heroCarousel.addEventListener("pointerup", endPointer);
+      heroCarousel.addEventListener("pointercancel", endPointer);
+
+      heroCarousel.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          rotate(1);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          rotate(-1);
+        }
+      });
+
+      applyPositions();
     }
 
     const eventCardStack = document.querySelector(".event-card-stack");
