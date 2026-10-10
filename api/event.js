@@ -1,4 +1,4 @@
-const { fetchPublicEvent, fetchHost, isUuid } = require("./_supabase");
+const { fetchPublicEvent, fetchEventHighlights, fetchHost, isUuid } = require("./_supabase");
 
 const SITE_ORIGIN = "https://awnbeat.com";
 const APP_STORE_URL = "https://apps.apple.com/us/app/awnbeat/id6789319121";
@@ -25,11 +25,6 @@ function safeImageUrl(value) {
   } catch {
     return "";
   }
-}
-
-function hostInitial(name) {
-  const letter = cleanText(name).charAt(0).toUpperCase();
-  return letter || "A";
 }
 
 const EVENT_TIME_ZONE = "America/Chicago";
@@ -83,22 +78,38 @@ function formatEventWhen(startValue, endValue) {
   return `${startStamp} \u2013 ${end.dateLabel} \u00b7 ${end.clock} ${end.dayPeriod}`;
 }
 
-function pageHtml({ title, hostName, hostPhotoUrl, canonicalUrl, indexable, when, appEventId }) {
+function eventPrice(event) {
+  const cents = Number(event?.price_cents);
+  if (event?.is_free || !Number.isFinite(cents) || cents <= 0) return "";
+
+  const currency = cleanText(event.currency).toUpperCase() || "USD";
+  try {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency,
+      maximumFractionDigits: cents % 100 === 0 ? 0 : 2
+    }).format(cents / 100);
+  } catch {
+    return `$${(cents / 100).toFixed(2)}`;
+  }
+}
+
+function pageHtml({ title, hostName, canonicalUrl, indexable, when, appEventId, event, highlights = [] }) {
   const heading = title || "Event unavailable";
   const documentTitle = title ? `${title} | Awnbeat` : "Event unavailable | Awnbeat";
   const description = hostName
     ? `${heading}, hosted by ${hostName} on Awnbeat.`
     : "Get Awnbeat on the App Store.";
-  const photoUrl = safeImageUrl(hostPhotoUrl);
+  const imageUrl = safeImageUrl(event?.image_url);
+  const location = cleanText(event?.city) || cleanText(event?.address);
+  const price = eventPrice(event);
+  const bio = cleanText(event?.description);
+  const start = zonedParts(event?.start_time);
+  const previewWhen = start
+    ? `${start.dateLabel.replace(/^[^,]+, /, "")} \u2022 ${start.clock} ${start.dayPeriod}`
+    : when;
   const hostRow = hostName
-    ? `<div class="host-row">
-        ${
-          photoUrl
-            ? `<img class="host-photo" src="${escapeHtml(photoUrl)}" alt="">`
-            : `<span class="host-photo host-photo-fallback" aria-hidden="true">${escapeHtml(hostInitial(hostName))}</span>`
-        }
-        <p class="host">${escapeHtml(hostName)}</p>
-      </div>`
+    ? `<p class="host" title="${escapeHtml(hostName)}">${escapeHtml(hostName)}</p>`
     : "";
   const appEventUrl = isUuid(appEventId)
     ? `${APP_EVENT_URL_PREFIX}${encodeURIComponent(appEventId)}`
@@ -110,12 +121,11 @@ function pageHtml({ title, hostName, hostPhotoUrl, canonicalUrl, indexable, when
   const joinScript = title && appEventUrl
     ? `<script>
 (function () {
-  var join = document.querySelector(".join[data-app-url]");
-  if (!join) return;
+  var links = document.querySelectorAll("[data-app-url]");
   var ua = navigator.userAgent || "";
   var isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
   if (!isIOS) return;
-  join.addEventListener("click", function (event) {
+  links.forEach(function (link) { link.addEventListener("click", function (event) {
     event.preventDefault();
     var timer;
     function cancel() {
@@ -128,16 +138,58 @@ function pageHtml({ title, hostName, hostPhotoUrl, canonicalUrl, indexable, when
     window.addEventListener("pagehide", cancel);
     timer = setTimeout(function () {
       cancel();
-      if (!document.hidden) window.location.href = join.href;
+      if (!document.hidden) window.location.href = link.href;
     }, 1500);
-    window.location.href = join.getAttribute("data-app-url");
-  });
+    window.location.href = link.getAttribute("data-app-url");
+  }); });
 })();
 </script>`
     : "";
-  const whenLine = when
-    ? `<p class="when">${escapeHtml(when)}</p>`
+  const whenLine = previewWhen
+    ? `<p class="when" title="${escapeHtml(when)}"><time${event?.start_time ? ` datetime="${escapeHtml(event.start_time)}"` : ""}>${escapeHtml(previewWhen)}</time></p>`
     : "";
+  const count = Number(event?.attendee_count);
+  const capacity = Number(event?.capacity);
+  const hasCount = event?.attendee_count != null && Number.isFinite(count) && count >= 0;
+  const guestLabel = hasCount
+    ? `${Math.floor(count)}${Number.isFinite(capacity) && capacity > 0 ? `/${Math.floor(capacity)}` : ""}`
+    : "";
+  const seenHighlights = new Set();
+  const previewHighlights = highlights
+    .map(cleanText)
+    .filter((name) => {
+      const key = name.toLowerCase();
+      if (!key || seenHighlights.has(key)) return false;
+      seenHighlights.add(key);
+      return true;
+    })
+    .slice(0, 2);
+  const highlightRow = previewHighlights.length
+    ? `<ul class="event-highlights" aria-label="Event highlights">${previewHighlights.map((name) => `<li title="${escapeHtml(name)}">${escapeHtml(name)}</li>`).join("")}</ul>`
+    : "";
+  const calendarIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18m-11 4h2m4 0h2m-10 3h2"/></svg>`;
+  const hasMediaFooter = hasCount || previewHighlights.length > 0;
+  const card = title
+    ? `<main class="event-card" aria-labelledby="event-title">
+      <div class="event-copy">
+        <h1 id="event-title" title="${escapeHtml(heading)}">${escapeHtml(heading)}</h1>
+        <div class="event-meta">
+          ${hostRow}
+          ${whenLine}
+          ${location || price ? `<div class="location-price">${location ? `<p class="location" title="${escapeHtml(location)}">${escapeHtml(location)}</p>` : ""}${price ? `<span class="price">${escapeHtml(price)}</span>` : ""}</div>` : ""}
+        </div>
+        ${bio ? `<div class="event-bio"><p>${escapeHtml(bio)}</p></div>` : ""}
+      </div>
+      <div class="event-image${hasMediaFooter ? " has-footer" : ""}">
+        <span class="image-fallback" aria-hidden="true">${calendarIcon}</span>
+        ${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="" class="event-photo" onerror="this.hidden = true">` : ""}
+        ${hasMediaFooter ? `<div class="event-footer">
+        ${hasCount ? `<p class="guests" aria-label="${Math.floor(count)} guests${capacity > 0 ? ` out of ${Math.floor(capacity)} spots` : ""}"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="7" r="3.5"/><path d="M2 20v-2a7 7 0 0 1 14 0v2z"/><circle cx="18" cy="8" r="3"/><path d="M17 13a6 6 0 0 1 6 6v1h-5v-2a9 9 0 0 0-1-5z"/></svg><span>${guestLabel}</span></p>` : ""}
+        ${highlightRow}
+        </div>` : ""}
+      </div>
+    </main>`
+    : `<main class="glass"><h1>${escapeHtml(heading)}</h1></main>`;
 
   return `<!doctype html>
 <html lang="en">
@@ -169,6 +221,7 @@ function pageHtml({ title, hostName, hostPhotoUrl, canonicalUrl, indexable, when
 
     body {
       display: grid;
+      grid-template-columns: minmax(0, 1fr);
       align-items: start;
       justify-items: center;
       min-height: 100vh;
@@ -216,6 +269,7 @@ function pageHtml({ title, hostName, hostPhotoUrl, canonicalUrl, indexable, when
       justify-items: center;
       gap: 22px;
       width: min(100%, 420px);
+      min-width: 0;
     }
 
     .app-mark {
@@ -264,43 +318,130 @@ function pageHtml({ title, hostName, hostPhotoUrl, canonicalUrl, indexable, when
       letter-spacing: -0.03em;
     }
 
-    .when {
-      margin: 0;
-      font-weight: 400;
-      font-size: 17px;
-      line-height: 1.35;
-      color: #3a3a3a;
+    /* Centered event details above full-width preview media. */
+    .event-card {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-width: 0;
+      min-height: 390px;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+      text-align: center;
     }
 
-    .host-row {
+    .event-copy {
+      display: grid;
+      align-content: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+      padding: 24px 24px 22px;
+    }
+
+    .event-card h1 {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      overflow-wrap: anywhere;
+    }
+
+    .event-meta {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+      font-size: 15px;
+      line-height: 1.3;
+    }
+
+    .event-meta p { margin: 0; }
+    .location-price { display: flex; align-items: baseline; justify-content: center; gap: 8px; min-width: 0; }
+    .location { color: #737373; min-width: 0; }
+    .price { color: #8cd9a6; font-weight: 600; white-space: nowrap; }
+    .when { color: #7acceb; }
+    .host { color: #fa9959; font-weight: 400; }
+    .location, .when, .host { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .event-bio { min-width: 0; }
+    .event-bio p {
+      display: -webkit-box;
+      margin: 0;
+      color: #737373;
+      font-size: 13.2px;
+      line-height: 18px;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+    }
+
+    .event-image {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 12 / 5;
+      flex-shrink: 0;
+      overflow: hidden;
+      background: linear-gradient(135deg, #e4f3e9, #d8edf5);
+    }
+
+    .image-fallback { position: absolute; inset: 0; display: grid; place-items: center; color: #fa9959; }
+    .image-fallback svg { width: 64px; height: 64px; }
+    .event-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #fff; }
+    .event-photo[hidden] { display: none; }
+    .event-image.has-footer::after {
+      content: "";
+      position: absolute;
+      inset: 40% 0 0;
+      background: linear-gradient(transparent, rgba(15, 24, 20, 0.72));
+      pointer-events: none;
+    }
+
+    .event-footer {
+      position: absolute;
+      z-index: 1;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 12px;
-      max-width: 100%;
+      justify-content: space-between;
+      gap: 8px;
+      min-width: 0;
+      min-height: 26px;
+      text-align: left;
     }
 
-    .host-photo {
-      width: 44px;
-      height: 44px;
-      flex: 0 0 44px;
-      border-radius: 50%;
-      object-fit: cover;
-      background: rgba(140, 217, 166, 0.45);
+    .guests { display: flex; align-items: center; gap: 4px; flex-shrink: 0; margin: 0; color: #fff; font-size: 12px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35); }
+    .guests svg { width: 15px; height: 15px; }
+    .event-highlights { display: flex; justify-content: flex-end; gap: 4px; margin: 0 0 0 auto; padding: 0; min-width: 0; list-style: none; }
+    .event-highlights li {
+      min-width: 0;
+      padding: 4px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+    a:focus-visible { outline: 2px solid #1a1a1a; outline-offset: 4px; }
 
-    .host-photo-fallback {
-      display: grid;
-      place-items: center;
-      color: #1a1a1a;
-      font-size: 18px;
-      line-height: 1;
-    }
-
-    .host {
-      font-size: 18px;
-      line-height: 1.3;
-      letter-spacing: -0.02em;
+    @media (max-width: 360px) {
+      body { padding-left: 16px; padding-right: 16px; }
+      .event-meta { font-size: 13px; }
     }
 
     .join {
@@ -341,12 +482,8 @@ function pageHtml({ title, hostName, hostPhotoUrl, canonicalUrl, indexable, when
       <img class="app-icon" src="/appiconlight.png" alt="">
       <p class="brand-name">Awnbeat</p>
     </div>
-    <main class="glass">
-      <h1>${escapeHtml(heading)}</h1>
-      ${whenLine}
-      ${hostRow}
-      ${joinPill}
-    </main>
+    ${card}
+    ${joinPill}
     <a class="app-store-badge" href="${APP_STORE_URL}" target="_blank" rel="noopener" aria-label="Download Awnbeat on the App Store"><img src="/app-store-badge.svg" alt="Download on the App Store"></a>
   </div>
   ${joinScript}
@@ -366,7 +503,7 @@ module.exports = async function handler(req, res) {
 
   if (!eventId) {
     res.statusCode = 404;
-    res.end(pageHtml({ title: "", hostName: "", hostPhotoUrl: "", canonicalUrl, indexable: false }));
+    res.end(pageHtml({ title: "", hostName: "", canonicalUrl, indexable: false }));
     return;
   }
 
@@ -375,25 +512,29 @@ module.exports = async function handler(req, res) {
 
     if (!event) {
       res.statusCode = 404;
-      res.end(pageHtml({ title: "", hostName: "", hostPhotoUrl: "", canonicalUrl, indexable: false }));
+      res.end(pageHtml({ title: "", hostName: "", canonicalUrl, indexable: false }));
       return;
     }
 
-    const host = await fetchHost(event.creator_id);
+    const [host, highlights] = await Promise.all([
+      fetchHost(event.creator_id),
+      fetchEventHighlights(event.id).catch(() => [])
+    ]);
     const canonicalId = isUuid(eventId) ? eventId : event.id;
 
     res.statusCode = 200;
     res.end(pageHtml({
       title: cleanText(event.title) || "Awnbeat event",
       hostName: cleanText(host.name),
-      hostPhotoUrl: host.photoUrl,
       canonicalUrl: `${SITE_ORIGIN}/events/${encodeURIComponent(canonicalId)}`,
       indexable: true,
       when: formatEventWhen(event.start_time, event.end_time),
-      appEventId: event.id
+      appEventId: event.id,
+      event,
+      highlights
     }));
   } catch {
     res.statusCode = 500;
-    res.end(pageHtml({ title: "", hostName: "", hostPhotoUrl: "", canonicalUrl, indexable: false }));
+    res.end(pageHtml({ title: "", hostName: "", canonicalUrl, indexable: false }));
   }
 };

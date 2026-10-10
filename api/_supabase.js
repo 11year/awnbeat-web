@@ -96,6 +96,30 @@ async function fetchUpcomingPublicEventsForSitemap() {
   return Array.isArray(rows) ? rows : [];
 }
 
+async function fetchEventHighlights(eventId) {
+  if (!isUuid(eventId)) return [];
+
+  const params = new URLSearchParams({
+    select: "highlights!inner(name,is_active,sort_order)",
+    event_id: `eq.${eventId}`,
+    "highlights.is_active": "eq.true"
+  });
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/event_highlights?${params.toString()}`, {
+    headers: supabaseHeaders({ Accept: "application/json" })
+  });
+  if (!response.ok) throw new Error(`Event highlights lookup failed with ${response.status}`);
+
+  const rows = await response.json();
+  if (!Array.isArray(rows)) return [];
+
+  return rows
+    .map((row) => row.highlights)
+    .filter((highlight) => highlight?.is_active && typeof highlight.name === "string")
+    .sort((a, b) => (a.sort_order ?? Number.MAX_SAFE_INTEGER) - (b.sort_order ?? Number.MAX_SAFE_INTEGER)
+      || a.name.localeCompare(b.name))
+    .map((highlight) => highlight.name);
+}
+
 async function upsertGuestRsvp({ eventId, name, phoneE164, notes }) {
   const payload = {
     event_id: eventId,
@@ -165,6 +189,7 @@ async function fetchHost(userId) {
 
 module.exports = {
   fetchPublicEvent,
+  fetchEventHighlights,
   fetchHost,
   fetchUpcomingPublicEventsForSitemap,
   isUuid,
