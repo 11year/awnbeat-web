@@ -591,97 +591,146 @@
       transform: translateX(-14%) rotate(10deg) scale(0.88);
     }
 
-    /* Row two: a roomy, animated stack of real Awnbeat event cards. */
-    .event-card-stack {
+    /* Keep all three activity screens visible as the selected device moves forward. */
+    .discover .panel-visual {
+      min-height: 0;
+    }
+
+    .discovery-carousel {
+      width: min(620px, 100%, calc((100svh - 205px) * 1.04));
+    }
+
+    .discovery-phone-track {
       position: relative;
-      width: min(650px, 100%);
-      height: 560px;
-      transform: translateY(-5%);
+      width: 100%;
+      aspect-ratio: 1.04;
+      isolation: isolate;
+      touch-action: pan-y;
+      cursor: grab;
     }
 
-    .event-card-item {
+    .discovery-phone-track:active {
+      cursor: grabbing;
+    }
+
+    .discovery-device {
       position: absolute;
+      left: 50%;
+      bottom: 12px;
       width: 46%;
-      height: auto;
-      border-radius: 18px;
-      transform: translate3d(0, 0, 0) rotate(var(--rotation));
+      height: calc(100% - 24px);
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
       transform-origin: center;
-      will-change: transform, opacity;
+      transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .event-card-item--climb {
-      z-index: 5;
-      top: 1%;
-      left: 27%;
-      width: 48%;
-      --rotation: -2deg;
-      --enter-x: 0;
-      --enter-y: -80px;
-      --enter-rotation: -9deg;
-      --delay: 80ms;
+    .discovery-device img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 18px 20px rgba(23, 23, 23, 0.18));
+      user-select: none;
+      -webkit-user-select: none;
+      pointer-events: none;
     }
 
-    .event-card-item--pickleball {
-      z-index: 4;
-      top: 19%;
-      left: 0;
-      --rotation: -9deg;
-      --enter-x: -110px;
-      --enter-y: 38px;
-      --enter-rotation: -18deg;
-      --delay: 220ms;
+    .discovery-device.is-main {
+      z-index: 3;
+      transform: translateX(-50%);
     }
 
-    .event-card-item--football {
-      z-index: 6;
-      top: 20%;
-      right: 0;
-      --rotation: 8deg;
-      --enter-x: 110px;
-      --enter-y: 38px;
-      --enter-rotation: 17deg;
-      --delay: 360ms;
-    }
-
-    .event-card-item--ride {
-      z-index: 2;
-      bottom: 0;
-      left: 7%;
-      --rotation: -6deg;
-      --enter-x: -80px;
-      --enter-y: 100px;
-      --enter-rotation: -14deg;
-      --delay: 500ms;
-    }
-
-    .event-card-item--soccer {
+    .discovery-device.is-left {
       z-index: 1;
-      right: 6%;
-      bottom: 0;
-      --rotation: 7deg;
-      --enter-x: 80px;
-      --enter-y: 100px;
-      --enter-rotation: 15deg;
-      --delay: 640ms;
+      transform: translateX(-102%) translateY(8px) rotate(-12deg) scale(0.82);
     }
 
-    .js .event-card-item {
-      opacity: 0;
-      transform: translate3d(var(--enter-x), var(--enter-y), 0) rotate(var(--enter-rotation)) scale(0.9);
+    .discovery-device.is-right {
+      z-index: 2;
+      transform: translateX(2%) translateY(8px) rotate(12deg) scale(0.82);
     }
 
-    .js .event-card-stack.is-revealed .event-card-item {
-      animation: event-card-reveal 1150ms cubic-bezier(0.16, 1, 0.3, 1) var(--delay) both;
+    .discovery-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 8px;
     }
 
-    @keyframes event-card-reveal {
-      from {
-        opacity: 0;
-        transform: translate3d(var(--enter-x), var(--enter-y), 0) rotate(var(--enter-rotation)) scale(0.9);
+    .discovery-arrow {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border: 1px solid rgba(23, 23, 23, 0.18);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.28);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .discovery-arrow svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .discovery-dots {
+      display: flex;
+    }
+
+    .discovery-dot {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 36px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .discovery-dot::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(23, 23, 23, 0.28);
+    }
+
+    .discovery-dot[aria-pressed="true"]::before {
+      background: var(--ink);
+      transform: scale(1.25);
+    }
+
+    .discovery-status {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    @media (max-width: 980px) {
+      .discovery-carousel {
+        width: min(560px, 100%);
       }
-      to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) rotate(var(--rotation)) scale(1);
+    }
+
+    @media (max-width: 640px) {
+      .discovery-carousel {
+        width: min(390px, 100%, calc((48dvh - 48px) * 1.04));
       }
     }
 
@@ -1554,10 +1603,6 @@
         height: 590px;
       }
 
-      .event-card-stack {
-        height: 520px;
-      }
-
     }
 
     @media (max-width: 640px) {
@@ -1677,14 +1722,6 @@
         max-height: 450px;
       }
 
-      .event-card-stack {
-        height: min(112vw, 510px);
-      }
-
-      .event-card-item {
-        border-radius: 12px;
-      }
-
       .location-card {
         border-radius: 12px;
       }
@@ -1800,12 +1837,6 @@
       .discover .panel-visual {
         display: grid;
         place-items: center;
-      }
-
-      .event-card-stack {
-        width: min(100%, 420px);
-        height: 420px;
-        margin: 0 auto;
       }
 
       .location-showcase {
@@ -2022,12 +2053,6 @@
       .app-qr-row,
       .app-qr-copy {
         display: none;
-      }
-
-      .event-card-stack {
-        height: min(48svh, 365px);
-        transform: scale(0.8);
-        transform-origin: center;
       }
 
       .location-showcase {
@@ -2296,13 +2321,6 @@
         --card-final-y: 0px;
       }
 
-      .discover .event-card-stack {
-        width: min(calc(100% - 28px), 350px);
-        height: min(44dvh, 340px);
-        transform: none;
-        transform-origin: center;
-      }
-
       .discover .panel-visual,
       .communities .panel-visual {
         display: grid;
@@ -2470,13 +2488,6 @@
         transition-duration: 0.01ms !important;
       }
 
-      .js .event-card-item,
-      .js .event-card-stack.is-revealed .event-card-item {
-        animation: none;
-        opacity: 1;
-        transform: translate3d(0, 0, 0) rotate(var(--rotation)) scale(1);
-      }
-
       .js .location-card-grid .location-card,
       .js .location-card-grid.is-revealed .location-card {
         animation: none;
@@ -2566,7 +2577,7 @@
       <div class="panel-inner">
         <div class="panel-visual" aria-label="Awnbeat app with community posts and local activity previews">
           <div class="hero-showcase">
-            <img class="hero-main-device" src="hero-carousel-home.png" width="676" height="1296" fetchpriority="high" alt="Awnbeat home screen with Autumn Plays and suggested activities">
+            <img class="hero-main-device" src="assets/hero-previews/home-device.png" width="663" height="1359" fetchpriority="high" alt="Awnbeat home screen with Autumn Plays and a suggested Saturday Pickup basketball game">
             <img class="hero-preview hero-preview--taylor" src="assets/hero-previews/post-taylor-brooks.png" width="555" height="320" alt="Taylor Brooks asks: Anyone know of a 14s team needing MB?">
             <img class="hero-preview hero-preview--sasha" src="assets/hero-previews/post-sasha-white.png" width="555" height="382" alt="Sasha White is looking for players and a goalie for a women's team on Wednesdays.">
             <img class="hero-preview hero-preview--volleyball" src="assets/hero-previews/trinity-volleyball-cup.png" width="553" height="388" alt="Trinity Volleyball Cup tournament, Dallas Volleyball Club, November 7 at 9 AM in Dallas, TX.">
@@ -2596,12 +2607,28 @@
 
       <div class="panel-inner">
         <div class="panel-visual">
-          <div class="event-card-stack" aria-label="A selection of Awnbeat activities and events">
-            <img class="event-card-item event-card-item--climb" src="awnbeat-sunday-climb.png" alt="Sunday Climb event">
-            <img class="event-card-item event-card-item--pickleball" src="awnbeat-lisas-pickleball-day.png" alt="Lisa's Pickleball Day event">
-            <img class="event-card-item event-card-item--football" src="awnbeat-friday-night-flag-football.png" alt="Friday Night Flag Football event">
-            <img class="event-card-item event-card-item--ride" src="awnbeat-thursday-night-ride.png" alt="Thursday Night Ride event">
-            <img class="event-card-item event-card-item--soccer" src="awnbeat-ntx-soccer-day.png" alt="NTX Soccer Day event">
+          <div class="discovery-carousel" data-discovery-carousel role="region" aria-roledescription="carousel" aria-label="Awnbeat activity screens">
+            <div class="discovery-phone-track" data-discovery-track>
+              <button type="button" class="discovery-device is-main" data-discovery-slide="0" aria-label="Show Dallas Fall Volleyball Classic tournament" aria-pressed="true">
+                <img src="assets/discovery-devices/volleyball-tournament.png" width="663" height="1359" alt="Dallas Fall Volleyball Classic tournament overview in Awnbeat" draggable="false">
+              </button>
+              <button type="button" class="discovery-device is-right" data-discovery-slide="1" aria-label="Show Windy City Hoops League" aria-pressed="false">
+                <img src="assets/discovery-devices/basketball-league.png" width="663" height="1359" alt="Windy City Hoops League with season highlights and upcoming games" draggable="false">
+              </button>
+              <button type="button" class="discovery-device is-left" data-discovery-slide="2" aria-label="Show Saturday Pickup game" aria-pressed="false">
+                <img src="assets/discovery-devices/saturday-pickup.png" width="663" height="1359" alt="Saturday Pickup basketball game details and Join button" draggable="false">
+              </button>
+            </div>
+            <div class="discovery-controls" role="group" aria-label="Choose an activity screen">
+              <button type="button" class="discovery-arrow" data-discovery-prev aria-label="Previous activity screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+              <div class="discovery-dots">
+                <button type="button" class="discovery-dot" data-discovery-dot="0" aria-label="Show volleyball tournament screen" aria-pressed="true"></button>
+                <button type="button" class="discovery-dot" data-discovery-dot="1" aria-label="Show basketball league screen" aria-pressed="false"></button>
+                <button type="button" class="discovery-dot" data-discovery-dot="2" aria-label="Show pickup game screen" aria-pressed="false"></button>
+              </div>
+              <button type="button" class="discovery-arrow" data-discovery-next aria-label="Next activity screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
+            </div>
+            <span class="discovery-status" role="status" aria-live="polite" aria-atomic="true">Screen 1 of 3: Dallas Fall Volleyball Classic tournament</span>
           </div>
         </div>
 
@@ -2878,20 +2905,82 @@
       });
     }
 
-    const eventCardStack = document.querySelector(".event-card-stack");
-    if (eventCardStack) {
-      const revealEventCards = () => eventCardStack.classList.add("is-revealed");
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
-        revealEventCards();
-      } else {
-        const eventCardObserver = new IntersectionObserver((entries, observer) => {
-          if (entries.some((entry) => entry.isIntersecting)) {
-            revealEventCards();
-            observer.disconnect();
-          }
-        }, { threshold: 0.2 });
-        eventCardObserver.observe(eventCardStack);
-      }
+    const discoveryCarousel = document.querySelector("[data-discovery-carousel]");
+    if (discoveryCarousel) {
+      const track = discoveryCarousel.querySelector("[data-discovery-track]");
+      const slides = Array.from(discoveryCarousel.querySelectorAll("[data-discovery-slide]"));
+      const dots = Array.from(discoveryCarousel.querySelectorAll("[data-discovery-dot]"));
+      const status = discoveryCarousel.querySelector(".discovery-status");
+      let active = 0;
+      let pointer = null;
+      let suppressClick = false;
+      let lastWheelAt = 0;
+      let wheelDistance = 0;
+
+      const showScreen = (index) => {
+        active = (index + slides.length) % slides.length;
+        slides.forEach((slide, i) => {
+          const offset = (i - active + slides.length) % slides.length;
+          slide.classList.toggle("is-main", offset === 0);
+          slide.classList.toggle("is-right", offset === 1);
+          slide.classList.toggle("is-left", offset === 2);
+          slide.setAttribute("aria-pressed", String(i === active));
+          dots[i].setAttribute("aria-pressed", String(i === active));
+        });
+        status.textContent = `Screen ${active + 1} of ${slides.length}: ${slides[active].getAttribute("aria-label").replace(/^Show /, "")}`;
+      };
+
+      slides.forEach((slide, i) => slide.addEventListener("click", () => showScreen(i)));
+      dots.forEach((dot, i) => dot.addEventListener("click", () => showScreen(i)));
+      discoveryCarousel.querySelector("[data-discovery-prev]").addEventListener("click", () => showScreen(active - 1));
+      discoveryCarousel.querySelector("[data-discovery-next]").addEventListener("click", () => showScreen(active + 1));
+      discoveryCarousel.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+        event.preventDefault();
+        showScreen(active + (event.key === "ArrowRight" ? 1 : -1));
+      });
+
+      track.addEventListener("pointerdown", (event) => {
+        if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) return;
+        pointer = { id: event.pointerId, x: event.clientX, y: event.clientY };
+        suppressClick = false;
+      });
+      track.addEventListener("pointermove", (event) => {
+        if (!pointer || pointer.id !== event.pointerId) return;
+        const dx = event.clientX - pointer.x;
+        const dy = event.clientY - pointer.y;
+        if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) {
+          track.setPointerCapture(event.pointerId);
+        }
+      });
+      track.addEventListener("pointerup", (event) => {
+        if (!pointer || pointer.id !== event.pointerId) return;
+        const dx = event.clientX - pointer.x;
+        const dy = event.clientY - pointer.y;
+        if (Math.abs(dx) >= Math.min(48, track.clientWidth * 0.12) && Math.abs(dx) > Math.abs(dy)) {
+          suppressClick = true;
+          showScreen(active + (dx < 0 ? 1 : -1));
+        }
+        pointer = null;
+        window.setTimeout(() => { suppressClick = false; }, 0);
+      });
+      track.addEventListener("pointercancel", () => { pointer = null; });
+      track.addEventListener("click", (event) => {
+        if (!suppressClick) return;
+        event.preventDefault();
+        event.stopPropagation();
+      }, true);
+      track.addEventListener("wheel", (event) => {
+        if (Math.abs(event.deltaX) <= Math.abs(event.deltaY) || event.ctrlKey) return;
+        event.preventDefault();
+        const now = Date.now();
+        if (now - lastWheelAt < 650) return;
+        wheelDistance += event.deltaX * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? track.clientWidth : 1);
+        if (Math.abs(wheelDistance) < 24) return;
+        showScreen(active + (wheelDistance > 0 ? 1 : -1));
+        wheelDistance = 0;
+        lastWheelAt = now;
+      }, { passive: false });
     }
 
     const locationShowcase = document.querySelector(".location-showcase");
