@@ -774,9 +774,9 @@
     }
 
     .hero-preview--sasha {
-      --tilt: 4deg;
-      bottom: 17%;
-      left: 0;
+      --tilt: -5deg;
+      top: 35%;
+      right: -1%;
     }
 
     .hero-preview--volleyball {
@@ -786,9 +786,9 @@
     }
 
     .hero-preview--basketball {
-      --tilt: -5deg;
-      top: 35%;
-      right: -1%;
+      --tilt: 4deg;
+      bottom: 17%;
+      left: 0;
     }
 
     .hero-preview--running {
@@ -913,105 +913,19 @@
       min-height: auto;
     }
 
-    /* Row three: layered location screens, revealed alongside nearby place cards. */
-    .location-showcase {
-      position: relative;
-      isolation: isolate;
-      width: min(510px, 96%);
-      height: min(660px, 72svh);
-      perspective: 1400px;
-      transform: translate(-5%, -9%) scale(0.92);
-      transform-origin: center;
+    /* Three complete location screens, aligned side by side. */
+    .location-device-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: center;
+      gap: clamp(8px, 1.2vw, 18px);
+      width: min(720px, 100%);
     }
 
-    .location-phone-stack {
-      position: absolute;
-      inset: 0;
-      transform-style: preserve-3d;
-      transform: translateY(-10%);
-    }
-
-    .location-phone-stack img {
-      position: absolute;
-      bottom: 0;
-      max-height: 100%;
-      object-fit: contain;
-      filter: drop-shadow(0 26px 28px rgba(23, 23, 23, 0.22));
-      backface-visibility: hidden;
-      will-change: transform, opacity;
-    }
-
-    .location-phone--map {
-      z-index: 1;
-      bottom: 56px;
-      left: 2%;
-      width: min(340px, 68%);
-      transform: translateZ(-40px);
-    }
-
-    .location-phone--details {
-      z-index: 2;
-      left: 31%;
-      width: min(300px, 60%);
-      transform: translate3d(0, 25%, 80px);
-    }
-
-    .location-content-card {
-      position: absolute;
-      z-index: 4;
-      width: clamp(210px, 52%, 300px);
-      --card-final-y: 0px;
-      display: block;
-      opacity: 1;
-      transform: translate3d(0, var(--card-final-y), 0);
-      will-change: transform, opacity;
-    }
-
-    .location-content-card img {
-      display: block;
+    .location-device-row img {
       width: 100%;
       height: auto;
-      border-radius: 12px;
-      box-shadow: 0 16px 26px rgba(23, 23, 23, 0.16);
-    }
-
-    .location-content-card--carpenter { top: 6%; right: -5%; --card-enter-x: 42px; --card-enter-y: -18px; --card-delay: 1090ms; }
-    .location-content-card--moneygram { top: 43%; left: -38%; width: clamp(252px, 62.4%, 360px); --card-enter-x: -46px; --card-enter-y: 10px; --card-delay: 1200ms; }
-    .location-content-card--toyota { top: 51%; right: -28%; --card-enter-x: 46px; --card-enter-y: 12px; --card-delay: 1310ms; }
-    .location-content-card--garden { bottom: 5%; left: -38%; width: clamp(252px, 62.4%, 360px); --card-enter-x: -38px; --card-enter-y: 30px; --card-delay: 1420ms; }
-    .location-content-card--high-point { bottom: 20%; right: -28%; --card-enter-x: 42px; --card-enter-y: 22px; --card-delay: 1530ms; --card-final-y: 40%; }
-
-    .js .location-showcase .location-phone--map,
-    .js .location-showcase .location-phone--details,
-    .js .location-showcase .location-content-card {
-      opacity: 0;
-    }
-
-    .js .location-showcase.is-revealed .location-phone--map {
-      animation: location-map-reveal 1800ms cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    .js .location-showcase.is-revealed .location-phone--details {
-      animation: location-details-reveal 1800ms cubic-bezier(0.16, 1, 0.3, 1) 180ms both;
-    }
-
-    .js .location-showcase.is-revealed .location-content-card {
-      animation: location-content-card-reveal 700ms cubic-bezier(0.16, 1, 0.3, 1) var(--card-delay) both;
-    }
-
-    @keyframes location-map-reveal {
-      from { opacity: 0; transform: translate3d(-34px, 88px, -120px) rotateY(-180deg) rotateZ(-10deg) scale(0.86); }
-      to { opacity: 1; transform: translate3d(0, 0, -40px) rotateY(0) rotateZ(0) scale(1); }
-    }
-
-    @keyframes location-details-reveal {
-      from { opacity: 0; transform: translate3d(34px, calc(25% + 88px), 180px) rotateY(180deg) rotateZ(10deg) scale(0.86); }
-      to { opacity: 1; transform: translate3d(0, 25%, 80px) rotateY(0) rotateZ(0) scale(1); }
-    }
-
-    @keyframes location-content-card-reveal {
-      from { opacity: 0; transform: translate3d(var(--card-enter-x), calc(var(--card-enter-y) + var(--card-final-y)), 0) scale(0.94); }
-      to { opacity: 1; transform: translate3d(0, var(--card-final-y), 0) scale(1); }
+      filter: drop-shadow(0 18px 20px rgba(23, 23, 23, 0.18));
     }
 
     /* Row three: six nearby places in an uncluttered two-by-three grid. */
@@ -1726,26 +1640,6 @@
         border-radius: 12px;
       }
 
-      .location-showcase {
-        height: 440px;
-        transform: translate(-3%, -6%) scale(0.92);
-      }
-
-      .location-phone-stack img {
-        max-height: 100%;
-      }
-
-      .location-phone--map {
-        bottom: 34px;
-        left: 2%;
-        width: min(260px, 68%);
-      }
-
-      .location-phone--details {
-        left: 31%;
-        width: min(230px, 60%);
-      }
-
       .community-card-grid img {
         border-radius: 12px;
       }
@@ -1839,31 +1733,6 @@
         place-items: center;
       }
 
-      .location-showcase {
-        width: min(100%, 390px);
-        height: 430px;
-        margin: 0 auto;
-        transform: translate(-1%, 0) scale(0.82);
-      }
-
-      .location-phone-stack {
-        transform: none;
-      }
-
-      .location-phone--map {
-        bottom: 28px;
-        left: 5%;
-      }
-
-      .location-phone--details {
-        left: 32%;
-      }
-
-      .location-content-card--carpenter { top: 5%; right: -2%; }
-      .location-content-card--moneygram { left: -8%; }
-      .location-content-card--toyota { right: -8%; }
-      .location-content-card--garden { left: -8%; }
-      .location-content-card--high-point { right: -8%; }
 
       .community-card-grid {
         width: 100%;
@@ -2053,11 +1922,6 @@
       .app-qr-row,
       .app-qr-copy {
         display: none;
-      }
-
-      .location-showcase {
-        height: min(48svh, 370px);
-        transform: translate(-1%, 0) scale(0.68);
       }
 
       .community-card-grid {
@@ -2271,56 +2135,6 @@
         overflow: visible;
       }
 
-      .location-showcase {
-        width: min(100%, 390px);
-        height: min(54dvh, 420px);
-        transform: none;
-        transform-origin: center;
-      }
-
-      .location-phone--map {
-        bottom: 34px;
-        left: 20%;
-        width: min(210px, 52%);
-      }
-
-      .location-phone--details {
-        left: 36%;
-        width: min(184px, 45%);
-      }
-
-      .location-content-card {
-        width: clamp(118px, 34%, 142px);
-      }
-
-      .location-content-card--carpenter {
-        top: 0;
-        right: 0;
-      }
-
-      .location-content-card--moneygram {
-        top: 28%;
-        left: 0;
-        width: clamp(130px, 37%, 154px);
-      }
-
-      .location-content-card--toyota {
-        top: 42%;
-        right: 0;
-      }
-
-      .location-content-card--garden {
-        bottom: 0;
-        left: 0;
-        width: clamp(130px, 37%, 154px);
-      }
-
-      .location-content-card--high-point {
-        right: 0;
-        bottom: 14%;
-        --card-final-y: 0px;
-      }
-
       .discover .panel-visual,
       .communities .panel-visual {
         display: grid;
@@ -2339,15 +2153,9 @@
       }
 
       .communities .panel-visual {
-        height: min(56dvh, 448px);
-      }
-
-      .communities .location-showcase {
-        height: min(53dvh, 424px);
-      }
-
-      .communities .location-phone--details {
-        transform: translate3d(0, 0, 80px) !important;
+        height: auto;
+        padding: 24px 0;
+        overflow: visible;
       }
 
       .communities .panel-copy {
@@ -2493,27 +2301,6 @@
         animation: none;
         opacity: 1;
         transform: none;
-      }
-
-      .js .location-showcase .location-phone--map,
-      .js .location-showcase.is-revealed .location-phone--map {
-        animation: none;
-        opacity: 1;
-        transform: translateZ(-40px);
-      }
-
-      .js .location-showcase .location-phone--details,
-      .js .location-showcase.is-revealed .location-phone--details {
-        animation: none;
-        opacity: 1;
-        transform: translate3d(0, 25%, 80px);
-      }
-
-      .js .location-showcase .location-content-card,
-      .js .location-showcase.is-revealed .location-content-card {
-        animation: none;
-        opacity: 1;
-        transform: translate3d(0, var(--card-final-y), 0);
       }
 
       .js .community-card-grid img,
@@ -2664,16 +2451,10 @@
         </div>
 
         <div class="panel-visual">
-          <div class="location-showcase" aria-label="Awnbeat location screens and nearby places to play">
-            <div class="location-phone-stack">
-              <img class="location-phone--map" src="location-phone-map.png" alt="Awnbeat map screen showing places to play nearby">
-              <img class="location-phone--details" src="location-phone-details.png" alt="Awnbeat Glencoe Park details screen with upcoming events">
-            </div>
-            <img class="location-content-card location-content-card--carpenter" src="location-card-carpenter-park.png" alt="Carpenter Park Courts location card">
-            <img class="location-content-card location-content-card--moneygram" src="location-card-moneygram.png" alt="MoneyGram Soccer Park location card">
-            <img class="location-content-card location-content-card--toyota" src="location-card-toyota.png" alt="Toyota Soccer Center location card">
-            <img class="location-content-card location-content-card--garden" src="location-card-sports-garden.png" alt="The Sports Garden location card">
-            <img class="location-content-card location-content-card--high-point" src="location-card-high-point.png" alt="High Point Tennis Center location card">
+          <div class="location-device-row" role="group" aria-label="Awnbeat location screens: Play Locations, Map, and Cole Park">
+            <img src="assets/location-devices/play-locations.png" width="681" height="1377" alt="Awnbeat Play Locations screen with nearby and saved places to play">
+            <img src="assets/location-devices/map.png" width="681" height="1377" alt="Awnbeat map screen showing nearby sports and fitness locations">
+            <img src="assets/location-devices/cole-park.png" width="681" height="1377" alt="Awnbeat Cole Park screen with park details and activities">
           </div>
         </div>
       </div>
@@ -2981,22 +2762,6 @@
         wheelDistance = 0;
         lastWheelAt = now;
       }, { passive: false });
-    }
-
-    const locationShowcase = document.querySelector(".location-showcase");
-    if (locationShowcase) {
-      const revealLocationShowcase = () => locationShowcase.classList.add("is-revealed");
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
-        revealLocationShowcase();
-      } else {
-        const locationShowcaseObserver = new IntersectionObserver((entries, observer) => {
-          if (entries.some((entry) => entry.isIntersecting)) {
-            revealLocationShowcase();
-            observer.disconnect();
-          }
-        }, { threshold: 0.16 });
-        locationShowcaseObserver.observe(locationShowcase);
-      }
     }
 
     const communityCardGrid = document.querySelector(".community-card-grid");
