@@ -597,7 +597,16 @@
     }
 
     .discovery-carousel {
-      width: min(620px, 100%, calc((100svh - 205px) * 1.04));
+      width: min(620px, 100%, calc((100svh - 245px) * 1.04));
+    }
+
+    .discovery-title {
+      margin: 0 0 14px;
+      font-size: clamp(18px, 2vw, 26px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.035em;
+      text-align: center;
     }
 
     .discovery-phone-track {
@@ -730,7 +739,7 @@
 
     @media (max-width: 640px) {
       .discovery-carousel {
-        width: min(390px, 100%, calc((48dvh - 48px) * 1.04));
+        width: min(390px, 100%, calc((48dvh - 88px) * 1.04));
       }
     }
 
@@ -2395,14 +2404,15 @@
       <div class="panel-inner">
         <div class="panel-visual">
           <div class="discovery-carousel" data-discovery-carousel role="region" aria-roledescription="carousel" aria-label="Awnbeat activity screens">
+            <h3 class="discovery-title" data-discovery-title>Tournaments</h3>
             <div class="discovery-phone-track" data-discovery-track>
-              <button type="button" class="discovery-device is-main" data-discovery-slide="0" aria-label="Show Dallas Fall Volleyball Classic tournament" aria-pressed="true">
+              <button type="button" class="discovery-device is-main" data-discovery-slide="0" data-discovery-category="Tournaments" aria-label="Show Dallas Fall Volleyball Classic tournament" aria-pressed="true">
                 <img src="assets/discovery-devices/volleyball-tournament.png" width="663" height="1359" alt="Dallas Fall Volleyball Classic tournament overview in Awnbeat" draggable="false">
               </button>
-              <button type="button" class="discovery-device is-right" data-discovery-slide="1" aria-label="Show Windy City Hoops League" aria-pressed="false">
+              <button type="button" class="discovery-device is-right" data-discovery-slide="1" data-discovery-category="Leagues" aria-label="Show Windy City Hoops League" aria-pressed="false">
                 <img src="assets/discovery-devices/basketball-league.png" width="663" height="1359" alt="Windy City Hoops League with season highlights and upcoming games" draggable="false">
               </button>
-              <button type="button" class="discovery-device is-left" data-discovery-slide="2" aria-label="Show Saturday Pickup game" aria-pressed="false">
+              <button type="button" class="discovery-device is-left" data-discovery-slide="2" data-discovery-category="Events" aria-label="Show Saturday Pickup game" aria-pressed="false">
                 <img src="assets/discovery-devices/saturday-pickup.png" width="663" height="1359" alt="Saturday Pickup basketball game details and Join button" draggable="false">
               </button>
             </div>
@@ -2692,6 +2702,7 @@
       const slides = Array.from(discoveryCarousel.querySelectorAll("[data-discovery-slide]"));
       const dots = Array.from(discoveryCarousel.querySelectorAll("[data-discovery-dot]"));
       const status = discoveryCarousel.querySelector(".discovery-status");
+      const title = discoveryCarousel.querySelector("[data-discovery-title]");
       let active = 0;
       let pointer = null;
       let suppressClick = false;
@@ -2700,6 +2711,7 @@
 
       const showScreen = (index) => {
         active = (index + slides.length) % slides.length;
+        title.textContent = slides[active].dataset.discoveryCategory;
         slides.forEach((slide, i) => {
           const offset = (i - active + slides.length) % slides.length;
           slide.classList.toggle("is-main", offset === 0);
