@@ -1017,7 +1017,7 @@
       }
     }
 
-    /* Row four: restore the community cards below the new locations section. */
+    /* Row four: community profiles and groups. */
     .community-panel {
       background: #8CD9A6;
       background-image: radial-gradient(ellipse 70% 70% at 0% 0%, rgba(250, 153, 89, 1) 0%, rgba(250, 153, 89, 1) 22%, rgba(227, 177, 118, 1) 44%, rgba(140, 217, 166, 1) 72%);
@@ -1076,36 +1076,30 @@
       }
     }
 
-    .community-card-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(12px, 1.4vw, 20px);
-      width: min(680px, 100%);
+    .community-device-stack {
+      position: relative;
+      isolation: isolate;
+      width: min(460px, 100%, max(220px, calc((100svh - 190px) * 0.88)));
     }
 
-    .community-card-grid img {
-      width: 100%;
+    .community-device-stack img {
       height: auto;
-      border-radius: 18px;
-      will-change: transform, opacity;
+      filter: drop-shadow(0 18px 20px rgba(23, 23, 23, 0.18));
     }
 
-    .community-card-grid img:nth-child(-n + 2) { --row-delay: 80ms; }
-    .community-card-grid img:nth-child(n + 3):nth-child(-n + 4) { --row-delay: 280ms; }
-    .community-card-grid img:nth-child(n + 5) { --row-delay: 480ms; }
-
-    .js .community-card-grid img {
-      opacity: 0;
-      transform: translateY(-22px);
+    .community-device-main {
+      position: relative;
+      z-index: 1;
+      width: 56%;
+      margin-inline: auto;
     }
 
-    .js .community-card-grid.is-revealed img {
-      animation: community-card-reveal 760ms cubic-bezier(0.16, 1, 0.3, 1) var(--row-delay) both;
-    }
-
-    @keyframes community-card-reveal {
-      from { opacity: 0; transform: translateY(-22px); }
-      to { opacity: 1; transform: translateY(0); }
+    .community-device-rear {
+      position: absolute;
+      top: 7%;
+      right: 0;
+      width: 49%;
+      opacity: 0.8;
     }
 
     .messaging-panel {
@@ -1651,10 +1645,6 @@
         border-radius: 12px;
       }
 
-      .community-card-grid img {
-        border-radius: 12px;
-      }
-
       .event-card {
         left: 0;
         width: 190px;
@@ -1742,12 +1732,6 @@
       .discover .panel-visual {
         display: grid;
         place-items: center;
-      }
-
-
-      .community-card-grid {
-        width: 100%;
-        gap: 10px;
       }
 
       .final-panel {
@@ -1933,11 +1917,6 @@
       .app-qr-row,
       .app-qr-copy {
         display: none;
-      }
-
-      .community-card-grid {
-        width: min(90%, 340px);
-        gap: 8px;
       }
 
       .final-panel {
@@ -2325,13 +2304,6 @@
         transform: none;
       }
 
-      .js .community-card-grid img,
-      .js .community-card-grid.is-revealed img {
-        animation: none;
-        opacity: 1;
-        transform: none;
-      }
-
       .js .messaging-stage .messaging-phone,
       .js .messaging-stage .messaging-float-card,
       .js .messaging-stage.is-revealed .messaging-phone,
@@ -2499,13 +2471,9 @@
         </div>
 
         <div class="panel-visual">
-          <div class="community-card-grid" aria-label="Awnbeat communities">
-            <img src="community-wellness-warriors.png" alt="Wellness Warriors community">
-            <img src="community-ladies-first.png" alt="Ladies First community">
-            <img src="community-basketball-pickup.png" alt="Basketball pickup community">
-            <img src="community-nguyen-winners.png" alt="Nguyen Winners volleyball community">
-            <img src="community-bike-trail.png" alt="Bike Trail Group community">
-            <img src="community-young-professionals.png" alt="Young Professionals - The Village tennis community">
+          <div class="community-device-stack">
+            <img class="community-device-main" src="assets/community-devices/jordan-lee-profile.png" width="681" height="1377" alt="Jordan Lee’s Awnbeat profile">
+            <img class="community-device-rear" src="assets/community-devices/sunrise-run-club.png" width="681" height="1377" alt="Sunrise Run Club’s Awnbeat community page">
           </div>
         </div>
       </div>
@@ -2787,22 +2755,6 @@
         wheelDistance = 0;
         lastWheelAt = now;
       }, { passive: false });
-    }
-
-    const communityCardGrid = document.querySelector(".community-card-grid");
-    if (communityCardGrid) {
-      const revealCommunityCards = () => communityCardGrid.classList.add("is-revealed");
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
-        revealCommunityCards();
-      } else {
-        const communityCardObserver = new IntersectionObserver((entries, observer) => {
-          if (entries.some((entry) => entry.isIntersecting)) {
-            revealCommunityCards();
-            observer.disconnect();
-          }
-        }, { threshold: 0.16 });
-        communityCardObserver.observe(communityCardGrid);
-      }
     }
 
     const messagingStage = document.querySelector(".messaging-stage");
