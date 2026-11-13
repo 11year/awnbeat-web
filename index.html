@@ -909,8 +909,8 @@
     }
 
     .communities .panel-inner {
-      /* Give the device row 1.5 times its previous share of the desktop grid. */
-      grid-template-columns: minmax(0, 1fr) minmax(0, calc((100% - clamp(56px, 8vw, 130px)) * 0.95 / 1.95 * 1.5));
+      /* Give the device row 1.2 times its original share of the desktop grid. */
+      grid-template-columns: minmax(0, 1fr) minmax(0, calc((100% - clamp(56px, 8vw, 130px)) * 0.95 / 1.95 * 1.2));
       grid-template-areas: "copy visual";
       gap: clamp(24px, 3vw, 48px);
     }
@@ -929,8 +929,8 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       align-items: center;
-      gap: clamp(8px, 1.2vw, 18px);
-      width: min(1080px, 100%);
+      gap: clamp(6.4px, 0.96vw, 14.4px);
+      width: min(864px, 100%);
     }
 
     .location-device-row img {
@@ -2243,6 +2243,10 @@
       .communities .panel-visual {
         width: calc(100% + (var(--page-gutter) - 8px) * 2);
         margin-inline: calc(8px - var(--page-gutter));
+      }
+
+      .location-device-row {
+        width: 80%;
       }
     }
 
