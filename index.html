@@ -662,7 +662,7 @@
       transform: translateX(2%) translateY(8px) rotate(12deg) scale(0.82);
     }
 
-    .discovery-controls {
+    .device-carousel-controls {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -693,11 +693,11 @@
       stroke-linejoin: round;
     }
 
-    .discovery-dots {
+    .device-carousel-dots {
       display: flex;
     }
 
-    .discovery-dot {
+    .device-carousel-dot {
       display: grid;
       place-items: center;
       width: 28px;
@@ -708,7 +708,7 @@
       cursor: pointer;
     }
 
-    .discovery-dot::before {
+    .device-carousel-dot::before {
       content: "";
       width: 7px;
       height: 7px;
@@ -716,12 +716,12 @@
       background: rgba(23, 23, 23, 0.28);
     }
 
-    .discovery-dot[aria-pressed="true"]::before {
+    .device-carousel-dot[aria-pressed="true"]::before {
       background: var(--ink);
       transform: scale(1.25);
     }
 
-    .discovery-status {
+    .device-carousel-status {
       position: absolute;
       width: 1px;
       height: 1px;
@@ -1076,30 +1076,43 @@
       }
     }
 
-    .community-device-stack {
-      position: relative;
-      isolation: isolate;
+    .community-device-carousel {
       width: min(460px, 100%, max(220px, calc((100svh - 190px) * 0.88)));
     }
 
-    .community-device-stack img {
+    .community-device-stack {
+      display: grid;
+      justify-items: center;
+      isolation: isolate;
+      touch-action: pan-y;
+      cursor: grab;
+    }
+
+    .community-device {
+      grid-area: 1 / 1;
+      width: 56%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease;
+    }
+
+    .community-device img {
+      width: 100%;
       height: auto;
       filter: drop-shadow(0 18px 20px rgba(23, 23, 23, 0.18));
+      user-select: none;
+      pointer-events: none;
     }
 
-    .community-device-main {
-      position: relative;
+    .community-device.is-main {
       z-index: 1;
-      width: 56%;
-      margin-inline: auto;
     }
 
-    .community-device-rear {
-      position: absolute;
-      top: 7%;
-      right: 0;
-      width: 49%;
+    .community-device.is-right {
       opacity: 0.8;
+      transform: translate(45%, 4%) scale(0.875);
     }
 
     .messaging-panel {
@@ -2388,29 +2401,29 @@
 
       <div class="panel-inner">
         <div class="panel-visual">
-          <div class="discovery-carousel" data-discovery-carousel role="region" aria-roledescription="carousel" aria-label="Awnbeat activity screens">
+          <div class="discovery-carousel" data-device-carousel role="region" aria-roledescription="carousel" aria-label="Awnbeat activity screens">
             <h3 class="discovery-title" data-discovery-title>Tournaments</h3>
-            <div class="discovery-phone-track" data-discovery-track>
-              <button type="button" class="discovery-device is-main" data-discovery-slide="0" data-discovery-category="Tournaments" aria-label="Show Dallas Fall Volleyball Classic tournament" aria-pressed="true">
+            <div class="discovery-phone-track" data-device-track>
+              <button type="button" class="discovery-device is-main" data-device-slide="0" data-discovery-category="Tournaments" aria-label="Show Dallas Fall Volleyball Classic tournament" aria-pressed="true">
                 <img src="assets/discovery-devices/volleyball-tournament.png" width="663" height="1359" alt="Dallas Fall Volleyball Classic tournament overview in Awnbeat" draggable="false">
               </button>
-              <button type="button" class="discovery-device is-right" data-discovery-slide="1" data-discovery-category="Leagues" aria-label="Show Windy City Hoops League" aria-pressed="false">
+              <button type="button" class="discovery-device is-right" data-device-slide="1" data-discovery-category="Leagues" aria-label="Show Windy City Hoops League" aria-pressed="false">
                 <img src="assets/discovery-devices/basketball-league.png" width="663" height="1359" alt="Windy City Hoops League with season highlights and upcoming games" draggable="false">
               </button>
-              <button type="button" class="discovery-device is-left" data-discovery-slide="2" data-discovery-category="Events" aria-label="Show Saturday Pickup game" aria-pressed="false">
+              <button type="button" class="discovery-device is-left" data-device-slide="2" data-discovery-category="Events" aria-label="Show Saturday Pickup game" aria-pressed="false">
                 <img src="assets/discovery-devices/saturday-pickup.png" width="663" height="1359" alt="Saturday Pickup basketball game details and Join button" draggable="false">
               </button>
             </div>
-            <div class="discovery-controls" role="group" aria-label="Choose an activity screen">
-              <button type="button" class="discovery-arrow" data-discovery-prev aria-label="Previous activity screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
-              <div class="discovery-dots">
-                <button type="button" class="discovery-dot" data-discovery-dot="0" aria-label="Show volleyball tournament screen" aria-pressed="true"></button>
-                <button type="button" class="discovery-dot" data-discovery-dot="1" aria-label="Show basketball league screen" aria-pressed="false"></button>
-                <button type="button" class="discovery-dot" data-discovery-dot="2" aria-label="Show pickup game screen" aria-pressed="false"></button>
+            <div class="device-carousel-controls" role="group" aria-label="Choose an activity screen">
+              <button type="button" class="discovery-arrow" data-device-step="-1" aria-label="Previous activity screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+              <div class="device-carousel-dots">
+                <button type="button" class="device-carousel-dot" data-device-dot="0" aria-label="Show volleyball tournament screen" aria-pressed="true"></button>
+                <button type="button" class="device-carousel-dot" data-device-dot="1" aria-label="Show basketball league screen" aria-pressed="false"></button>
+                <button type="button" class="device-carousel-dot" data-device-dot="2" aria-label="Show pickup game screen" aria-pressed="false"></button>
               </div>
-              <button type="button" class="discovery-arrow" data-discovery-next aria-label="Next activity screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
+              <button type="button" class="discovery-arrow" data-device-step="1" aria-label="Next activity screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
             </div>
-            <span class="discovery-status" role="status" aria-live="polite" aria-atomic="true">Screen 1 of 3: Dallas Fall Volleyball Classic tournament</span>
+            <span class="device-carousel-status" role="status" aria-live="polite" aria-atomic="true">Screen 1 of 3: Dallas Fall Volleyball Classic tournament</span>
           </div>
         </div>
 
@@ -2471,9 +2484,20 @@
         </div>
 
         <div class="panel-visual">
-          <div class="community-device-stack">
-            <img class="community-device-main" src="assets/community-devices/jordan-lee-profile.png" width="681" height="1377" alt="Jordan Lee’s Awnbeat profile">
-            <img class="community-device-rear" src="assets/community-devices/sunrise-run-club.png" width="681" height="1377" alt="Sunrise Run Club’s Awnbeat community page">
+          <div class="community-device-carousel" data-device-carousel role="region" aria-roledescription="carousel" aria-label="Awnbeat community screens">
+            <div class="community-device-stack" data-device-track>
+              <button type="button" class="community-device is-main" data-device-slide aria-label="Show Jordan Lee’s profile" aria-pressed="true">
+                <img src="assets/community-devices/jordan-lee-profile.png" width="681" height="1377" alt="Jordan Lee’s Awnbeat profile" draggable="false">
+              </button>
+              <button type="button" class="community-device is-right" data-device-slide aria-label="Show Sunrise Run Club" aria-pressed="false">
+                <img src="assets/community-devices/sunrise-run-club.png" width="681" height="1377" alt="Sunrise Run Club’s Awnbeat community page" draggable="false">
+              </button>
+            </div>
+            <div class="device-carousel-controls" role="group" aria-label="Choose a community screen">
+              <button type="button" class="device-carousel-dot" data-device-dot aria-label="Show profile screen" aria-pressed="true"></button>
+              <button type="button" class="device-carousel-dot" data-device-dot aria-label="Show club screen" aria-pressed="false"></button>
+            </div>
+            <span class="device-carousel-status" role="status" aria-live="polite" aria-atomic="true">Screen 1 of 2: Jordan Lee’s profile</span>
           </div>
         </div>
       </div>
@@ -2677,13 +2701,12 @@
       });
     }
 
-    const discoveryCarousel = document.querySelector("[data-discovery-carousel]");
-    if (discoveryCarousel) {
-      const track = discoveryCarousel.querySelector("[data-discovery-track]");
-      const slides = Array.from(discoveryCarousel.querySelectorAll("[data-discovery-slide]"));
-      const dots = Array.from(discoveryCarousel.querySelectorAll("[data-discovery-dot]"));
-      const status = discoveryCarousel.querySelector(".discovery-status");
-      const title = discoveryCarousel.querySelector("[data-discovery-title]");
+    document.querySelectorAll("[data-device-carousel]").forEach((carousel) => {
+      const track = carousel.querySelector("[data-device-track]");
+      const slides = Array.from(carousel.querySelectorAll("[data-device-slide]"));
+      const dots = Array.from(carousel.querySelectorAll("[data-device-dot]"));
+      const status = carousel.querySelector(".device-carousel-status");
+      const title = carousel.querySelector("[data-discovery-title]");
       let active = 0;
       let pointer = null;
       let suppressClick = false;
@@ -2692,7 +2715,7 @@
 
       const showScreen = (index) => {
         active = (index + slides.length) % slides.length;
-        title.textContent = slides[active].dataset.discoveryCategory;
+        if (title) title.textContent = slides[active].dataset.discoveryCategory;
         slides.forEach((slide, i) => {
           const offset = (i - active + slides.length) % slides.length;
           slide.classList.toggle("is-main", offset === 0);
@@ -2706,9 +2729,10 @@
 
       slides.forEach((slide, i) => slide.addEventListener("click", () => showScreen(i)));
       dots.forEach((dot, i) => dot.addEventListener("click", () => showScreen(i)));
-      discoveryCarousel.querySelector("[data-discovery-prev]").addEventListener("click", () => showScreen(active - 1));
-      discoveryCarousel.querySelector("[data-discovery-next]").addEventListener("click", () => showScreen(active + 1));
-      discoveryCarousel.addEventListener("keydown", (event) => {
+      carousel.querySelectorAll("[data-device-step]").forEach((button) => {
+        button.addEventListener("click", () => showScreen(active + Number(button.dataset.deviceStep)));
+      });
+      carousel.addEventListener("keydown", (event) => {
         if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
         event.preventDefault();
         showScreen(active + (event.key === "ArrowRight" ? 1 : -1));
@@ -2755,7 +2779,7 @@
         wheelDistance = 0;
         lastWheelAt = now;
       }, { passive: false });
-    }
+    });
 
     const messagingStage = document.querySelector(".messaging-stage");
     if (messagingStage) {
