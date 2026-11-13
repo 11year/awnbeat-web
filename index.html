@@ -670,7 +670,7 @@
       margin-top: 8px;
     }
 
-    .discovery-arrow {
+    .device-carousel-arrow {
       display: grid;
       place-items: center;
       width: 36px;
@@ -683,7 +683,7 @@
       cursor: pointer;
     }
 
-    .discovery-arrow svg {
+    .device-carousel-arrow svg {
       width: 16px;
       height: 16px;
       fill: none;
@@ -1039,7 +1039,7 @@
     }
 
     .community-panel .panel-inner {
-      grid-template-columns: minmax(420px, 1fr) minmax(360px, 0.95fr);
+      grid-template-columns: minmax(420px, 1.15fr) minmax(360px, 0.95fr);
       grid-template-areas: "visual copy";
     }
 
@@ -1077,7 +1077,7 @@
     }
 
     .community-device-carousel {
-      width: min(460px, 100%, max(220px, calc((100svh - 190px) * 0.88)));
+      width: min(575px, 100%, max(275px, calc((100svh - 190px) * 1.1)));
     }
 
     .community-device-stack {
@@ -1113,6 +1113,20 @@
     .community-device.is-right {
       opacity: 0.8;
       transform: translate(45%, 4%) scale(0.875);
+    }
+
+    @media (max-width: 640px) {
+      .community-device-carousel {
+        width: min(460px, 100%, max(220px, calc((100svh - 190px) * 0.88)));
+      }
+
+      .community-device {
+        width: 70%;
+      }
+
+      .community-device.is-right {
+        transform: translate(27%, 4%) scale(0.875);
+      }
     }
 
     .messaging-panel {
@@ -2415,13 +2429,13 @@
               </button>
             </div>
             <div class="device-carousel-controls" role="group" aria-label="Choose an activity screen">
-              <button type="button" class="discovery-arrow" data-device-step="-1" aria-label="Previous activity screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+              <button type="button" class="device-carousel-arrow" data-device-step="-1" aria-label="Previous activity screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
               <div class="device-carousel-dots">
                 <button type="button" class="device-carousel-dot" data-device-dot="0" aria-label="Show volleyball tournament screen" aria-pressed="true"></button>
                 <button type="button" class="device-carousel-dot" data-device-dot="1" aria-label="Show basketball league screen" aria-pressed="false"></button>
                 <button type="button" class="device-carousel-dot" data-device-dot="2" aria-label="Show pickup game screen" aria-pressed="false"></button>
               </div>
-              <button type="button" class="discovery-arrow" data-device-step="1" aria-label="Next activity screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
+              <button type="button" class="device-carousel-arrow" data-device-step="1" aria-label="Next activity screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
             </div>
             <span class="device-carousel-status" role="status" aria-live="polite" aria-atomic="true">Screen 1 of 3: Dallas Fall Volleyball Classic tournament</span>
           </div>
@@ -2494,8 +2508,12 @@
               </button>
             </div>
             <div class="device-carousel-controls" role="group" aria-label="Choose a community screen">
-              <button type="button" class="device-carousel-dot" data-device-dot aria-label="Show profile screen" aria-pressed="true"></button>
-              <button type="button" class="device-carousel-dot" data-device-dot aria-label="Show club screen" aria-pressed="false"></button>
+              <button type="button" class="device-carousel-arrow" data-device-step="-1" aria-label="Previous community screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+              <div class="device-carousel-dots">
+                <button type="button" class="device-carousel-dot" data-device-dot aria-label="Show profile screen" aria-pressed="true"></button>
+                <button type="button" class="device-carousel-dot" data-device-dot aria-label="Show club screen" aria-pressed="false"></button>
+              </div>
+              <button type="button" class="device-carousel-arrow" data-device-step="1" aria-label="Next community screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
             </div>
             <span class="device-carousel-status" role="status" aria-live="polite" aria-atomic="true">Screen 1 of 2: Jordan Lee’s profile</span>
           </div>
