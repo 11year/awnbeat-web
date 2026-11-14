@@ -1161,94 +1161,21 @@
 
     .messaging-panel .panel-visual {
       grid-area: visual;
-      min-height: auto;
-      display: flex;
-      justify-content: flex-end;
-      overflow: hidden;
+      min-height: 0;
     }
 
-    .messaging-stage {
-      position: relative;
-      width: min(100%, 760px);
-      height: min(690px, 72svh);
-      margin-left: auto;
-      isolation: isolate;
-      overflow: visible;
+    .messaging-device-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(12px, 1.6vw, 24px);
+      width: min(100%, 570px, max(280px, calc(100svh - 180px)));
     }
 
-    .js .messaging-stage .messaging-phone,
-    .js .messaging-stage .messaging-float-card {
-      opacity: 0;
-    }
-
-    .js .messaging-stage.is-revealed .messaging-phone {
-      animation: messaging-phone-reveal 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    .js .messaging-stage.is-revealed .messaging-float-card {
-      animation: messaging-card-reveal 1400ms cubic-bezier(0.16, 1, 0.3, 1) var(--card-delay) both;
-    }
-
-    @keyframes messaging-phone-reveal {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -50%) translateY(32px) scale(0.92);
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
-    }
-
-    @keyframes messaging-card-reveal {
-      from {
-        opacity: 0;
-        transform: translate3d(var(--card-enter-x), var(--card-enter-y), 0) scale(0.88);
-      }
-      to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) scale(1);
-      }
-    }
-
-    .messaging-phone {
-      position: absolute;
-      z-index: 3;
-      top: 50%;
-      left: 50%;
-      width: min(338px, 44%);
-      max-height: 100%;
-      height: auto;
-      object-fit: contain;
-      transform: translate(-50%, -50%);
-      filter: drop-shadow(0 28px 38px rgba(23, 23, 23, 0.24));
-    }
-
-    .messaging-float-card {
-      position: absolute;
-      z-index: 2;
-      /* Keep the small source captures close to native size so their text stays crisp. */
-      width: clamp(172px, 16vw, 205px);
-      padding: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.72);
-      border-radius: 13px;
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 12px 22px rgba(23, 23, 23, 0.14);
-    }
-
-    .messaging-float-card img {
-      display: block;
+    .messaging-device-row img {
       width: 100%;
       height: auto;
-      border-radius: 9px;
-      box-shadow: 0 6px 14px rgba(23, 23, 23, 0.1);
-      image-rendering: auto;
+      filter: drop-shadow(0 18px 20px rgba(23, 23, 23, 0.18));
     }
-
-    .messaging-float-card--run { --card-delay: 650ms; --card-enter-x: -26px; --card-enter-y: 20px; top: 8%; left: 1%; }
-    .messaging-float-card--court { --card-delay: 850ms; --card-enter-x: 26px; --card-enter-y: 20px; top: 28%; right: 1%; }
-    .messaging-float-card--teams { --card-delay: 1050ms; --card-enter-x: -26px; --card-enter-y: 20px; left: 1%; bottom: 19%; }
-    .messaging-float-card--rides { --card-delay: 1250ms; --card-enter-x: 26px; --card-enter-y: 20px; right: 1%; bottom: 4%; }
 
     .community-orb {
       right: -14vw;
@@ -2188,62 +2115,10 @@
         contain: layout;
       }
 
-      .messaging-panel .panel-visual {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        place-items: center;
-        justify-content: stretch;
-        flex: 0 0 auto;
-        height: min(54dvh, 420px);
-        min-height: 0;
-        overflow: hidden;
-      }
-
-      .messaging-stage {
-        width: 100%;
-        max-width: 390px;
-        height: 100%;
-        margin: 0 auto;
-        justify-self: center;
-      }
-
       .messaging-panel .panel-copy {
         margin-top: 14px;
       }
 
-      .messaging-phone {
-        width: min(176px, 45%);
-      }
-
-      .messaging-float-card {
-        width: clamp(156px, 43vw, 172px);
-        padding: 4px;
-        border-radius: 11px;
-      }
-
-      .messaging-float-card img {
-        border-radius: 7px;
-      }
-
-      .messaging-float-card--run {
-        top: 2%;
-        left: 0;
-      }
-
-      .messaging-float-card--court {
-        top: 26%;
-        right: 0;
-      }
-
-      .messaging-float-card--teams {
-        left: 0;
-        bottom: 0;
-      }
-
-      .messaging-float-card--rides {
-        bottom: 9%;
-        right: 0;
-      }
     }
 
     @media (max-width: 980px) {
@@ -2329,22 +2204,6 @@
       .js .location-card-grid.is-revealed .location-card {
         animation: none;
         opacity: 1;
-        transform: none;
-      }
-
-      .js .messaging-stage .messaging-phone,
-      .js .messaging-stage .messaging-float-card,
-      .js .messaging-stage.is-revealed .messaging-phone,
-      .js .messaging-stage.is-revealed .messaging-float-card {
-        animation: none;
-        opacity: 1;
-      }
-
-      .js .messaging-stage .messaging-phone {
-        transform: translate(-50%, -50%);
-      }
-
-      .js .messaging-stage .messaging-float-card {
         transform: none;
       }
 
@@ -2487,8 +2346,8 @@
     <section class="panel community-panel" id="communities">
       <div class="panel-inner">
         <div class="panel-copy">
-          <h2 data-i18n="communityTitle">Find Your Place Through Play</h2>
-          <p class="lede" data-i18n="communityLede">Trying something new or returning to a favorite? Discover a local sports and fitness community where you can share what moves you.</p>
+          <h2 data-i18n="communityTitle">Play More. Connect More.</h2>
+          <p class="lede" data-i18n="communityLede">Follow groups you love, meet people at your level and keep every leagues, games and more on one profile.</p>
           <div class="app-download-block">
             <a class="app-store-badge" href="https://apps.apple.com/us/app/awnbeat/id6789319121" target="_blank" rel="noopener" aria-label="Download Awnbeat on the App Store"><img src="app-store-badge.svg" alt="Download on the App Store"></a>
             <div class="app-qr-row">
@@ -2538,12 +2397,9 @@
         </div>
 
         <div class="panel-visual">
-          <div class="messaging-stage" aria-label="Awnbeat community messaging tools">
-            <div class="messaging-float-card messaging-float-card--run" aria-hidden="true"><img src="messaging-carousel-tonights-run.png" alt=""></div>
-            <div class="messaging-float-card messaging-float-card--court" aria-hidden="true"><img src="messaging-carousel-court-status.png" alt=""></div>
-            <img class="messaging-phone" src="messaging-chat-phone.png" alt="Awnbeat chat room with organized topics and community messages">
-            <div class="messaging-float-card messaging-float-card--teams" aria-hidden="true"><img src="messaging-carousel-teams.png" alt=""></div>
-            <div class="messaging-float-card messaging-float-card--rides" aria-hidden="true"><img src="messaging-carousel-rides.png" alt=""></div>
+          <div class="messaging-device-row" role="group" aria-label="Awnbeat messaging screens">
+            <img src="assets/messaging-devices/dallas-volley-club-chat.png" width="681" height="1377" alt="Dallas Volley Club’s Pickup games chat in Awnbeat">
+            <img src="assets/messaging-devices/messages.png" width="681" height="1377" alt="Awnbeat Messages screen with pinned messages, group chats, and conversations">
           </div>
         </div>
       </div>
@@ -2595,7 +2451,7 @@
         heroFirst: "Find Your Next Reason", heroSecond: "to Get Moving", heroLede: "Discover local teams, leagues, meetups, and places to play, all in one app.", waitlist: "Join the waitlist", howItWorks: "See how it works", comingSoon: "Awnbeat is coming soon", comingSoonLede: "Join the early community and be first to hear when the app launches.",
         discoverTitle: "Make Room for More Play", discoverLede: "A weekend meetup. A local league. A new place to work out. Explore sports and fitness around you, and picture what’s next.", exploreExperience: "Explore the experience",
         locationsTitle: "Find Your Next Place to Play", locationsLede: "Discover courts, fields, and fitness spaces across your city. Follow your favorite spots to stay connected to the places that keep you moving.", explorePlaces: "Explore nearby places", courtTitle: "Neighborhood courts", courtLede: "Pickup basketball & open play", tennisTitle: "Local tennis courts", tennisLede: "Rallies, matches & lessons", fieldTitle: "Community fields", fieldLede: "Soccer, flag football & more", climbTitle: "Climbing gyms", climbLede: "Bouldering, classes & partners", trailTitle: "Trails & greenways", trailLede: "Ride, run, or explore together", studioTitle: "Studios & parks", studioLede: "Yoga, fitness, and fresh air",
-        communityTitle: "Find Your Place Through Play", communityLede: "Trying something new or returning to a favorite? Discover a local sports and fitness community where you can share what moves you.", buildWithUs: "Build with us", download: "Get outside with Awnbeat", getApp: "Get the Awnbeat App", qrLede: "Scan the QR code to get the app or download from the app store", support: "Support", terms: "Terms", privacy: "Privacy", instagram: "Instagram"
+        communityTitle: "Play More. Connect More.", communityLede: "Follow groups you love, meet people at your level and keep every leagues, games and more on one profile.", buildWithUs: "Build with us", download: "Get outside with Awnbeat", getApp: "Get the Awnbeat App", qrLede: "Scan the QR code to get the app or download from the app store", support: "Support", terms: "Terms", privacy: "Privacy", instagram: "Instagram"
       },
       es: {
         share: "Compartir", linkCopied: "Enlace copiado", copyPrompt: "Copia este enlace:", shareText: "Encuentra tu próxima actividad con Awnbeat.",
@@ -2799,22 +2655,6 @@
         lastWheelAt = now;
       }, { passive: false });
     });
-
-    const messagingStage = document.querySelector(".messaging-stage");
-    if (messagingStage) {
-      const revealMessagingStage = () => messagingStage.classList.add("is-revealed");
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
-        revealMessagingStage();
-      } else {
-        const messagingStageObserver = new IntersectionObserver((entries, observer) => {
-          if (entries.some((entry) => entry.isIntersecting)) {
-            revealMessagingStage();
-            observer.disconnect();
-          }
-        }, { threshold: 0.2 });
-        messagingStageObserver.observe(messagingStage);
-      }
-    }
   </script>
 </body>
 </html>
