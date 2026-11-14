@@ -321,6 +321,7 @@
     }
 
     .panel-inner {
+      --panel-column-gap: clamp(56px, 8vw, 130px);
       position: relative;
       z-index: 2;
       width: min(100%, var(--max-width));
@@ -329,7 +330,7 @@
       display: grid;
       grid-template-columns: minmax(340px, 0.9fr) minmax(420px, 1.1fr);
       align-items: center;
-      gap: clamp(56px, 8vw, 130px);
+      gap: var(--panel-column-gap);
     }
 
     .panel-copy {
@@ -908,9 +909,17 @@
       mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.76) 34%, transparent 100%);
     }
 
+    .communities .panel-inner,
+    .community-panel .panel-inner {
+      container-type: inline-size;
+      --location-visual-share: calc(0.95 / 1.95 * 1.2);
+      --location-device-gap: clamp(6.4px, 0.96vw, 14.4px);
+      --location-row-width: min(864px, (100cqw - var(--panel-column-gap)) * var(--location-visual-share));
+    }
+
     .communities .panel-inner {
       /* Give the device row 1.2 times its original share of the desktop grid. */
-      grid-template-columns: minmax(0, 1fr) minmax(0, calc((100% - clamp(56px, 8vw, 130px)) * 0.95 / 1.95 * 1.2));
+      grid-template-columns: minmax(0, 1fr) minmax(0, calc((100% - var(--panel-column-gap)) * var(--location-visual-share)));
       grid-template-areas: "copy visual";
       gap: clamp(24px, 3vw, 48px);
     }
@@ -929,8 +938,8 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       align-items: center;
-      gap: clamp(6.4px, 0.96vw, 14.4px);
-      width: min(864px, 100%);
+      gap: var(--location-device-gap);
+      width: var(--location-row-width);
     }
 
     .location-device-row img {
@@ -1039,7 +1048,6 @@
     }
 
     .community-panel .panel-inner {
-      grid-template-columns: minmax(420px, 1.15fr) minmax(360px, 0.95fr);
       grid-template-areas: "visual copy";
     }
 
@@ -1077,8 +1085,7 @@
     }
 
     .community-device-carousel {
-      width: min(575px, 100%, max(275px, calc((100svh - 190px) * 1.1)));
-      transform: translateX(clamp(-28px, -2vw, -8px));
+      width: min(460px, 100%);
     }
 
     .community-device-stack {
@@ -1091,7 +1098,7 @@
 
     .community-device {
       grid-area: 1 / 1;
-      width: 56%;
+      width: calc((var(--location-row-width) - 2 * var(--location-device-gap)) / 3);
       padding: 0;
       border: 0;
       background: transparent;
@@ -1114,20 +1121,6 @@
     .community-device.is-right {
       opacity: 0.8;
       transform: translate(45%, 4%) scale(0.875);
-    }
-
-    @media (max-width: 640px) {
-      .community-device-carousel {
-        width: min(460px, 100%, max(220px, calc((100svh - 190px) * 0.88)));
-      }
-
-      .community-device {
-        width: 70%;
-      }
-
-      .community-device.is-right {
-        transform: translate(27%, 4%) scale(0.875);
-      }
     }
 
     .messaging-panel {
@@ -2122,14 +2115,16 @@
     }
 
     @media (max-width: 980px) {
+      .communities .panel-inner,
+      .community-panel .panel-inner {
+        --location-row-width: calc((100cqw + (var(--page-gutter) - 8px) * 2) * 0.8);
+      }
+
       .communities .panel-visual {
         width: calc(100% + (var(--page-gutter) - 8px) * 2);
         margin-inline: calc(8px - var(--page-gutter));
       }
 
-      .location-device-row {
-        width: 80%;
-      }
     }
 
     @media (max-width: 390px) {
