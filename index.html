@@ -337,6 +337,26 @@
       max-width: 680px;
     }
 
+    /* Size every phone from the three-device Locations row. */
+    .hero .panel-inner,
+    .discover .panel-inner,
+    .communities .panel-inner,
+    .community-panel .panel-inner,
+    .messaging-panel .panel-inner {
+      container-type: inline-size;
+      --location-visual-share: calc(0.95 / 1.95 * 1.2);
+      --location-device-gap: clamp(6.4px, 0.96vw, 14.4px);
+      --location-row-width: min(864px, (100cqw - var(--panel-column-gap)) * var(--location-visual-share));
+      --showcase-device-width: calc((var(--location-row-width) - 2 * var(--location-device-gap)) / 3);
+      --showcase-device-height: calc(var(--showcase-device-width) * 1377 / 681);
+    }
+
+    .showcase-device-image {
+      width: var(--showcase-device-width);
+      height: var(--showcase-device-height);
+      object-fit: contain;
+    }
+
     .eyebrow {
       margin: 0 0 18px;
       display: inline-flex;
@@ -613,7 +633,7 @@
     .discovery-phone-track {
       position: relative;
       width: 100%;
-      aspect-ratio: 1.04;
+      height: calc(var(--showcase-device-height) + 36px);
       isolation: isolate;
       touch-action: pan-y;
       cursor: grab;
@@ -627,8 +647,7 @@
       position: absolute;
       left: 50%;
       bottom: 12px;
-      width: 46%;
-      height: calc(100% - 24px);
+      width: var(--showcase-device-width);
       padding: 0;
       border: 0;
       background: transparent;
@@ -639,9 +658,6 @@
     }
 
     .discovery-device img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
       filter: drop-shadow(0 18px 20px rgba(23, 23, 23, 0.18));
       user-select: none;
       -webkit-user-select: none;
@@ -655,12 +671,12 @@
 
     .discovery-device.is-left {
       z-index: 1;
-      transform: translateX(-102%) translateY(8px) rotate(-12deg) scale(0.82);
+      transform: translateX(-102%) translateY(8px) rotate(-12deg);
     }
 
     .discovery-device.is-right {
       z-index: 2;
-      transform: translateX(2%) translateY(8px) rotate(12deg) scale(0.82);
+      transform: translateX(2%) translateY(8px) rotate(12deg);
     }
 
     .device-carousel-controls {
@@ -740,7 +756,7 @@
 
     @media (max-width: 640px) {
       .discovery-carousel {
-        width: min(390px, 100%, calc((48dvh - 88px) * 1.04));
+        width: min(390px, 100%);
       }
     }
 
@@ -753,17 +769,16 @@
       position: relative;
       width: min(660px, 100%, calc((100svh - 205px) / 1.04));
       aspect-ratio: 1 / 1.04;
+      min-height: calc(var(--showcase-device-height) + 24px);
       isolation: isolate;
     }
 
     .hero-main-device {
       position: absolute;
       z-index: 2;
-      top: 3%;
-      left: 28%;
-      width: 44%;
-      height: 90%;
-      object-fit: contain;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       filter: drop-shadow(0 24px 28px rgba(23, 23, 23, 0.2));
     }
 
@@ -909,14 +924,6 @@
       mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.76) 34%, transparent 100%);
     }
 
-    .communities .panel-inner,
-    .community-panel .panel-inner {
-      container-type: inline-size;
-      --location-visual-share: calc(0.95 / 1.95 * 1.2);
-      --location-device-gap: clamp(6.4px, 0.96vw, 14.4px);
-      --location-row-width: min(864px, (100cqw - var(--panel-column-gap)) * var(--location-visual-share));
-    }
-
     .communities .panel-inner {
       /* Give the device row 1.2 times its original share of the desktop grid. */
       grid-template-columns: minmax(0, 1fr) minmax(0, calc((100% - var(--panel-column-gap)) * var(--location-visual-share)));
@@ -943,8 +950,6 @@
     }
 
     .location-device-row img {
-      width: 100%;
-      height: auto;
       filter: drop-shadow(0 18px 20px rgba(23, 23, 23, 0.18));
     }
 
@@ -1091,6 +1096,7 @@
     .community-device-stack {
       display: grid;
       justify-items: center;
+      padding-bottom: calc(var(--showcase-device-height) * 0.04);
       isolation: isolate;
       touch-action: pan-y;
       cursor: grab;
@@ -1098,7 +1104,7 @@
 
     .community-device {
       grid-area: 1 / 1;
-      width: calc((var(--location-row-width) - 2 * var(--location-device-gap)) / 3);
+      width: var(--showcase-device-width);
       padding: 0;
       border: 0;
       background: transparent;
@@ -1107,8 +1113,6 @@
     }
 
     .community-device img {
-      width: 100%;
-      height: auto;
       filter: drop-shadow(0 18px 20px rgba(23, 23, 23, 0.18));
       user-select: none;
       pointer-events: none;
@@ -1120,7 +1124,7 @@
 
     .community-device.is-right {
       opacity: 0.8;
-      transform: translate(45%, 4%) scale(0.875);
+      transform: translate(45%, 4%);
     }
 
     .messaging-panel {
@@ -1159,14 +1163,11 @@
 
     .messaging-device-row {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, var(--showcase-device-width));
       gap: clamp(12px, 1.6vw, 24px);
-      width: min(100%, 570px, max(280px, calc(100svh - 180px)));
     }
 
     .messaging-device-row img {
-      width: 100%;
-      height: auto;
       filter: drop-shadow(0 18px 20px rgba(23, 23, 23, 0.18));
     }
 
@@ -2083,6 +2084,7 @@
       }
 
       .discover .panel-visual {
+        height: auto;
         overflow: visible;
       }
 
@@ -2115,8 +2117,11 @@
     }
 
     @media (max-width: 980px) {
+      .hero .panel-inner,
+      .discover .panel-inner,
       .communities .panel-inner,
-      .community-panel .panel-inner {
+      .community-panel .panel-inner,
+      .messaging-panel .panel-inner {
         --location-row-width: calc((100cqw + (var(--page-gutter) - 8px) * 2) * 0.8);
       }
 
@@ -2240,7 +2245,7 @@
       <div class="panel-inner">
         <div class="panel-visual" aria-label="Awnbeat app with community posts and local activity previews">
           <div class="hero-showcase">
-            <img class="hero-main-device" src="assets/hero-previews/home-device.png" width="663" height="1359" fetchpriority="high" alt="Awnbeat home screen with Autumn Plays and a suggested Saturday Pickup basketball game">
+            <img class="hero-main-device showcase-device-image" src="assets/hero-previews/home-device.png" width="663" height="1359" fetchpriority="high" alt="Awnbeat home screen with Autumn Plays and a suggested Saturday Pickup basketball game">
             <img class="hero-preview hero-preview--taylor" src="assets/hero-previews/post-taylor-brooks.png" width="555" height="320" alt="Taylor Brooks asks: Anyone know of a 14s team needing MB?">
             <img class="hero-preview hero-preview--sasha" src="assets/hero-previews/post-sasha-white.png" width="555" height="382" alt="Sasha White is looking for players and a goalie for a women's team on Wednesdays.">
             <img class="hero-preview hero-preview--volleyball" src="assets/hero-previews/trinity-volleyball-cup.png" width="553" height="388" alt="Trinity Volleyball Cup tournament, Dallas Volleyball Club, November 7 at 9 AM in Dallas, TX.">
@@ -2274,13 +2279,13 @@
             <h3 class="discovery-title" data-discovery-title>Tournaments</h3>
             <div class="discovery-phone-track" data-device-track>
               <button type="button" class="discovery-device is-main" data-device-slide="0" data-discovery-category="Tournaments" aria-label="Show Dallas Fall Volleyball Classic tournament" aria-pressed="true">
-                <img src="assets/discovery-devices/volleyball-tournament.png" width="663" height="1359" alt="Dallas Fall Volleyball Classic tournament overview in Awnbeat" draggable="false">
+                <img class="showcase-device-image" src="assets/discovery-devices/volleyball-tournament.png" width="663" height="1359" alt="Dallas Fall Volleyball Classic tournament overview in Awnbeat" draggable="false">
               </button>
               <button type="button" class="discovery-device is-right" data-device-slide="1" data-discovery-category="Leagues" aria-label="Show Windy City Hoops League" aria-pressed="false">
-                <img src="assets/discovery-devices/basketball-league.png" width="663" height="1359" alt="Windy City Hoops League with season highlights and upcoming games" draggable="false">
+                <img class="showcase-device-image" src="assets/discovery-devices/basketball-league.png" width="663" height="1359" alt="Windy City Hoops League with season highlights and upcoming games" draggable="false">
               </button>
               <button type="button" class="discovery-device is-left" data-device-slide="2" data-discovery-category="Events" aria-label="Show Saturday Pickup game" aria-pressed="false">
-                <img src="assets/discovery-devices/saturday-pickup.png" width="663" height="1359" alt="Saturday Pickup basketball game details and Join button" draggable="false">
+                <img class="showcase-device-image" src="assets/discovery-devices/saturday-pickup.png" width="663" height="1359" alt="Saturday Pickup basketball game details and Join button" draggable="false">
               </button>
             </div>
             <div class="device-carousel-controls" role="group" aria-label="Choose an activity screen">
@@ -2329,9 +2334,9 @@
 
         <div class="panel-visual">
           <div class="location-device-row" role="group" aria-label="Awnbeat location screens: Play Locations, Map, and Cole Park">
-            <img src="assets/location-devices/play-locations.png" width="681" height="1377" alt="Awnbeat Play Locations screen with nearby and saved places to play">
-            <img src="assets/location-devices/map.png" width="681" height="1377" alt="Awnbeat map screen showing nearby sports and fitness locations">
-            <img src="assets/location-devices/cole-park.png" width="681" height="1377" alt="Awnbeat Cole Park screen with park details and activities">
+            <img class="showcase-device-image" src="assets/location-devices/play-locations.png" width="681" height="1377" alt="Awnbeat Play Locations screen with nearby and saved places to play">
+            <img class="showcase-device-image" src="assets/location-devices/map.png" width="681" height="1377" alt="Awnbeat map screen showing nearby sports and fitness locations">
+            <img class="showcase-device-image" src="assets/location-devices/cole-park.png" width="681" height="1377" alt="Awnbeat Cole Park screen with park details and activities">
           </div>
         </div>
       </div>
@@ -2356,10 +2361,10 @@
           <div class="community-device-carousel" data-device-carousel role="region" aria-roledescription="carousel" aria-label="Awnbeat community screens">
             <div class="community-device-stack" data-device-track>
               <button type="button" class="community-device is-main" data-device-slide aria-label="Show Jordan Lee’s profile" aria-pressed="true">
-                <img src="assets/community-devices/jordan-lee-profile.png" width="681" height="1377" alt="Jordan Lee’s Awnbeat profile" draggable="false">
+                <img class="showcase-device-image" src="assets/community-devices/jordan-lee-profile.png" width="681" height="1377" alt="Jordan Lee’s Awnbeat profile" draggable="false">
               </button>
               <button type="button" class="community-device is-right" data-device-slide aria-label="Show Sunrise Run Club" aria-pressed="false">
-                <img src="assets/community-devices/sunrise-run-club.png" width="681" height="1377" alt="Sunrise Run Club’s Awnbeat community page" draggable="false">
+                <img class="showcase-device-image" src="assets/community-devices/sunrise-run-club.png" width="681" height="1377" alt="Sunrise Run Club’s Awnbeat community page" draggable="false">
               </button>
             </div>
             <div class="device-carousel-controls" role="group" aria-label="Choose a community screen">
@@ -2393,8 +2398,8 @@
 
         <div class="panel-visual">
           <div class="messaging-device-row" role="group" aria-label="Awnbeat messaging screens">
-            <img src="assets/messaging-devices/dallas-volley-club-chat.png" width="681" height="1377" alt="Dallas Volley Club’s Pickup games chat in Awnbeat">
-            <img src="assets/messaging-devices/messages.png" width="681" height="1377" alt="Awnbeat Messages screen with pinned messages, group chats, and conversations">
+            <img class="showcase-device-image" src="assets/messaging-devices/dallas-volley-club-chat.png" width="681" height="1377" alt="Dallas Volley Club’s Pickup games chat in Awnbeat">
+            <img class="showcase-device-image" src="assets/messaging-devices/messages.png" width="681" height="1377" alt="Awnbeat Messages screen with pinned messages, group chats, and conversations">
           </div>
         </div>
       </div>
