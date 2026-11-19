@@ -1253,10 +1253,45 @@
       justify-content: center;
     }
 
-    .final-art img {
+    .final-art-collage {
+      position: relative;
       width: min(100%, 660px);
-      height: auto;
+      aspect-ratio: 1.12;
+      isolation: isolate;
     }
+
+    .final-art-characters {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 70%;
+      height: auto;
+      transform: translate(-50%, -50%);
+    }
+
+    .final-art-sticker {
+      position: absolute;
+      left: var(--sticker-x);
+      top: var(--sticker-y);
+      width: 14%;
+      height: 14%;
+      object-fit: contain;
+      transform: translate(-50%, -50%) rotate(var(--sticker-tilt));
+      filter: drop-shadow(0 5px 5px rgba(23, 23, 23, 0.12));
+    }
+
+    .final-art-sticker--basketball { --sticker-x: 50%; --sticker-y: 7%; --sticker-tilt: -8deg; }
+    .final-art-sticker--cycling { --sticker-x: 71%; --sticker-y: 13%; --sticker-tilt: 12deg; }
+    .final-art-sticker--soccer { --sticker-x: 86%; --sticker-y: 29%; --sticker-tilt: 8deg; }
+    .final-art-sticker--hiking { --sticker-x: 92%; --sticker-y: 50%; --sticker-tilt: -9deg; }
+    .final-art-sticker--climbing { --sticker-x: 86%; --sticker-y: 72%; --sticker-tilt: 10deg; }
+    .final-art-sticker--volleyball { --sticker-x: 71%; --sticker-y: 88%; --sticker-tilt: -8deg; }
+    .final-art-sticker--pickleball { --sticker-x: 50%; --sticker-y: 94%; --sticker-tilt: 8deg; }
+    .final-art-sticker--dance { --sticker-x: 29%; --sticker-y: 88%; --sticker-tilt: -10deg; }
+    .final-art-sticker--baseball { --sticker-x: 14%; --sticker-y: 72%; --sticker-tilt: -6deg; }
+    .final-art-sticker--weightlifting { --sticker-x: 8%; --sticker-y: 50%; --sticker-tilt: -10deg; }
+    .final-art-sticker--hockey { --sticker-x: 14%; --sticker-y: 29%; --sticker-tilt: 8deg; }
+    .final-art-sticker--football { --sticker-x: 29%; --sticker-y: 13%; --sticker-tilt: -10deg; }
 
     .final-content {
       width: min(100%, 640px);
@@ -1426,7 +1461,7 @@
         transform: none;
       }
 
-      .final-art img {
+      .final-art-collage {
         width: min(100%, 620px);
       }
 
@@ -1897,8 +1932,8 @@
         min-height: 0;
       }
 
-      .final-art img {
-        width: min(52%, 220px);
+      .final-art-collage {
+        width: min(100%, 310px);
       }
 
       .final-content {
@@ -2406,7 +2441,21 @@
     <section class="panel final-panel">
       <div class="panel-inner">
         <div class="final-art">
-          <img src="footer-art.png" alt="People playing basketball, volleyball, tennis, dancing, and climbing">
+          <div class="final-art-collage">
+            <img class="final-art-characters" src="assets/footer/awnbeat-sport-characters.png" width="4096" height="3072" alt="Characters playing basketball, volleyball, soccer, tennis, baseball, and rugby">
+            <img class="final-art-sticker final-art-sticker--basketball" src="assets/footer/activity-stickers/basketball.png" alt="Basketball sticker">
+            <img class="final-art-sticker final-art-sticker--cycling" src="assets/footer/activity-stickers/cycling.png" alt="Cycling sticker">
+            <img class="final-art-sticker final-art-sticker--soccer" src="assets/footer/activity-stickers/soccer.png" alt="Soccer ball sticker">
+            <img class="final-art-sticker final-art-sticker--hiking" src="assets/footer/activity-stickers/hiking.png" alt="Hiking sticker">
+            <img class="final-art-sticker final-art-sticker--climbing" src="assets/footer/activity-stickers/climbing.png" alt="Climbing sticker">
+            <img class="final-art-sticker final-art-sticker--volleyball" src="assets/footer/activity-stickers/volleyball.png" alt="Volleyball sticker">
+            <img class="final-art-sticker final-art-sticker--pickleball" src="assets/footer/activity-stickers/pickleball.png" alt="Pickleball sticker">
+            <img class="final-art-sticker final-art-sticker--dance" src="assets/footer/activity-stickers/dance.png" alt="Dance sticker">
+            <img class="final-art-sticker final-art-sticker--baseball" src="assets/footer/activity-stickers/baseball.png" alt="Baseball sticker">
+            <img class="final-art-sticker final-art-sticker--weightlifting" src="assets/footer/activity-stickers/weightlifting.png" alt="Weightlifting sticker">
+            <img class="final-art-sticker final-art-sticker--hockey" src="assets/footer/activity-stickers/hockey.png" alt="Hockey sticker">
+            <img class="final-art-sticker final-art-sticker--football" src="assets/footer/activity-stickers/football.png" alt="Football sticker">
+          </div>
         </div>
         <div class="final-content">
           <p class="final-download-title" data-i18n="download">Get outside with Awnbeat</p>
